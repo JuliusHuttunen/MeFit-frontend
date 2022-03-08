@@ -7,29 +7,31 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 
-// Profile Form HTML + Bootstrap + YUP 
+// Profile Form for new users 
+// HTML + Bootstrap + YUP 
 // (https://github.com/jquense/yup, https://react-hook-form.com/get-started, https://dev.to/franciscomendes10866/react-form-validation-with-react-hook-form-and-yup-4a98)
 //
 // Todo:
 //      Validation: OK
-//      Errors: Need custom messages
+//      Errors: OK
+//      A fitness level evaluation
 //      Submit
 
 const schema = yup.object({
-  first_name: yup.string().max(20).required(),
-  last_name: yup.string().max(20).required(),
-  address_line_1: yup.string().max(100).required(),
-  address_line_2: yup.string().max(100).required(),
-  address_line_3: yup.string().max(100),
-  city: yup.string().max(60).required(),
-  country: yup.string().max(60).required(),
-  postal_code: yup.string().max(10).required(),
-  email: yup.string().email().max(100).required(),
-  height: yup.number().positive().required(),
-  weight: yup.number().positive().required(),
-  medical_conditions: yup.string().max(255),
-  disabilities: yup.string().max(255),
-  checkInformation: yup.boolean().required(),
+  first_name: yup.string().max(20, 'Maximum characters 20').required('First name is required'),
+  last_name: yup.string().max(20, 'Maximum characters 20').required('Last name is required'),
+  address_line_1: yup.string().max(100, 'Maximum characters 100').required('Street is required'),
+  address_line_2: yup.string().max(100, 'Maximum characters 100').required('House or apartment is required'),
+  address_line_3: yup.string().max(100, 'Maximum characters 100'),
+  city: yup.string().max(60, 'Maximum characters 60').required('City is required'),
+  country: yup.string().max(60, 'Maximum characters 60').required('Country is required'),
+  postal_code: yup.string().max(10, 'Maximum characters 10').required('Postal code is required'),
+  email: yup.string().email('Email address must be valid').max(100, 'Maximum characters 100').required('Email is required'),
+  height: yup.number().typeError('Height must be given as a number').positive('Height must be a positive number').required('Height is required'),
+  weight: yup.number().typeError('Weight must be given as a number').positive('Weight must be a positive number').required('Weight is required'),
+  medical_conditions: yup.string().max(255, 'Maximum characters 100'),
+  disabilities: yup.string().max(255, 'Maximum characters 100'),
+  checkInformation: yup.boolean().required('Please check filled information and mark box as checked'),
   requestForContributor: yup.boolean(),
 
 });
