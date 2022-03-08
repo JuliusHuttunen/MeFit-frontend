@@ -1,6 +1,8 @@
-function ProfilePicture() {
+function ProfilePicture(props) {
     return (
-        <i class="material-icons" style={{fontSize: "100px"}}>account_circle</i>
+        <div className="profilepicture">
+            <i class="material-icons" style={{fontSize: "100px"}}>account_circle</i>
+        </div>
     );
   }
   

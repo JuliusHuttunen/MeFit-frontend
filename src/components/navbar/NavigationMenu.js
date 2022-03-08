@@ -11,7 +11,7 @@ function NavigationMenu() {
     return (
         <div className="navigation">
             <div onClick={toggleMenu}>
-                <Hamburger></Hamburger>
+                <Hamburger menuOpen={menuOpen}></Hamburger>
             </div>
             <ul>
                 <li>Dashboard</li>

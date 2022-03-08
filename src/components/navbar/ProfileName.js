@@ -4,7 +4,7 @@ function ProfileName() {
 
     return (
       <div className="name">
-        <p>You are logged in as {userName}</p>
+        <h2>You are logged in as {userName}.</h2>
       </div>
     );
   }
