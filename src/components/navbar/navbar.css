@@ -1,0 +1,66 @@
+.navcontainer {
+    display: flex;
+    flex-direction: row;
+    background-color: #2660A4;
+    justify-content: space-between;
+    width: 100%;
+    height: 100px;
+    align-items: center;
+}
+
+.hamburger {
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: 10px;
+    transition: 0.5s;
+}
+
+.name {
+    font-size: large;
+    margin-right: 1em;
+    color: #EDF7F6;
+}
+
+.hamburger:hover{
+    padding:20px;
+    background-color: #EDF7F6;
+    transition: 0.5s;
+    filter: drop-shadow(0 0 0.75rem #5e391d);
+}
+
+.profilewrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    transition: 0.5s;
+    border-radius: 10px;
+}
+
+.profilewrapper:hover{
+    padding:20px;
+    background-color: #EDF7F6;
+    transition: 0.5s;
+    filter: drop-shadow(0 0 0.75rem #5e391d);
+}
+
+.profilewrapper:hover h2{
+    color: #F19953;
+}
+
+.navigation ul li {
+    list-style-type: none;
+    padding: 2px;
+    margin: 0;
+}
+
+.profilepicture i {
+    color: #F19953;
+    transition: 0.5s;
+}
+
+.profilepicture i:hover {
+    color: #C47335;
+    transition: 0.5s;
+}
