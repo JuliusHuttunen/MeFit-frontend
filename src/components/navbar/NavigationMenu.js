@@ -14,6 +14,7 @@ function NavigationMenu() {
                 <Hamburger menuOpen={menuOpen}></Hamburger>
             </div>
             <ul>
+                <div className="hamburgerlistwrapper">
                 <li>Dashboard</li>
                 <li>Goals</li>
                 <li>Programs</li>
@@ -22,19 +23,22 @@ function NavigationMenu() {
                 <li>Profile</li>
                 <li>Contributor Tools</li>
                 <li>Admin Tools</li>
+                </div>
             </ul>
 
         <style jsx>{`
             .navigation ul{
                 display:${menuOpen ? 'inline' : 'none'};
-                background-color: white;
+                background-color: #123155;
                 height: 100vh;
-                width: 50vw;
+                width: 10%;
                 position: absolute;
+                margin: 0;
+                padding-top: 2em;
+                margin-top: 0px;
             }
         `}
             </style>
-
             </div>
     );
   }
