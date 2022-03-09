@@ -4,7 +4,7 @@
     background-color: #2660A4;
     justify-content: space-between;
     width: 100%;
-    height: 100px;
+    height: 150px;
     align-items: center;
 }
 
@@ -15,6 +15,7 @@
     border-radius: 10px;
     padding: 10px;
     transition: 0.5s;
+    margin-left: 1em;
 }
 
 .name {
@@ -24,7 +25,6 @@
 }
 
 .hamburger:hover{
-    padding: 20px;
     background-color: #EDF7F6;
     transition: 0.5s;
     filter: drop-shadow(0 0 0.75rem #5e391d);
@@ -32,15 +32,16 @@
 }
 
 .profilewrapper{
+    padding: 5px;
     display: flex;
     align-items: center;
     justify-content: space-around;
     transition: 0.5s;
     border-radius: 10px;
+    margin-right: 1em;
 }
 
 .profilewrapper:hover{
-    padding:20px;
     background-color: #EDF7F6;
     transition: 0.5s;
     filter: drop-shadow(0 0 0.75rem #5e391d);
@@ -55,15 +56,15 @@
     list-style-type: none;
     padding-top: 20px;
     margin: 0;
-    font-size: large;
+    font-size: 1em;
     color: #EDF7F6;
     transition: 0.2s;
 }
 
 .navigation ul li:hover {
     list-style-type: none;
-    padding: 20px;
-    font-size: xx-large;
+    padding: 10px;
+    font-size: 1.5em;
     color: #F19953;
     transition: 0.2s;
     cursor: pointer;
