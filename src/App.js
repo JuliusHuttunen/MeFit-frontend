@@ -6,7 +6,7 @@ import {
   Routes
 } from "react-router-dom";
 import Test from './components/test/Test';
-
+import ProfileForm from './components/Profile/ProfileForm';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
       <Navbar></Navbar>
       <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Test/>}>
+        <Route path="/" element={<ProfileForm/>}>
         </Route>
         <Route path="dashboard" element={<Test/>}>
         </Route>
@@ -34,7 +34,6 @@ function App() {
         </Route>
       </Routes>
       </BrowserRouter>
-      
     </div>
   );
 }
