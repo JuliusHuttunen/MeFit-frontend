@@ -11,7 +11,7 @@ const CalendarComponent = () => {
     }
 
     return (
-           <Calendar onChange={onChange} value={value} onClickDay={showDate}/> 
+           <Calendar onChange={onChange} value={value} onClickDay={showDate}/>
     );
 };
 

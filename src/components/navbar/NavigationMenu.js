@@ -23,7 +23,7 @@ function NavigationMenu() {
                 <li><Link to="/goals" style={{ textDecoration: 'none', color: '#EDF7F6' }}>Goals</Link></li>
                 <li><Link to="/programs" style={{ textDecoration: 'none', color: '#EDF7F6' }}>Programs</Link></li>
                 <li><Link to="/workouts" style={{ textDecoration: 'none', color: '#EDF7F6' }}>Workouts</Link></li>
-                <li><Link to="/excersises" style={{ textDecoration: 'none', color: '#EDF7F6' }}>Excersises</Link></li>
+                <li><Link to="/excercises" style={{ textDecoration: 'none', color: '#EDF7F6' }}>Excersises</Link></li>
                 <li><Link to="/profile" style={{ textDecoration: 'none', color: '#EDF7F6' }}>Profile</Link></li>
                 <li><Link to="/contributor" style={{ textDecoration: 'none', color: '#EDF7F6' }}>Contributor Tools</Link></li>
                 <li><Link to="/admin" style={{ textDecoration: 'none', color: '#EDF7F6' }}>Admin Tools</Link></li>
