@@ -5,8 +5,15 @@ import {
   Route,
   Routes
 } from "react-router-dom";
-import Test from './components/test/Test';
 import ProfileForm from './components/Profile/ProfileForm';
+import Dashboard from './views/Dashboard';
+import Goals from './views/Goals';
+import Programs from './views/Programs';
+import Workouts from './views/Workouts';
+import Excersises from './views/Excercises';
+import Profile from './views/Profile';
+import Contributor from './views/Contributor';
+import Admin from './views/Admin';
 
 function App() {
   return (
@@ -16,21 +23,21 @@ function App() {
       <Routes>
         <Route path="/" element={<ProfileForm/>}>
         </Route>
-        <Route path="dashboard" element={<Test/>}>
+        <Route path="dashboard" element={<Dashboard/>}>
         </Route>
-        <Route path="goals" element={<Test/>}>
+        <Route path="goals" element={<Goals/>}>
         </Route>
-        <Route path="programs" element={<Test/>}>
+        <Route path="programs" element={<Programs/>}>
         </Route>
-        <Route path="workouts" element={<Test/>}>
+        <Route path="workouts" element={<Workouts/>}>
         </Route>
-        <Route path="excersises" element={<Test/>}>
+        <Route path="excersises" element={<Excersises/>}>
         </Route>
-        <Route path="profile" element={<Test/>}>
+        <Route path="profile" element={<Profile/>}>
         </Route>
-        <Route path="contributor" element={<Test/>}>
+        <Route path="contributor" element={<Contributor/>}>
         </Route>
-        <Route path="admin" element={<Test/>}>
+        <Route path="admin" element={<Admin/>}>
         </Route>
       </Routes>
       </BrowserRouter>
