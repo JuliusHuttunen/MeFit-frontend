@@ -17,31 +17,20 @@ import Admin from './views/Admin';
 
 function App() {
   return (
-    <div>
-      <Navbar></Navbar>
       <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<ProfileForm/>}>
-        </Route>
-        <Route path="dashboard" element={<Dashboard/>}>
-        </Route>
-        <Route path="goals" element={<Goals/>}>
-        </Route>
-        <Route path="programs" element={<Programs/>}>
-        </Route>
-        <Route path="workouts" element={<Workouts/>}>
-        </Route>
-        <Route path="excersises" element={<Excersises/>}>
-        </Route>
-        <Route path="profile" element={<Profile/>}>
-        </Route>
-        <Route path="contributor" element={<Contributor/>}>
-        </Route>
-        <Route path="admin" element={<Admin/>}>
-        </Route>
-      </Routes>
+      <Navbar></Navbar>
+        <Routes>
+          <Route path="/" element={<ProfileForm/>}/>
+          <Route path="/dashboard" element={<Dashboard/>}/>
+          <Route path="/goals" element={<Goals/>}/>
+          <Route path="/programs" element={<Programs/>}/>
+          <Route path="/workouts" element={<Workouts/>}/>
+          <Route path="/excersises" element={<Excersises/>}/>
+          <Route path="/profile" element={<Profile/>}/>
+          <Route path="/contributor" element={<Contributor/>}/>
+          <Route path="/admin" element={<Admin/>}/>
+        </Routes>
       </BrowserRouter>
-    </div>
   );
 }
 
