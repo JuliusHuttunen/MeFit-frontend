@@ -10,7 +10,7 @@ import Dashboard from './views/Dashboard';
 import Goals from './views/Goals';
 import Programs from './views/Programs';
 import Workouts from './views/Workouts';
-import Excercises from './views/Excercises';
+import Exercises from './views/Exercises';
 import Profile from './views/Profile';
 import Contributor from './views/Contributor';
 import Admin from './views/Admin';
@@ -30,7 +30,7 @@ function App() {
           <Route path="/goals" element={<Goals />}/>
           <Route path="/programs" element={<Programs />}/>
           <Route path="/workouts" element={<Workouts />}/>
-          <Route path="/excercises" element={<Excercises />}/>
+          <Route path="/exercises" element={<Exercises />}/>
           <Route path="/profile" element={<Profile />}/>
           <Route path="/contributor" element={<Contributor />}/>
           <Route path="/admin" element={<Admin />}/>
