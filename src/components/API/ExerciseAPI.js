@@ -1,4 +1,4 @@
-export async function getExcersises() {
+export async function getExercises() {
 
     const url = 'https://fi-java-mefit-backend.herokuapp.com/api/v1/exercises'
 
