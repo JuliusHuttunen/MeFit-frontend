@@ -1,6 +1,6 @@
-export async function getExercises() {
+export async function getFromAPI(query) {
 
-    const url = 'https://fi-java-mefit-backend.herokuapp.com/api/v1/exercises'
+    const url = 'https://fi-java-mefit-backend.herokuapp.com/api/v1/' + query
 
     try {
         const config = {

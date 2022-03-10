@@ -33,12 +33,13 @@ function NavigationMenu() {
             .navigation ul{
                 display:${menuOpen ? 'inline' : 'none'};
                 background-color: #1e4775;
-                height: 100vh;
+                height: 90vh;
                 width: 15em;
                 position: absolute;
                 margin: 0;
                 padding-top: 2em;
                 margin-top: 1.9em;
+                z-index: 2;
             }
         `}
         </style> 
