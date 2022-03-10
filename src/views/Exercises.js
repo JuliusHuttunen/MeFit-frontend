@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getExercises } from '../components/API/ExerciseAPI';
+import { getFromAPI } from '../components/API/Connection';
 
 const Exercises = () => {
 
@@ -7,12 +7,12 @@ const Exercises = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const [error, exercises] = await getExercises()
+            const [error, exercises] = await getFromAPI("exercises")
             console.log(exercises)
             setExerciseList(exercises.map((exercise, index) => {
                 return(
-                    <div>
-                        <p>{exercise.name}</p>
+                    <div className='card'>
+                        <h4>{exercise.name}</h4>
                         <p>{exercise.description}</p>
                     </div>
                 )
@@ -23,8 +23,11 @@ const Exercises = () => {
     }, [])
 
     return (
-        <div>
-            {exerciseList}
+        <div className='cardcontainer'>
+            <h3>Exercises</h3>
+            <div className='cards'>
+                {exerciseList}
+            </div>
         </div>
     );
 };
