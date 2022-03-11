@@ -22,7 +22,7 @@ function App() {
   return (
       <BrowserRouter>
       <Navbar />
-      <Container className='justify-content-center'>
+      <Container>
         <Routes>
           <Route path="/" element={<Login />}/>
           <Route path="/profileForm" element={<ProfileForm />}/>
