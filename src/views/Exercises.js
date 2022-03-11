@@ -14,11 +14,10 @@ const Exercises = () => {
             const [error, exercises] = await getFromAPI("exercises")
             console.log("ERR:", error)
             setExercise(exercises)
-            console.log(exercise)
             setExerciseList(exercises.map((exercise, index) => {
                 const muscleGroupImage = "/assets/muscle/" + exercise.targetMuscleGroup.toLowerCase() + ".png"
                 return(
-                    <Accordion>
+                    <Accordion key={index}>
                         <Accordion.Item key={index} eventKey={index}>
                             <Accordion.Header><h4>{exercise.name} <img src={muscleGroupImage} width={"30 px"} alt="muscle img" ></img></h4></Accordion.Header>
                             <Accordion.Body>
@@ -39,7 +38,7 @@ const Exercises = () => {
             const muscleGroupImage = "/assets/muscle/" + exercise.targetMuscleGroup.toLowerCase() + ".png"
             if(exercise.targetMuscleGroup === musclegroup){
                 return(
-                    <Accordion>
+                    <Accordion key={index}>
                         <Accordion.Item key={index} eventKey={index}>
                             <Accordion.Header><h4>{exercise.name} <img src={muscleGroupImage} width={"30 px"} alt="muscle img" ></img></h4></Accordion.Header>
                             <Accordion.Body>
@@ -52,7 +51,7 @@ const Exercises = () => {
             }
             if(musclegroup === null) {
                 return(
-                    <Accordion>
+                    <Accordion key={index}>
                         <Accordion.Item key={index} eventKey={index}>
                             <Accordion.Header><h4>{exercise.name} <img src={muscleGroupImage} width={"30 px"} alt="muscle img" ></img></h4></Accordion.Header>
                             <Accordion.Body>
