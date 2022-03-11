@@ -8,7 +8,7 @@
 
 .accordiongrid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 2em
 }
 
@@ -25,18 +25,8 @@
     filter: drop-shadow(0 0 0.1rem blue);
 }
 
-.workoutsetwrapper {
-    border: 1px solid lightblue;
-    padding: 1rem;
-    margin: 0.5rem;
-    display: flex;
-    align-content: center;
-    justify-content: space-around;
-    border-radius: 10px;
-    width: 95%
-}
-
 .workoutsetswrapper {
     display: grid;
     grid-template-columns: 2fr 2fr;
+    gap: 1em;
 }

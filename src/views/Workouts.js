@@ -15,9 +15,15 @@ const Workouts = () => {
             setWorkoutList(workouts.map((workout, index) => {
                 const sets = workout.sets.map((set, index) => {
                     return(
-                        <div key={index} className="workoutsetwrapper">
-                            <h6>{set.exercise.name} x {set.exerciseRepetitions}</h6>
-                        </div>
+                        <Accordion>
+                            <Accordion.Item key={index} eventKey={index}>
+                                <Accordion.Header><h6>{set.exercise.name} x {set.exerciseRepetitions}</h6></Accordion.Header>
+                                <Accordion.Body>
+                                    <p>Description: {set.exercise.description}</p>
+                                    <p>Muscles: {set.exercise.targetMuscleGroup}</p>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                        </Accordion>
                     )
                 })
                 return(
