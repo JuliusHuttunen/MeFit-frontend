@@ -6,29 +6,37 @@
     margin-top: 1em;
 }
 
-.cards {
+.accordiongrid {
     display: grid;
-    grid-template-columns: 2fr 2fr 2fr 2fr;
-    margin-top: 1em;
-    position: relative;
-    z-index: 1;
+    grid-template-columns: 1fr 1fr;
+    gap: 2em
 }
 
-.card {
-    display: flex;
-    margin: .5em;
-    padding: 1.5em;
-    justify-content: center;
-    align-items: center;
-    transition: 0.3s;
+.filterwrapper img{
+    margin: 1em;
+    width: 70px;
+    transition: 0.2s;
+    padding-bottom: 10px;
 }
 
-.card:hover {
-    background-color: #ffc99d;
+.filterwrapper img:hover{
+    transition: 0.2s;
     cursor: pointer;
-    transition: 0.3s;
+    filter: drop-shadow(0 0 0.1rem blue);
 }
 
-.card p {
-    font-style: italic;
+.workoutsetwrapper {
+    border: 1px solid lightblue;
+    padding: 1rem;
+    margin: 0.5rem;
+    display: flex;
+    align-content: center;
+    justify-content: space-around;
+    border-radius: 10px;
+    width: 95%
+}
+
+.workoutsetswrapper {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
 }
