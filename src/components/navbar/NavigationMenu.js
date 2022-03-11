@@ -6,9 +6,6 @@ function NavigationMenu() {
 
     const [menuOpen, setMenuOpen] = useState(false)
 
-    const navigate = useNavigate();
-    const location = useLocation();
-
     const toggleMenu = () => {
         setMenuOpen(!menuOpen)
     }
@@ -29,7 +26,7 @@ function NavigationMenu() {
                 <li><Link to="/admin" style={{ textDecoration: 'none', color: '#EDF7F6' }}>Admin Tools</Link></li>
             </ul>
 
-        <style jsx>{`
+        <style>{`
             .navigation ul{
                 display:${menuOpen ? 'inline' : 'none'};
                 background-color: #1e4775;
