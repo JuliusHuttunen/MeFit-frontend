@@ -2,10 +2,15 @@ import React from 'react';
 import { useState, useEffect } from "react";
 import { getFromAPI } from '../API/Connection';
 import  Accordion from 'react-bootstrap/Accordion';
+import { useDispatch } from 'react-redux';
+import { add } from '../../redux/basketSlice';
+import Button from "react-bootstrap/Button";
 
-const WorkoutsList = () => {
+const WorkoutsList = (props) => {
 
     const [workoutList, setWorkoutList] = useState(<div>No workouts found.</div>)
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -25,6 +30,22 @@ const WorkoutsList = () => {
                         </Accordion>
                     )
                 })
+                if(props.basket){
+                    return(
+                        <Accordion key={index}>
+                            <Accordion.Item key={index} eventKey={index}>
+                                <Accordion.Header><h6>{workout.name} </h6></Accordion.Header>
+                                <Accordion.Body>
+                                    <p>Type: {workout.type}</p>
+                                    <div className="workoutsetsmall">
+                                        {sets}
+                                    </div>
+                                    <Button onClick={() => addItemToBasket(workout)}>Add to basket</Button>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                        </Accordion>
+                    )
+                }
                 return(
                     <Accordion key={index}>
                         <Accordion.Item key={index} eventKey={index}>
@@ -41,6 +62,10 @@ const WorkoutsList = () => {
         }
         fetchData()
     }, [])
+
+    const addItemToBasket = (workout) => {
+        dispatch(add(workout))
+    }
 
     return (
         <div className='accordiongrid'>
