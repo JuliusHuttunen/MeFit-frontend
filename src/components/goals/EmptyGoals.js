@@ -8,10 +8,13 @@ import WorkoutsList from '../programviews/WorkoutsList';
 import { useDispatch, useSelector } from 'react-redux';
 import { del } from '../../redux/basketSlice';
 import Button from 'react-bootstrap/Button';
+import { postToAPI } from '../API/Connection';
 
 function EmptyGoals() {
 
-    const basket = useSelector((state) => state.basket.items)
+    const basket = useSelector((state) => state.basket.workouts)
+    const currentProgram = useSelector((state) => state.basket.program)
+    const goal = useSelector((state) => state.basket)
     
     const dispatch = useDispatch()
 
@@ -21,10 +24,18 @@ function EmptyGoals() {
         )
     })
 
+    const setGoal = async () => {
+        console.log(goal)
+        const[error, response] = await postToAPI("goals", goal)
+        console.log("ERR:", error)
+        console.log("Response:", response)
+    }
+
     return (
         <Container>
             <Row className="m-5">
                 <Col>
+                <h2>Create a goal</h2>
                 <div className='accordiongrid'>
                         <Accordion>
                             <Accordion.Item eventKey='0'>
@@ -42,16 +53,16 @@ function EmptyGoals() {
                 </Col>
                 <Col>
                 <div style={{"display":"flex", "alignItems":"center", "justifyContent":"center", "flexDirection":"column"}}>
-                    <h2>Your basket</h2>
+                    <h2>Your goal draft</h2>
+                    <h5>Current program: {currentProgram.name}</h5>
                         <ul className='goalbasket'>
                             {basketMap}
                         </ul>
                 </div>
+                <Button className='btn btn-success' onClick={() => setGoal()}>Set goal</Button>
                 </Col>
             </Row>
         </Container>
-
-        
     );
 }
 

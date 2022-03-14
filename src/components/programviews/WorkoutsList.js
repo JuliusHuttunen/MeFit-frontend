@@ -40,7 +40,7 @@ const WorkoutsList = (props) => {
                                     <div className="workoutsetsmall">
                                         {sets}
                                     </div>
-                                    <Button onClick={() => addItemToBasket(workout)}>Add to basket</Button>
+                                    <Button onClick={() => addItemToBasket(workout)}>Add to draft</Button>
                                 </Accordion.Body>
                             </Accordion.Item>
                         </Accordion>

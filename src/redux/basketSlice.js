@@ -3,18 +3,25 @@ import { createSlice } from "@reduxjs/toolkit";
 export const basketSlice = createSlice({
     name: 'basket',
     initialState: {
-        items: [],
+        endDate: null,
+        achieved: false,
+        program: {name: "none"},
+        workouts: [],
+
     },
     reducers: {
         add: (state, action) => {
-            state.items.push(action.payload)
+            state.workouts.push(action.payload)
         },
         del: (state, action) => {
-            state.items.splice(action.payload, 1)
+            state.workouts.splice(action.payload, 1)
         },
+        swapProgram: (state, action) => {
+            state.program = action.payload
+        }
     }
 })
 
-export const { del, add } = basketSlice.actions
+export const { del, add, swapProgram } = basketSlice.actions
 
 export default basketSlice.reducer
