@@ -16,7 +16,8 @@ import Contributor from './views/Contributor';
 import Admin from './views/Admin';
 import Error from './views/Error';
 import Login from './views/Login';
-import { Container } from 'react-bootstrap';
+import Container from 'react-bootstrap/Container';
+
 
 function App() {
   return (

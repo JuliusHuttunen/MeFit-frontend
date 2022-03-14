@@ -64,7 +64,7 @@ const Programs = () => {
 
     return (
         <div className='cardcontainer'>
-            <h3>Programs</h3>
+            <h2>Programs</h2>
             <div className="filterwrapper">
             <div onClick={() => filterList(null)} ><h5>All</h5></div>
                 {filters}

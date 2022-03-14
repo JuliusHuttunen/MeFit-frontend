@@ -57,3 +57,21 @@
 .filterwrapper h5 {
     padding: 2em;
 }
+
+.workoutsetsmall {
+    display: flex;
+    align-items: stretch
+}
+
+.goalbasket {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.goalbasket li {
+    border: 1px solid lightgray;
+    padding: 1em;
+    margin: 1rem;
+    border-radius: 10px;
+}
