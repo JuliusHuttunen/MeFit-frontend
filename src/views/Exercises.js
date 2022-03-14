@@ -2,33 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { getFromAPI } from '../components/API/Connection';
 import  Accordion from 'react-bootstrap/Accordion';
 import  Container  from 'react-bootstrap/Container';
-
+import ExercisesList from '../components/programviews/ExercisesList';
 
 const Exercises = () => {
 
-    const [exerciseList, setExerciseList] = useState(<div>No exercises found.</div>)
+    const [exerciseList, setExerciseList] = useState(<ExercisesList/>)
     const [exercise, setExercise] = useState([])
-
+        
     useEffect(() => {
         const fetchData = async () => {
             const [error, exercises] = await getFromAPI("exercises")
             console.log("ERR:", error)
             setExercise(exercises)
-            setExerciseList(exercises.map((exercise, index) => {
-                const muscleGroupImage = "/assets/muscle/" + exercise.targetMuscleGroup.toLowerCase() + ".png"
-                return(
-                    <Accordion key={index}>
-                        <Accordion.Item key={index} eventKey={index}>
-                            <Accordion.Header><h4>{exercise.name} <img src={muscleGroupImage} width={"30 px"} alt="muscle img" ></img></h4></Accordion.Header>
-                            <Accordion.Body>
-                                <h6>Description: </h6><p>{exercise.description}</p>
-                                <h6>Target muscle group: </h6><p>{exercise.targetMuscleGroup}</p>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
-                )
-            }
-            ))
         }
         fetchData()
     }, [])
@@ -36,20 +21,7 @@ const Exercises = () => {
     const filterList = (musclegroup) => {
         setExerciseList(exercise.map((exercise, index) => {
             const muscleGroupImage = "/assets/muscle/" + exercise.targetMuscleGroup.toLowerCase() + ".png"
-            if(exercise.targetMuscleGroup === musclegroup){
-                return(
-                    <Accordion key={index}>
-                        <Accordion.Item key={index} eventKey={index}>
-                            <Accordion.Header><h4>{exercise.name} <img src={muscleGroupImage} width={"30 px"} alt="muscle img" ></img></h4></Accordion.Header>
-                            <Accordion.Body>
-                                <h6>Description: </h6><p>{exercise.description}</p>
-                                <h6>Target muscle group: </h6><p>{exercise.targetMuscleGroup}</p>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
-                )
-            }
-            if(musclegroup === null) {
+            if(exercise.targetMuscleGroup === musclegroup || musclegroup === null){
                 return(
                     <Accordion key={index}>
                         <Accordion.Item key={index} eventKey={index}>
@@ -64,7 +36,6 @@ const Exercises = () => {
             }
         }
         ))
-
     }
 
     return (

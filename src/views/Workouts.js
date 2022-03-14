@@ -3,14 +3,16 @@ import { useState, useEffect } from "react";
 import { getFromAPI } from '../components/API/Connection';
 import  Accordion from 'react-bootstrap/Accordion';
 import  Container  from 'react-bootstrap/Container';
+import WorkoutsList from '../components/programviews/WorkoutsList';
 
 const Workouts = () => {
 
-    const [workoutList, setWorkoutList] = useState(<div>No workouts found.</div>)
+    const [workoutList, setWorkoutList] = useState(<WorkoutsList/>)
     const [workout, setWorkout] = useState([])
     const [types, setTypes] = useState([])
     const typeArray = []
 
+    //Generate workout filters based on types, set workouts
     useEffect(() => {
         const fetchData = async () => {
             const [error, workouts] = await getFromAPI("workouts")
@@ -22,37 +24,11 @@ const Workouts = () => {
             }
             setTypes(typeArray)
             setWorkout(workouts)
-            setWorkoutList(workouts.map((workout, index) => {
-                const sets = workout.sets.map((set, index) => {
-                    return(
-                        <Accordion key={index}>
-                            <Accordion.Item key={index} eventKey={index}>
-                                <Accordion.Header><h6>{set.exercise.name} x {set.exerciseRepetitions}</h6></Accordion.Header>
-                                <Accordion.Body>
-                                    <p>Description: {set.exercise.description}</p>
-                                    <p>Muscles: {set.exercise.targetMuscleGroup}</p>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                        </Accordion>
-                    )
-                })
-                return(
-                    <Accordion key={index}>
-                        <Accordion.Item key={index} eventKey={index}>
-                            <Accordion.Header><h4>{workout.name} {/* <img src="/assets/muscle/abs.png" width={"30 px"} alt="user logo"></img> */}</h4></Accordion.Header>
-                            <Accordion.Body>
-                                <h6>Type: </h6><p>{workout.type}</p>
-                                <h6>Sets: </h6><div className='workoutsetswrapper'>{sets}</div>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
-                )
-            }
-            ))
         }
         fetchData()
     }, [])
 
+    //Filter the list
     const filterList = (type) => {
         setWorkoutList(workout.map((workout, index) => {
             const sets = workout.sets.map((set, index) => {
@@ -68,7 +44,7 @@ const Workouts = () => {
                     </Accordion>
                 )
             })
-            if(workout.type === type){
+            if(workout.type === type || type === null){
             return(
                 <Accordion key={index}>
                     <Accordion.Item key={index} eventKey={index}>
@@ -81,31 +57,17 @@ const Workouts = () => {
                 </Accordion>
             )
             }
-            if(type === null) {
-                return(
-                    <Accordion key={index}>
-                        <Accordion.Item key={index} eventKey={index}>
-                            <Accordion.Header><h4>{workout.name}</h4></Accordion.Header>
-                            <Accordion.Body>
-                                <h6>Type: </h6><p>{workout.type}</p>
-                                <h6>Sets: </h6><div className='workoutsetswrapper'>{sets}</div>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
-                )
-            }
         }
         ))
     }
 
+    //Create a filter component
     const filters = types.map((type, index) => {
         return(
-            <div key={index} onClick={() => filterList(type)} ><h5>{type}</h5></div>
+            <div key={index} onClick={() => filterList(type)}><h5>{type}</h5></div>
         )
     }
     )
-
-
 
     return (
         <div className='cardcontainer'>
