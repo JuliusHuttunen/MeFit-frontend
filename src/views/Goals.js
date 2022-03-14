@@ -1,12 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import EmptyGoals from '../components/goals/EmptyGoals.js'
 
 const Goals = () => {
     const navigate = useNavigate()
 
     return (
         <div>
-            Goals page
+            <EmptyGoals/>
         </div>
     );
 };
