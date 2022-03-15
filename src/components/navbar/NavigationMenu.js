@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Hamburger from "./Hamburger";
 import  { useNavigate, useLocation, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function NavigationMenu() {
 
@@ -9,6 +10,8 @@ function NavigationMenu() {
     const toggleMenu = () => {
         setMenuOpen(!menuOpen)
     }
+
+    const userRoles = useSelector((state) => state.utility.user.roles);
 
     return (
         <div className="navigation">
@@ -22,8 +25,8 @@ function NavigationMenu() {
                 <li><Link to="/workouts" style={{ textDecoration: 'none', color: '#EDF7F6' }}>Workouts</Link></li>
                 <li><Link to="/exercises" style={{ textDecoration: 'none', color: '#EDF7F6' }}>Exercises</Link></li>
                 <li><Link to="/profile" style={{ textDecoration: 'none', color: '#EDF7F6' }}>Profile</Link></li>
-                <li><Link to="/contributor" style={{ textDecoration: 'none', color: '#EDF7F6' }}>Contributor Tools</Link></li>
-                <li><Link to="/admin" style={{ textDecoration: 'none', color: '#EDF7F6' }}>Admin Tools</Link></li>
+                {userRoles.includes("contributor") || userRoles.includes("admin") ? <li><Link to="/contributor" style={{ textDecoration: 'none', color: '#EDF7F6' }}>Contributor Tools</Link></li> : <li></li>}
+                {userRoles.includes("admin") ? <li><Link to="/admin" style={{ textDecoration: 'none', color: '#EDF7F6' }}>Admin Tools</Link></li> : <li></li>}
             </ul>
 
         <style>{`

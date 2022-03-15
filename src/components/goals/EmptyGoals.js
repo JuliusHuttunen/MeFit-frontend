@@ -17,6 +17,7 @@ function EmptyGoals() {
     const currentProgram = useSelector((state) => state.basket.program)
     const goal = useSelector((state) => state.basket)
     const exercises = useSelector((state) => state.basket.exercises)
+    const userToken = useSelector((state) => state.utility.user.token)
     
     const dispatch = useDispatch()
 
@@ -34,7 +35,7 @@ function EmptyGoals() {
 
     const setGoal = async () => {
         console.log(goal)
-        const[error, response] = await postGoalToAPI(goal)
+        const[error, response] = await postGoalToAPI(goal, userToken)
         console.log("ERR:", error)
         console.log("Response:", response)
     }

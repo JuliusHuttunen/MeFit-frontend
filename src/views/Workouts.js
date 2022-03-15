@@ -4,6 +4,7 @@ import { getFromAPI } from '../components/API/Connection';
 import  Accordion from 'react-bootstrap/Accordion';
 import  Container  from 'react-bootstrap/Container';
 import WorkoutsList from '../components/programviews/WorkoutsList';
+import { useSelector } from 'react-redux';
 
 const Workouts = () => {
 
@@ -11,11 +12,12 @@ const Workouts = () => {
     const [workout, setWorkout] = useState([])
     const [types, setTypes] = useState([])
     const typeArray = []
+    const userToken = useSelector((state) => state.utility.user.token)
 
     //Generate workout filters based on types, set workouts
     useEffect(() => {
         const fetchData = async () => {
-            const [error, workouts] = await getFromAPI("workouts")
+            const [error, workouts] = await getFromAPI("workouts", userToken)
             console.log("ERR:", error)
             for(let wo of workouts){
                 if(!typeArray.includes(wo.type)){
@@ -72,10 +74,11 @@ const Workouts = () => {
     return (
         <div className='cardcontainer'>
             <h2>Workouts</h2>
+            {workout.length === 0 ? <p>No workouts found.</p> : 
             <div className="filterwrapper">
-            <div onClick={() => filterList(null)} ><h5>All</h5></div>
+                <div onClick={() => filterList(null)} ><h5>All</h5></div>
                 {filters}
-            </div>
+            </div>}
             <Container className='w-70 p-3'>
                 <div className='accordiongrid'>
                     {workoutList}

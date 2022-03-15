@@ -9,6 +9,8 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import styles from "./ProfileInformation.module.css";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
+import { useSelector } from "react-redux";
+
 
 const schema = yup.object({
   first_name: yup
@@ -62,7 +64,11 @@ const schema = yup.object({
 });
 
 const ProfileInformation = () => {
+  const user = useSelector((state) => state.utility.user)
+  const profile = useSelector((state) => state.utility.profile)
+  
   let [Person, setPerson] = useState({
+<<<<<<< HEAD
     first_name: "Mike",
     last_name: "Iron",
     address_line_1: "Power street",
@@ -77,8 +83,24 @@ const ProfileInformation = () => {
     fitness_level: "2",
     medical_conditions: "super fit",
     disabilities: "NO",
+=======
+    first_name: user.firstName,
+    last_name: user.lastName,
+    address_line_1: profile.address.addressLine1,
+    address_line_2: profile.address.addressLine2,
+    address_line_3: profile.address.addressLine3,
+    city: profile.address.city,
+    country: profile.address.country,
+    postal_code: profile.address.postalCode,
+    email: user.email,
+    height: profile.height,
+    weight: profile.weight,
+    medical_conditions: profile.medicalConditions,
+    disabilities: profile.disabilities,
+>>>>>>> dev
     // requestForContributor
   });
+  
   const handleChange = (event) => {
     let value = event.target.value;
     let name = event.target.name;
