@@ -3,14 +3,14 @@ import ProfileName from "./ProfileName";
 import ProfilePicture from "./ProfilePicture";
 import './navbar.css'
 import { useState } from "react";
-import Login from "./Login";
+import LoginForm from "./LoginForm";
 
 function Navbar() {
     return (
     <div className="navcontainer">
         <NavigationMenu></NavigationMenu>
-        <h1>MeFit</h1>
-        <Login />
+        <div className="navtitle"><h1>MeFit</h1></div>
+        <LoginForm />
         {/* <div className="profilewrapper">
              <ProfileName></ProfileName>
              <ProfilePicture></ProfilePicture>
