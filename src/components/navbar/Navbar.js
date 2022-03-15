@@ -2,24 +2,10 @@ import NavigationMenu from "./NavigationMenu";
 import ProfileName from "./ProfileName";
 import ProfilePicture from "./ProfilePicture";
 import './navbar.css'
-import { useState, useEffect } from "react";
 import LoginForm from "./LoginForm";
-import { useDispatch, useSelector } from "react-redux"
-import { createTestProfile } from '../../redux/utilitySlice'
+import { useSelector } from "react-redux"
 
 function Navbar() {
-
-    useEffect(() => {
-        createProfile()
-    }, []);
-
-    const dispatch = useDispatch()
-
-    const createProfile = () => {
-        console.log("Profile created")
-        dispatch(createTestProfile())
-    }
-
 
     const loggedIn = useSelector((state) => state.utility.loggedIn)
 

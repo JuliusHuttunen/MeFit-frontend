@@ -6,7 +6,7 @@ function ProfileName() {
 
     return (
       <div className="name">
-        <h2>You are logged in as {user.username}</h2>
+        <h2>You are logged in as {user.firstName} {user.lastName}</h2>
       </div>
     );
   }

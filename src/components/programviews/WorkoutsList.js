@@ -2,19 +2,19 @@ import React from 'react';
 import { useState, useEffect } from "react";
 import { getFromAPI } from '../API/Connection';
 import  Accordion from 'react-bootstrap/Accordion';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { add } from '../../redux/basketSlice';
 import Button from "react-bootstrap/Button";
 
 const WorkoutsList = (props) => {
 
-    const [workoutList, setWorkoutList] = useState(<div>No workouts found.</div>)
-
+    const [workoutList, setWorkoutList] = useState(props.basket ? <div>Empty</div> : <div></div>)
+    const userToken = useSelector((state) => state.utility.user.token)
     const dispatch = useDispatch()
 
     useEffect(() => {
         const fetchData = async () => {
-            const [error, workouts] = await getFromAPI("workouts")
+            const [error, workouts] = await getFromAPI("workouts", userToken)
             console.log("ERR:", error)
             setWorkoutList(workouts.map((workout, index) => {
                 const sets = workout.sets.map((set, index) => {
