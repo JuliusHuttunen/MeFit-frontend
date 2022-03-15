@@ -2,7 +2,6 @@ import NavigationMenu from "./NavigationMenu";
 import ProfileName from "./ProfileName";
 import ProfilePicture from "./ProfilePicture";
 import './navbar.css'
-import { useState } from "react";
 import LoginForm from "./LoginForm";
 import { useSelector } from "react-redux"
 
@@ -12,7 +11,7 @@ function Navbar() {
 
     return (
     <div className="navcontainer">
-        <NavigationMenu></NavigationMenu>
+        {loggedIn ? <NavigationMenu></NavigationMenu> : <div></div>}
         <div className="navtitle"><h1>MeFit</h1></div>
         {loggedIn ?  
         <div className="profilewrapper">

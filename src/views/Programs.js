@@ -4,6 +4,7 @@ import { getFromAPI } from '../components/API/Connection';
 import  Accordion from 'react-bootstrap/Accordion';
 import  Container  from 'react-bootstrap/Container';
 import ProgramsList from '../components/programviews/ProgramsList';
+import { useSelector } from 'react-redux';
 
 const Programs = () => {
 
@@ -11,10 +12,11 @@ const Programs = () => {
     const [program, setProgram] = useState([])
     const [categories, setCategories] = useState([])
     const categArray = []
+    const userToken = useSelector((state) => state.utility.user.token)
 
     useEffect(() => {
         const fetchData = async () => {
-            const [error, programs] = await getFromAPI("programs")
+            const [error, programs] = await getFromAPI("programs", userToken)
             console.log("ERR:", error)
             for(let program of programs){
                 if(!categArray.includes(program.category)){
@@ -65,10 +67,13 @@ const Programs = () => {
     return (
         <div className='cardcontainer'>
             <h2>Programs</h2>
+            {program.length === 0 ? <p>No programs found.</p> : 
             <div className="filterwrapper">
-            <div onClick={() => filterList(null)} ><h5>All</h5></div>
+                <div onClick={() => filterList(null)}>
+                    <h5>All</h5>
+                </div>
                 {filters}
-            </div>
+            </div>}
             <Container className='w-70 p-3'>
                 <div className='accordiongrid'>
                     {programList}

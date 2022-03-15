@@ -2,18 +2,19 @@ import React from 'react';
 import { useState, useEffect } from "react";
 import { getFromAPI } from '../API/Connection';
 import  Accordion from 'react-bootstrap/Accordion';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { swapProgram } from '../../redux/basketSlice';
 import Button from 'react-bootstrap/Button'
 
 const ProgramsList = (props) => {
 
-    const [programList, setProgramList] = useState(<div>No programs found.</div>)
+    const [programList, setProgramList] = useState(props.basket ? <div>Empty</div> : <div></div>)
     const dispatch = useDispatch()
+    const userToken = useSelector((state) => state.utility.user.token)
 
     useEffect(() => {
         const fetchData = async () => {
-            const [error, programs] = await getFromAPI("programs")
+            const [error, programs] = await getFromAPI("programs", userToken)
             console.log("ERR:", error)
             setProgramList(programs.map((program, index) => {
                 const workouts = program.workouts.map((workout, index) => {
