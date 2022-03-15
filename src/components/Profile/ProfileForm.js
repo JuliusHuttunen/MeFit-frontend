@@ -64,6 +64,7 @@ const schema = yup.object({
     .required("Weight is required"),
   medical_conditions: yup.string().max(255, "Maximum characters 100"),
   disabilities: yup.string().max(255, "Maximum characters 100"),
+  fitness_level: yup.number().nullable().required("Fitness Level is required"),
   checkInformation: yup
     .boolean()
     .required("Please check filled information and mark box as checked"),
@@ -88,11 +89,11 @@ const ProfileForm = () => {
     <>
       <Container>
         <Form onSubmit={handleSubmit(onSubmit)} className="m-5">
-        <h4>Welcome to MeFit!</h4>
-        <p>
-          Please fill out the form carefully and we will be able to create your
-          MeFit-Profile.
-        </p>
+          <h4>Welcome to MeFit!</h4>
+          <p>
+            Please fill out the form carefully and we will be able to create
+            your MeFit-Profile.
+          </p>
           <Row className="mb-3 mt-5">
             <h4 className="mb-4">Profile and Contact Information</h4>
             <Col>
@@ -250,6 +251,45 @@ const ProfileForm = () => {
           <h4 className="mb-4">
             Training Habits and Current Condition Information
           </h4>
+          <Form.Group className="mb-5 mt-3" controlId="fitness_level">
+            <Form.Check
+              {...register("fitness_level")}
+              inline
+              type="radio"
+              label="Very Poor"
+              value={1}
+            />
+            <Form.Check
+              {...register("fitness_level")}
+              inline
+              type="radio"
+              label="Fair"
+              value={2}
+            />
+            <Form.Check
+              {...register("fitness_level")}
+              inline
+              type="radio"
+              label="Average"
+              value={3}
+            />
+            <Form.Check
+              {...register("fitness_level")}
+              inline
+              type="radio"
+              label="Good"
+              value={4}
+            />
+            <Form.Check
+              {...register("fitness_level")}
+              inline
+              type="radio"
+              label="Excellent"
+              value={5}
+            
+            />
+            <p>{errors.fitness_level?.message}</p>
+          </Form.Group>
           <hr />
           <Row className="mb-5">
             <h4 className="mb-4">Almost ready! Final checks and Submit</h4>

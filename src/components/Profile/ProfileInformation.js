@@ -57,9 +57,7 @@ const schema = yup.object({
     .required("Weight is required"),
   medical_conditions: yup.string().max(255, "Maximum characters 100"),
   disabilities: yup.string().max(255, "Maximum characters 100"),
-  checkInformation: yup
-    .boolean()
-    .required("Please check filled information and mark box as checked"),
+  fitness_level: yup.number().nullable().required("Fitness Level is required"),
   requestForContributor: yup.boolean(),
 });
 
@@ -76,6 +74,7 @@ const ProfileInformation = () => {
     email: "mike@mass.com",
     height: "160",
     weight: "110",
+    fitness_level: "2",
     medical_conditions: "super fit",
     disabilities: "NO",
     // requestForContributor
@@ -128,7 +127,7 @@ const ProfileInformation = () => {
               <Col>
                 <Form.Group
                   className={styles.profileGroup}
-                  controlId="firstName"
+                  controlId="profile_firstName"
                 >
                   <FloatingLabel>First Name</FloatingLabel>
                   <Form.Control
@@ -144,7 +143,7 @@ const ProfileInformation = () => {
               <Col>
                 <Form.Group
                   className={styles.profileGroup}
-                  controlId="lastName"
+                  controlId="profile_lastName"
                 >
                   <FloatingLabel>Last Name</FloatingLabel>
                   <Form.Control
@@ -158,7 +157,7 @@ const ProfileInformation = () => {
                 </Form.Group>
               </Col>
             </Row>
-            <Form.Group className={styles.profileGroup} controlId="address1">
+            <Form.Group className={styles.profileGroup} controlId="profile_address1">
               <FloatingLabel>Address</FloatingLabel>
               <Form.Control
                 className={styles.profileInput}
@@ -173,7 +172,7 @@ const ProfileInformation = () => {
               <Col>
                 <Form.Group
                   className={styles.profileGroup}
-                  controlId="address2"
+                  controlId="profile_address2"
                 >
                   <FloatingLabel>Address 2</FloatingLabel>
                   <Form.Control
@@ -189,7 +188,7 @@ const ProfileInformation = () => {
               <Col>
                 <Form.Group
                   className={styles.profileGroup}
-                  controlId="address3"
+                  controlId="profile_address3"
                 >
                   <FloatingLabel>Address 3</FloatingLabel>
                   <Form.Control
@@ -207,7 +206,7 @@ const ProfileInformation = () => {
               <Col>
                 <Form.Group
                   className={styles.profileGroup}
-                  controlId="postalCode"
+                  controlId="profile_postalCode"
                 >
                   <FloatingLabel>Postal Code</FloatingLabel>
                   <Form.Control
@@ -221,7 +220,7 @@ const ProfileInformation = () => {
                 </Form.Group>
               </Col>
               <Col>
-                <Form.Group className={styles.profileGroup} controlId="city">
+                <Form.Group className={styles.profileGroup} controlId="profile_city">
                   <FloatingLabel>City</FloatingLabel>
                   <Form.Control
                     className={styles.profileInput}
@@ -236,7 +235,7 @@ const ProfileInformation = () => {
             </Row>
             <Row>
               <Col>
-                <Form.Group className={styles.profileGroup} controlId="country">
+                <Form.Group className={styles.profileGroup} controlId="profile_country">
                   <FloatingLabel>Country</FloatingLabel>
                   <Form.Control
                     className={styles.profileInput}
@@ -249,7 +248,7 @@ const ProfileInformation = () => {
                 </Form.Group>
               </Col>
               <Col>
-                <Form.Group className={styles.profileGroup} controlId="email">
+                <Form.Group className={styles.profileGroup} controlId="profile_email">
                   <FloatingLabel>Email address</FloatingLabel>
                   <Form.Control
                     className={styles.profileInput}
@@ -266,7 +265,7 @@ const ProfileInformation = () => {
             <Row>
               <h4>Medical and Physical Information</h4>
               <Col>
-                <Form.Group className={styles.profileGroup} controlId="height">
+                <Form.Group className={styles.profileGroup} controlId="profile_height">
                   <FloatingLabel>Height in cm</FloatingLabel>
                   <Form.Control
                     className={styles.profileInput}
@@ -279,7 +278,7 @@ const ProfileInformation = () => {
                 </Form.Group>
               </Col>
               <Col>
-                <Form.Group className={styles.profileGroup} controlId="weight">
+                <Form.Group className={styles.profileGroup} controlId="profile_weight">
                   <FloatingLabel>Weight in kg</FloatingLabel>
                   <Form.Control
                     className={styles.profileInput}
@@ -294,7 +293,7 @@ const ProfileInformation = () => {
             </Row>
             <Form.Group
               className={styles.profileGroup}
-              controlId="medicalConditions"
+              controlId="profile_medicalConditions"
             >
               <FloatingLabel>Medical Conditions</FloatingLabel>
               <Form.Control
@@ -308,7 +307,7 @@ const ProfileInformation = () => {
             </Form.Group>
             <Form.Group
               className={styles.profileGroup}
-              controlId="disabilities"
+              controlId="profile_disabilities"
             >
               <FloatingLabel>Disabilities</FloatingLabel>
               <Form.Control
@@ -322,15 +321,25 @@ const ProfileInformation = () => {
             </Form.Group>
             <hr />
             <h4>Fitness Level</h4>
+            <Form.Group controlId="profile_fitness_level" >
+              <Form.Select className={styles.profileInput} {...register("fitness_level")} value={Person.fitness_level} onChange={handleChange}>
+                <option value={1}>Very Poor</option>
+                <option value={2}>Fair</option>
+                <option value={3}>Average</option>
+                <option value={4}>Good</option>
+                <option value={5}>Excellent</option>
+              </Form.Select>
+
+            <p>{errors.fitness_level?.message}</p>
+            </Form.Group>
+
             <hr />
             <Row>
-              <Form.Group controlId="requestForContributor">
+              <Form.Group controlId="profile_requestForContributor">
                 <Form.Check
                   {...register("requestForContributor")}
                   type="checkbox"
-                  label="I request Contributor status"
-                  
-                  
+                  label="I request Contributor status" 
                 />
                 <p>{errors.requestForContributor?.message}</p>
               </Form.Group>
