@@ -3,29 +3,31 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import { postUserLogin } from "../API/Connection";
+import { postUserLogin, getUserProfile } from "../API/Connection";
 import { useDispatch } from "react-redux";
-import { login } from '../../redux/utilitySlice';
+import { login, setProfile } from '../../redux/utilitySlice';
+import { useNavigate } from "react-router-dom";
 
 
 const LoginForm = () => {
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleSubmit = async (event) => {
     event.preventDefault()
     let { username, pass } = document.forms[0]
-    const user = {
-      "username": username.value,
-      "password": pass.value
-    }
-    console.log("Username:", user.username, "Password:", user.password)
-    dispatch(login(user))
-
+      
     //USER LOGIN API
-    /*const[error, userInfo] = await postUserLogin(username.value, pass.value)
+    const[error, userInfo] = await postUserLogin(username.value, pass.value)
     console.log("ERR:", error)
-    console.log("Response:", userInfo)*/
+    if(userInfo !== null){ 
+      dispatch(login(userInfo))
+      const[error, userProfile] = await getUserProfile(userInfo)
+      console.log("ERR:", error)
+      dispatch(setProfile(userProfile))
+      navigate("Dashboard")
+    }
   }
 
   return (

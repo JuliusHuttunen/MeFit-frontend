@@ -3,18 +3,19 @@ import { getFromAPI } from '../API/Connection';
 import  Accordion from 'react-bootstrap/Accordion';
 import { addExercise } from '../../redux/basketSlice';
 import  Button  from 'react-bootstrap/Button';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 
 function ExercisesList(props){
 
-    const [exerciseList, setExerciseList] = useState(<div>No exercises found.</div>)
+    const [exerciseList, setExerciseList] = useState(props.basket ? <div>Empty</div> : <div></div>)
 
     const dispatch = useDispatch()
+    const userToken = useSelector((state) => state.utility.user.token)
 
     useEffect(() => {
         const fetchData = async () => {
-            const [error, exercises] = await getFromAPI("exercises")
+            const [error, exercises] = await getFromAPI("exercises", userToken )
             console.log("ERR:", error)
             setExerciseList(exercises.map((exercise, index) => {
                 const muscleGroupImage = "/assets/muscle/" + exercise.targetMuscleGroup.toLowerCase() + ".png"
