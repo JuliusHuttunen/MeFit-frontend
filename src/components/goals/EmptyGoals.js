@@ -5,16 +5,18 @@ import Col from 'react-bootstrap/Col';
 import Accordion from 'react-bootstrap/Accordion';
 import ProgramsList from '../programviews/ProgramsList';
 import WorkoutsList from '../programviews/WorkoutsList';
+import ExercisesList from '../programviews/ExercisesList';
 import { useDispatch, useSelector } from 'react-redux';
-import { del } from '../../redux/basketSlice';
+import { del, delExercise, delProgram } from '../../redux/basketSlice';
 import Button from 'react-bootstrap/Button';
-import { postToAPI } from '../API/Connection';
+import { postGoalToAPI } from '../API/Connection';
 
 function EmptyGoals() {
 
     const basket = useSelector((state) => state.basket.workouts)
     const currentProgram = useSelector((state) => state.basket.program)
     const goal = useSelector((state) => state.basket)
+    const exercises = useSelector((state) => state.basket.exercises)
     
     const dispatch = useDispatch()
 
@@ -24,9 +26,15 @@ function EmptyGoals() {
         )
     })
 
+    const exerciseMap = exercises.map((item, index) => {
+        return(
+            <li key={index}><h6>{item.name}</h6><Button className="btn btn-danger" onClick={() => dispatch(delExercise(index))}>Delete</Button></li>
+        )
+    })
+
     const setGoal = async () => {
         console.log(goal)
-        const[error, response] = await postToAPI("goals", goal)
+        const[error, response] = await postGoalToAPI(goal)
         console.log("ERR:", error)
         console.log("Response:", response)
     }
@@ -35,7 +43,7 @@ function EmptyGoals() {
         <Container>
             <Row className="m-5">
                 <Col>
-                <h2>Create a goal</h2>
+                <h2 style={{"padding": "10px"}}>Create a goal</h2>
                 <div className='accordiongrid'>
                         <Accordion>
                             <Accordion.Item eventKey='0'>
@@ -49,17 +57,29 @@ function EmptyGoals() {
                                 <Accordion.Body><WorkoutsList basket={true}/></Accordion.Body>
                             </Accordion.Item>
                         </Accordion>
+                        <Accordion>
+                            <Accordion.Item eventKey='2'>
+                                <Accordion.Header><h4>Exercises</h4></Accordion.Header>
+                                <Accordion.Body><ExercisesList basket={true}/></Accordion.Body>
+                            </Accordion.Item>
+                        </Accordion>
                     </div>
                 </Col>
                 <Col>
                 <div style={{"display":"flex", "alignItems":"center", "justifyContent":"center", "flexDirection":"column"}}>
-                    <h2>Your goal draft</h2>
-                    <h5>Current program: {currentProgram.name}</h5>
+                    <h2 style={{"padding": "10px"}}>Your goal draft</h2>
+                    <h5 style={{"fontStyle":"italic"}}>Current program: {currentProgram.name} </h5>
+                    <Button style={{"marginBottom":"10px"}} className="btn btn-warning" onClick={() => dispatch(delProgram())}>Revert</Button>
+                        <h4>Workouts</h4>
                         <ul className='goalbasket'>
-                            {basketMap}
+                            {basket.length === 0 ? <li style={{"width": "30em", "fontStyle":"italic", "textAlign":"center"}}>Workouts empty</li> : basketMap}
                         </ul>
-                </div>
-                <Button className='btn btn-success' onClick={() => setGoal()}>Set goal</Button>
+                        <h4>Exercises</h4>
+                        <ul className='goalbasket'>
+                            {exercises.length === 0 ? <li style={{"width": "30em", "fontStyle":"italic", "textAlign":"center"}}>Exercises empty</li> : exerciseMap}
+                        </ul>
+                        <Button className='btn btn-success' onClick={() => setGoal()}>Set goal</Button>                
+                    </div>
                 </Col>
             </Row>
         </Container>

@@ -1,10 +1,12 @@
+import { useSelector } from 'react-redux'
+
 function ProfileName() {
 
-    let userName = "User";
+    const user = useSelector((state) => state.utility.user);
 
     return (
       <div className="name">
-        <h2>You are logged in as {userName}.</h2>
+        <h2>You are logged in as {user.username}</h2>
       </div>
     );
   }
