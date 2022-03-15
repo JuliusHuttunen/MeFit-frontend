@@ -4,19 +4,20 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-import { getUserProfile, postUserRegister } from "../components/API/Connection";
+import { getUserProfile, postUserRegister, postUserLogin } from "../components/API/Connection";
 import { useDispatch } from "react-redux";
 import { login, setProfile } from '../redux/utilitySlice';
+import { useNavigate } from "react-router-dom";
 
 
 const Login = () => {
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleSubmit = async (event) => {
     event.preventDefault()
     let { firstname, lastname, email, username, pass } = document.forms[1]
-    console.log(firstname.value)
     const userToRegister = {
       "firstname": firstname.value,
       "lastname": lastname.value,
@@ -29,6 +30,20 @@ const Login = () => {
     const[error, response] = await postUserRegister(userToRegister)
     console.log("ERR:", error)
     console.log("Response", response)
+
+    const[error2, userInfo] = await postUserLogin(username.value, pass.value)
+    console.log("ERR:", error2)
+    if(userInfo !== null){ 
+      dispatch(login(userInfo))
+      const[error, userProfile] = await getUserProfile(userInfo)
+      console.log("ERR:", error)
+      console.log("Profile", userProfile)
+      if(userProfile.height === 0 || userProfile.weight === 0){
+        navigate("profileForm")
+      }
+      dispatch(setProfile(userProfile))
+      navigate("Dashboard")
+    }
   }
 
   return (

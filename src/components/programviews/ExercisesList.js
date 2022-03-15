@@ -15,7 +15,7 @@ function ExercisesList(props){
 
     useEffect(() => {
         const fetchData = async () => {
-            const [error, exercises] = await getFromAPI("exercises", userToken )
+            const [error, exercises] = await getFromAPI("exercises", userToken)
             console.log("ERR:", error)
             setExerciseList(exercises.map((exercise, index) => {
                 const muscleGroupImage = "/assets/muscle/" + exercise.targetMuscleGroup.toLowerCase() + ".png"

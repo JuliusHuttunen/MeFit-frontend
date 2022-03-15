@@ -25,8 +25,14 @@ const LoginForm = () => {
       dispatch(login(userInfo))
       const[error, userProfile] = await getUserProfile(userInfo)
       console.log("ERR:", error)
-      dispatch(setProfile(userProfile))
-      navigate("Dashboard")
+      console.log("Profile", userProfile)
+      if(userProfile.height === 0 || userProfile.weight === 0){
+        navigate("profileForm")
+      }
+      else {
+        dispatch(setProfile(userProfile))
+        navigate("Dashboard")
+      }
     }
   }
 
