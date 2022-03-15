@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { getFromAPI } from '../API/Connection';
 import  Accordion from 'react-bootstrap/Accordion';
 import { useDispatch } from 'react-redux';
-import { add } from '../../redux/basketSlice';
+import { swapProgram } from '../../redux/basketSlice';
 import Button from 'react-bootstrap/Button'
 
 const ProgramsList = (props) => {
@@ -32,7 +32,7 @@ const ProgramsList = (props) => {
                             <Accordion.Item key={index} eventKey={index}>
                                 <Accordion.Header><h6>{program.name} </h6></Accordion.Header>
                                 <Accordion.Body><h6>Category: </h6><p>{program.category}</p>
-                                    <Button onClick={() => addItemToBasket(program)}>To basket</Button>
+                                    <Button onClick={() => swap(program)}>Add to draft</Button>
                                 </Accordion.Body>
                             </Accordion.Item>
                         </Accordion>
@@ -54,8 +54,8 @@ const ProgramsList = (props) => {
         fetchData()
     }, [])
 
-    const addItemToBasket = (program) => {
-        dispatch(add(program))
+    const swap = (program) => {
+        dispatch(swapProgram(program))
     }
 
     return (
