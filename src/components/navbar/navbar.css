@@ -6,6 +6,7 @@
     width: 100%;
     height: 150px;
     align-items: center;
+    padding-right: 20px;
 }
 
 .hamburger {
@@ -78,4 +79,8 @@
 .profilepicture i:hover {
     color: #C47335;
     transition: 0.5s;
+}
+
+.navtitle {
+    padding: 20px;
 }
