@@ -15,8 +15,9 @@ import Profile from './views/Profile';
 import Contributor from './views/Contributor';
 import Admin from './views/Admin';
 import Error from './views/Error';
-import Login from './views/Login';
+import Home from './views/Home';
 import Container from 'react-bootstrap/Container';
+import Register from './views/Register';
 
 
 function App() {
@@ -25,7 +26,8 @@ function App() {
       <Navbar />
       <Container>
         <Routes>
-          <Route path="/" element={<Login />}/>
+          <Route path="/" element={<Home />}/>
+          <Route path="/register" element={<Register />}/>
           <Route path="/profileForm" element={<ProfileForm />}/>
           <Route path="/dashboard" element={<Dashboard />}/>
           <Route path="/goals" element={<Goals />}/>
