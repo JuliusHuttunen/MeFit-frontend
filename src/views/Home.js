@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 
 
-const Login = () => {
+const Home = () => {
   return (
     <>
-    Login Page
+    Home Page
     </>
   );
 };
 
-export default Login;
+export default Home;
