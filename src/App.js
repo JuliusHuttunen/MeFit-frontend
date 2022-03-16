@@ -16,7 +16,6 @@ import Contributor from './views/Contributor';
 import Admin from './views/Admin';
 import Error from './views/Error';
 import Home from './views/Home';
-import Container from 'react-bootstrap/Container';
 import Register from './views/Register';
 
 
@@ -24,7 +23,6 @@ function App() {
   return (
       <BrowserRouter>
       <MeFitNavbar />
-      <Container>
         <Routes>
           <Route path="/" element={<Home />}/>
           <Route path="/register" element={<Register />}/>
@@ -39,7 +37,6 @@ function App() {
           <Route path="/admin" element={<Admin />}/>
           <Route path="*" element={<Error />}/>
         </Routes>
-        </Container>
       </BrowserRouter>
   );
 }
