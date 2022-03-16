@@ -1,5 +1,5 @@
 import './App.css';
-import Navbar from './components/navbar/Navbar';
+import MeFitNavbar from './components/navbar/MeFitNavbar';
 import {
   BrowserRouter,
   Route,
@@ -23,7 +23,7 @@ import Register from './views/Register';
 function App() {
   return (
       <BrowserRouter>
-      <Navbar />
+      <MeFitNavbar />
       <Container>
         <Routes>
           <Route path="/" element={<Home />}/>
