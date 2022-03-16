@@ -39,27 +39,27 @@ function MeFitNavbar() {
           placement="start"
         >
           <Offcanvas.Header closeButton>
-            <Offcanvas.Title id="offcanvasNavbarLabel">MeFit</Offcanvas.Title>
+            <Offcanvas.Title  id="offcanvasNavbarLabel"><h1>MeFit</h1></Offcanvas.Title>
           </Offcanvas.Header>
-          <Offcanvas.Body>
+          <Offcanvas.Body className="bg-dark">
             <Nav className="justify-content-end flex-grow-1 pe-3">
-              <Link to="/dashboard" className="navbar-item">
+              <Link className="nav-link text-white h5" to="/dashboard">
                 Dashboard
               </Link>
-              <Link to="/goals">Goals</Link>
-              <Link to="/programs">Programs</Link>
-              <Link to="/workouts">Workouts</Link>
-              <Link to="/exercises">Exercises</Link>
-              <Link to="/profile">Profile</Link>
+              <Link className="nav-link text-white h5" to="/goals">Goals</Link>
+              <Link className="nav-link text-white h5" to="/programs">Programs</Link>
+              <Link className="nav-link text-white h5" to="/workouts">Workouts</Link>
+              <Link className="nav-link text-white h5" to="/exercises">Exercises</Link>
+              <Link className="nav-link text-white h5" to="/profile">Profile</Link>
 
               {/* {userRoles.includes("contributor") ||
               userRoles.includes("admin") ?  */}
-                <Link to="/contributor">Contributor Tools</Link>
+                <Link className="nav-link text-white h5" to="/contributor">Contributor Tools</Link>
                {/* : 
                 <li></li>
               } */}
               {/* {userRoles.includes("admin") ?  */}
-                <Link to="/admin">Admin Tools</Link>
+                <Link className="nav-link text-white h5" to="/admin">Admin Tools</Link>
                {/* : 
                 <li></li>
               } */}
