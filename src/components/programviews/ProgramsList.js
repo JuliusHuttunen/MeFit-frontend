@@ -1,21 +1,24 @@
 import React from 'react';
 import { useState, useEffect } from "react";
-import { getFromAPI } from '../API/Connection';
 import  Accordion from 'react-bootstrap/Accordion';
 import { useDispatch, useSelector } from 'react-redux';
 import { swapProgram } from '../../redux/basketSlice';
 import Button from 'react-bootstrap/Button'
+import { fetchPrograms } from '../../redux/databaseSlice';
 
 const ProgramsList = (props) => {
 
     const [programList, setProgramList] = useState(props.basket ? <div>Empty</div> : <div></div>)
+
     const dispatch = useDispatch()
     const userToken = useSelector((state) => state.utility.user.token)
+    const programs = useSelector((state) => state.db.programs)
 
     useEffect(() => {
         const fetchData = async () => {
-            const [error, programs] = await getFromAPI("programs", userToken)
-            console.log("ERR:", error)
+            if(programs === null || programs.length === 0){
+                dispatch(fetchPrograms(userToken))
+            }
             setProgramList(programs.map((program, index) => {
                 const workouts = program.workouts.map((workout, index) => {
                     return(
@@ -27,6 +30,8 @@ const ProgramsList = (props) => {
                         </Accordion>
                     )
                 })
+
+                //BASKET VERSION
                 if(props.basket){
                     return(
                         <Accordion key={index}>
@@ -39,6 +44,7 @@ const ProgramsList = (props) => {
                         </Accordion>
                     )
                 }
+
                 return(
                     <Accordion key={index}>
                         <Accordion.Item key={index} eventKey={index}>
@@ -53,7 +59,7 @@ const ProgramsList = (props) => {
             ))
         }
         fetchData()
-    }, [])
+    }, [programs, dispatch])
 
     const swap = (program) => {
         dispatch(swapProgram(program))

@@ -31,8 +31,7 @@ const LoginForm = () => {
       }
       else {
         dispatch(setProfile(userProfile))
-        navigate("Dashboard")
-      }
+        navigate("Dashboard")}
     }
   }
 
