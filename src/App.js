@@ -24,7 +24,6 @@ function App() {
   return (
       <BrowserRouter>
       <Navbar />
-      <Container>
         <Routes>
           <Route path="/" element={<Home />}/>
           <Route path="/register" element={<Register />}/>
@@ -39,7 +38,6 @@ function App() {
           <Route path="/admin" element={<Admin />}/>
           <Route path="*" element={<Error />}/>
         </Routes>
-        </Container>
       </BrowserRouter>
   );
 }
