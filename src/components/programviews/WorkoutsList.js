@@ -1,21 +1,25 @@
 import React from 'react';
 import { useState, useEffect } from "react";
-import { getFromAPI } from '../API/Connection';
 import  Accordion from 'react-bootstrap/Accordion';
 import { useDispatch, useSelector } from 'react-redux';
 import { add } from '../../redux/basketSlice';
 import Button from "react-bootstrap/Button";
+import { fetchWorkouts } from '../../redux/databaseSlice'
 
 const WorkoutsList = (props) => {
 
     const [workoutList, setWorkoutList] = useState(props.basket ? <div>Empty</div> : <div></div>)
-    const userToken = useSelector((state) => state.utility.user.token)
+
     const dispatch = useDispatch()
+    const userToken = useSelector((state) => state.utility.user.token)
+    const workouts = useSelector((state) => state.db.workouts)
+    
 
     useEffect(() => {
         const fetchData = async () => {
-            const [error, workouts] = await getFromAPI("workouts", userToken)
-            console.log("ERR:", error)
+            if(workouts === null || workouts.length === 0){
+                dispatch(fetchWorkouts(userToken))
+            }
             setWorkoutList(workouts.map((workout, index) => {
                 const sets = workout.sets.map((set, index) => {
                     return(
@@ -30,6 +34,8 @@ const WorkoutsList = (props) => {
                         </Accordion>
                     )
                 })
+
+                //BASKET VERSION
                 if(props.basket){
                     return(
                         <Accordion key={index}>
@@ -46,6 +52,7 @@ const WorkoutsList = (props) => {
                         </Accordion>
                     )
                 }
+
                 return(
                     <Accordion key={index}>
                         <Accordion.Item key={index} eventKey={index}>
@@ -61,7 +68,7 @@ const WorkoutsList = (props) => {
             ))
         }
         fetchData()
-    }, [])
+    }, [workouts, dispatch])
 
     const addItemToBasket = (workout) => {
         dispatch(add(workout))

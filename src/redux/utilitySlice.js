@@ -14,10 +14,15 @@ export const utilitySlice = createSlice({
         },
         setProfile: (state, action) => {
             state.profile = action.payload
-        }
+        },
+        logout: (state) => {
+            state.loggedIn = false
+            state.user = {}
+            state.profile = {}
+        },
     }
 })
 
-export const { login, setProfile } = utilitySlice.actions
+export const { login, setProfile, logout } = utilitySlice.actions
 
 export default utilitySlice.reducer

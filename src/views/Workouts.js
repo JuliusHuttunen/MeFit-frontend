@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState, useEffect } from "react";
-import { getFromAPI } from '../components/API/Connection';
 import  Accordion from 'react-bootstrap/Accordion';
 import  Container  from 'react-bootstrap/Container';
 import WorkoutsList from '../components/programviews/WorkoutsList';
@@ -9,30 +8,23 @@ import { useSelector } from 'react-redux';
 const Workouts = () => {
 
     const [workoutList, setWorkoutList] = useState(<WorkoutsList/>)
-    const [workout, setWorkout] = useState([])
+    const workouts = useSelector((state) => state.db.workouts)
     const [types, setTypes] = useState([])
-    const typeArray = []
-    const userToken = useSelector((state) => state.utility.user.token)
 
-    //Generate workout filters based on types, set workouts
+    //Generate types
     useEffect(() => {
         const fetchData = async () => {
-            const [error, workouts] = await getFromAPI("workouts", userToken)
-            console.log("ERR:", error)
             for(let wo of workouts){
-                if(!typeArray.includes(wo.type)){
-                    typeArray.push(wo.type)
+                if(!types.includes(wo.type)){
+                    setTypes([...types, wo.type])
                 }
             }
-            setTypes(typeArray)
-            setWorkout(workouts)
         }
         fetchData()
-    }, [])
+    }, [workouts, types])
 
-    //Filter the list
     const filterList = (type) => {
-        setWorkoutList(workout.map((workout, index) => {
+        setWorkoutList(workouts.map((workout, index) => {
             const sets = workout.sets.map((set, index) => {
                 return(
                     <Accordion key={index}>
@@ -63,7 +55,6 @@ const Workouts = () => {
         ))
     }
 
-    //Create a filter component
     const filters = types.map((type, index) => {
         return(
             <div key={index} onClick={() => filterList(type)}><h5>{type}</h5></div>
@@ -74,7 +65,7 @@ const Workouts = () => {
     return (
         <div className='cardcontainer'>
             <h2>Workouts</h2>
-            {workout.length === 0 ? <p>No workouts found.</p> : 
+            {workouts.length === 0 || workouts === null ? <p>No workouts found.</p> : 
             <div className="filterwrapper">
                 <div onClick={() => filterList(null)} ><h5>All</h5></div>
                 {filters}

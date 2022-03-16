@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { getFromAPI } from '../API/Connection';
 import  Accordion from 'react-bootstrap/Accordion';
 import { addExercise } from '../../redux/basketSlice';
+import { fetchExercises } from '../../redux/databaseSlice'
 import  Button  from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -12,13 +12,17 @@ function ExercisesList(props){
 
     const dispatch = useDispatch()
     const userToken = useSelector((state) => state.utility.user.token)
+    const exercises = useSelector((state) => state.db.exercises)
 
     useEffect(() => {
         const fetchData = async () => {
-            const [error, exercises] = await getFromAPI("exercises", userToken)
-            console.log("ERR:", error)
+            if(exercises === null || exercises.length === 0){
+                dispatch(fetchExercises(userToken))
+            }
             setExerciseList(exercises.map((exercise, index) => {
                 const muscleGroupImage = "/assets/muscle/" + exercise.targetMuscleGroup.toLowerCase() + ".png"
+
+                //BASKET VERSION
                 if(props.basket){
                     return(
                         <Accordion key={index}>
@@ -33,6 +37,7 @@ function ExercisesList(props){
                         </Accordion>
                     )
                 }
+
                 return(
                     <Accordion key={index}>
                         <Accordion.Item key={index} eventKey={index}>
@@ -48,7 +53,7 @@ function ExercisesList(props){
             ))
         }
         fetchData()
-    }, [])
+    }, [exercises, dispatch])
 
     const addItemToBasket = (exercise) => {
         dispatch(addExercise(exercise))
