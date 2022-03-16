@@ -23,6 +23,12 @@
     font-size: large;
     margin-right: 1em;
     color: #EDF7F6;
+    transition: 1s;
+}
+
+.name:hover {
+    transform: scale(50%) rotate(720deg);
+    transition: 3s;
 }
 
 .hamburger:hover{
@@ -79,6 +85,18 @@
 .profilepicture i:hover {
     color: #C47335;
     transition: 0.5s;
+}
+
+.profilepicture img:hover {
+    transform: rotate(3600deg) scale(1000%);
+    margin-right: 10em;
+    margin-top: 10em;
+    filter: hue-rotate(360deg);
+    transition: 3s;
+}
+
+.profilepicture img {
+    transition: 1s;
 }
 
 .navtitle {

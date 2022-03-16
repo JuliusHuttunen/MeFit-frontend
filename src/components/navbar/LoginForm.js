@@ -56,7 +56,7 @@ const LoginForm = () => {
           <Button type="submit" variant="secondary">Login</Button>
         </Col>
         <Col sm="3" className="d-grid">
-          <Button variant="info">Register</Button>
+          <Button variant="info" onClick={() => navigate("register")}>Register</Button>
         </Col>
       </Row>
     </Form>

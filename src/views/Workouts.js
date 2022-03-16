@@ -65,7 +65,7 @@ const Workouts = () => {
     return (
         <div className='cardcontainer'>
             <h2>Workouts</h2>
-            {workouts.length === 0 || workouts === null ? <p>No workouts found.</p> : 
+            {workouts === null ? <p>No workouts found.</p> : 
             <div className="filterwrapper">
                 <div onClick={() => filterList(null)} ><h5>All</h5></div>
                 {filters}

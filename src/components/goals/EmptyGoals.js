@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { del, delExercise, delProgram } from '../../redux/basketSlice';
 import Button from 'react-bootstrap/Button';
 import { postGoalToAPI } from '../API/Connection';
+import CalendarComponent from '../calendar/CalendarComponent';
 
 function EmptyGoals() {
 
@@ -18,6 +19,7 @@ function EmptyGoals() {
     const goal = useSelector((state) => state.basket)
     const exercises = useSelector((state) => state.basket.exercises)
     const userToken = useSelector((state) => state.utility.user.token)
+    const profile = useSelector((state) => state.utility.profile)
     
     const dispatch = useDispatch()
 
@@ -34,8 +36,7 @@ function EmptyGoals() {
     })
 
     const setGoal = async () => {
-        console.log(goal)
-        const[error, response] = await postGoalToAPI(goal, userToken)
+        const[error, response] = await postGoalToAPI(goal, userToken, profile)
         console.log("ERR:", error)
         console.log("Response:", response)
     }
@@ -45,6 +46,7 @@ function EmptyGoals() {
             <Row className="m-5">
                 <Col>
                 <h2 style={{"padding": "10px"}}>Create a goal</h2>
+                <CalendarComponent></CalendarComponent>
                 <div className='accordiongrid'>
                         <Accordion>
                             <Accordion.Item eventKey='0'>
@@ -69,7 +71,7 @@ function EmptyGoals() {
                 <Col>
                 <div style={{"display":"flex", "alignItems":"center", "justifyContent":"center", "flexDirection":"column"}}>
                     <h2 style={{"padding": "10px"}}>Your goal draft</h2>
-                    <h5 style={{"fontStyle":"italic"}}>Current program: {currentProgram.name} </h5>
+                    <h5 style={{"fontStyle":"italic"}}>Current program: {currentProgram === null ? <>none</> : currentProgram.name} </h5>
                     <Button style={{"marginBottom":"10px"}} className="btn btn-warning" onClick={() => dispatch(delProgram())}>Revert</Button>
                         <h4>Workouts</h4>
                         <ul className='goalbasket'>

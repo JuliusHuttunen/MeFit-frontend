@@ -20,9 +20,32 @@ export async function getFromAPI(query, token) {
     }
 }
 
-export async function postGoalToAPI(item, token) {
+export async function postGoalToAPI(item, token, profile) {
 
     const url = 'https://fi-java-mefit-backend.herokuapp.com/api/v1/goals'
+
+
+    const jsonProfile = {"profileId": profile.profileId}
+    const jsonProgram = () => {
+        if (item.program !== null){
+            return {"programId": item.program.programId}
+        }
+        else return null
+    }
+    const jsonWorkouts = () => {
+        const workoutArray = []
+        for(let workout of item.workouts){
+            workoutArray.push({"workoutId": workout.workoutId})
+        }
+        return workoutArray
+    }
+    const jsonExercises = () => {
+        const exerciseArray = []
+        for(let exercise of item.exercises){
+            exerciseArray.push({"exerciseId": exercise.exerciseId})
+        }
+        return exerciseArray
+    }
 
     try {
         const config = {
@@ -33,13 +56,14 @@ export async function postGoalToAPI(item, token) {
             },
             body: JSON.stringify({
                     "endDate": item.endDate,
-                    "profile": item.profile,
+                    "profile": jsonProfile,
                     "achieved": item.achieved,
-                    "program": item.program,
-                    "workouts": item.workouts,
-                    "exercises": item.exercises,
+                    "program": jsonProgram(),
+                    "workouts": jsonWorkouts(),
+                    "exercises": jsonExercises(),
             }),
         }
+        console.log(config.body)
         const response = await fetch(`${url}`, config)
         const data = await response.json()
         return [null, data]

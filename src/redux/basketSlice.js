@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const today = new Date()
+
 export const basketSlice = createSlice({
     name: 'basket',
     initialState: {
-        profile: null,
-        endDate: null,
+        endDate: today,
         achieved: false,
-        program: {name: "none"},
+        program: null,
         workouts: [],
         exercises: []
     },
@@ -27,11 +28,14 @@ export const basketSlice = createSlice({
             state.exercises.splice(action.payload, 1)
         },
         delProgram: (state) => {
-            state.program = {name: "none"}
+            state.program = null
+        },
+        swapDate: (state, action) => {
+            state.endDate = action.payload
         }
     }
 })
 
-export const { del, add, swapProgram, addExercise, delExercise, delProgram } = basketSlice.actions
+export const { del, add, swapProgram, addExercise, delExercise, delProgram, swapDate } = basketSlice.actions
 
 export default basketSlice.reducer
