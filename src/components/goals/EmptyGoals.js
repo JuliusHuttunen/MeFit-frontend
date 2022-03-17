@@ -35,9 +35,9 @@ function EmptyGoals() {
         )
     })
 
-    const setGoal = () => {
-        dispatch(addGoal(goal))
-        dispatch(fetchProfile())
+    const setGoal = async() => {
+        await dispatch(addGoal(goal)).unwrap()
+        await dispatch(fetchProfile()).unwrap()
     }
 
     return (
