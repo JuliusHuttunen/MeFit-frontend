@@ -46,7 +46,7 @@ function EmptyGoals() {
             <Row className="m-5">
                 <Col>
                 <h2 style={{"padding": "10px"}}>Create a goal</h2>
-                <CalendarComponent></CalendarComponent>
+                <CalendarComponent basket={true}></CalendarComponent>
                 <div className='accordiongrid'>
                         <Accordion>
                             <Accordion.Item eventKey='0'>
