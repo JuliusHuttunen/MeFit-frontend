@@ -1,7 +1,6 @@
 import ProfileName from "./ProfileName";
 import ProfilePicture from "./ProfilePicture";
 import LoginForm from "./LoginForm";
-import { useSelector } from "react-redux";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
@@ -11,12 +10,31 @@ import "./navbar.css";
 import KeycloakService from "../../KeycloakService";
 import RenderOnRole from "../authentication/RenderOnRole"
 import LogoutButton from "./LogoutButton";
-import Authenticated from "../authentication/Authenticated"
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { fetchProfile, swapLoggedIn } from "../../redux/utilitySlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function MeFitNavbar() {
   const loggedIn = KeycloakService.isAuthenticated()
-  const [userRoles, setUserRoles] = useState(["contributor", "admin"])
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const navigateToDashboard = () => {
+    navigate("dashboard")
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      dispatch(swapLoggedIn())
+      dispatch(fetchProfile())
+    }
+    if(KeycloakService.isAuthenticated()) {
+      fetchData()
+      setTimeout(() => navigateToDashboard(), 500)
+    }
+  }, [])
 
   return (
     <Navbar bg="dark" variant="dark" expand={false}>

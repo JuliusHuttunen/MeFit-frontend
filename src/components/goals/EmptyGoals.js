@@ -9,9 +9,10 @@ import ExercisesList from '../programviews/ExercisesList';
 import { useDispatch, useSelector } from 'react-redux';
 import { del, delExercise, delProgram } from '../../redux/basketSlice';
 import Button from 'react-bootstrap/Button';
-import { getUserProfile, postGoalToAPI } from '../API/Connection';
 import CalendarComponent from '../calendar/CalendarComponent';
-import { setProfile } from '../../redux/utilitySlice';
+import { addGoal } from "../../redux/basketSlice"
+import { fetchProfile } from '../../redux/utilitySlice';
+import DisplayGoals from './DisplayGoals';
 
 function EmptyGoals() {
 
@@ -19,8 +20,6 @@ function EmptyGoals() {
     const currentProgram = useSelector((state) => state.basket.program)
     const goal = useSelector((state) => state.basket)
     const exercises = useSelector((state) => state.basket.exercises)
-    const userToken = useSelector((state) => state.utility.user.token)
-    const profile = useSelector((state) => state.utility.profile)
     
     const dispatch = useDispatch()
 
@@ -36,13 +35,9 @@ function EmptyGoals() {
         )
     })
 
-    const setGoal = async () => {
-        const[error, response] = await postGoalToAPI(goal)
-        console.log("ERR:", error)
-        console.log("Response:", response)
-        const[error1, response1] = await getUserProfile()
-        console.log(response1)
-        dispatch(setProfile(response1))       
+    const setGoal = () => {
+        dispatch(addGoal(goal))
+        dispatch(fetchProfile())
     }
 
     return (
@@ -85,7 +80,9 @@ function EmptyGoals() {
                         <ul className='goalbasket'>
                             {exercises.length === 0 ? <li style={{"width": "30em", "fontStyle":"italic", "textAlign":"center"}}>Exercises empty</li> : exerciseMap}
                         </ul>
-                        <Button className='btn btn-success' onClick={() => setGoal()}>Set goal</Button>                
+                        
+                        <Button className='btn btn-success' onClick={() => setGoal()}>Set goal</Button>
+                        <DisplayGoals></DisplayGoals>                
                     </div>
                 </Col>
             </Row>
