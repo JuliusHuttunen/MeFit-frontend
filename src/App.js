@@ -14,12 +14,11 @@ import Exercises from './views/Exercises';
 import Profile from './views/Profile';
 import Contributor from './views/Contributor';
 import Admin from './views/Admin';
-import Error from './views/Error';
+import Logout from './views/Logout';
 import Home from './views/Home';
 import Register from './views/Register';
 import Authenticated from './components/authentication/Authenticated'
 import NotAuthenticated from './components/authentication/NotAuthenticated'
-
 
 function App() {
   return (
@@ -27,24 +26,25 @@ function App() {
       <MeFitNavbar />
       <NotAuthenticated>
         <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="*" element={<Error />} />
+          <Route path="/" element={<Home />} />
+          <Route path="*" element={<Logout />} />
         </Routes>
       </NotAuthenticated>
       <Authenticated>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/profileForm" element={<ProfileForm />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/goals" element={<Goals />} />
-        <Route path="/programs" element={<Programs />} />
-        <Route path="/workouts" element={<Workouts />} />
-        <Route path="/exercises" element={<Exercises />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/contributor" element={<Contributor />} />
-        <Route path="/admin" element={<Admin />} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/profileForm" element={<ProfileForm />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/goals" element={<Goals />} />
+          <Route path="/programs" element={<Programs />} />
+          <Route path="/workouts" element={<Workouts />} />
+          <Route path="/exercises" element={<Exercises />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/contributor" element={<Contributor />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="*" element={<Logout />} />
+        </Routes>
       </Authenticated>
     </BrowserRouter>
   );
