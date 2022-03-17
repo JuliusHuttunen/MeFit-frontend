@@ -49,15 +49,12 @@ function MeFitNavbar() {
           </Offcanvas.Header>
           <Offcanvas.Body className="bg-dark">
             <Nav className="justify-content-end flex-grow-1 pe-3">
-              <Link className="nav-link text-white h5" to="/dashboard">
-                Dashboard
-              </Link>
+              <Link className="nav-link text-white h5" to="/dashboard">Dashboard</Link>
               <Link className="nav-link text-white h5" to="/goals">Goals</Link>
               <Link className="nav-link text-white h5" to="/programs">Programs</Link>
               <Link className="nav-link text-white h5" to="/workouts">Workouts</Link>
               <Link className="nav-link text-white h5" to="/exercises">Exercises</Link>
               <Link className="nav-link text-white h5" to="/profile">Profile</Link>
-              {/* RenderOnRole not working yet :((*/}
               <RenderOnRole roles={"contributor"}>
                 <Link className="nav-link text-white h5" to="/contributor">Contributor Tools</Link>
               </RenderOnRole>
@@ -69,18 +66,6 @@ function MeFitNavbar() {
         </Navbar.Offcanvas>
       </Container>
     </Navbar>
-
-    // <div className="navcontainer">
-    //     {loggedIn ? <NavigationMenu></NavigationMenu> : <div></div>}
-    //     <div className="navtitle"><h1>MeFit</h1></div>
-    //     {loggedIn ?
-    //     <div className="profilewrapper">
-    //         <ProfileName></ProfileName>
-    //         <ProfilePicture></ProfilePicture>
-    //     </div> :
-    //     <LoginForm />
-    //     }
-    // </div>
   );
 }
 

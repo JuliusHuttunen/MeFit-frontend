@@ -88,11 +88,8 @@
 }
 
 .profilepicture img:hover {
-    transform: rotate(3600deg) scale(1000%);
-    margin-right: 10em;
-    margin-top: 10em;
-    filter: hue-rotate(360deg);
-    transition: 3s;
+    transform: rotate(360deg);
+    transition: 1s;
 }
 
 .profilepicture img {

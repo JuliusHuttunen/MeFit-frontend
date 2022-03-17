@@ -4,7 +4,7 @@ import './calendar.css';
 import { useDispatch } from 'react-redux';
 import { swapDate } from '../../redux/basketSlice';
 
-const CalendarComponent = () => {
+const CalendarComponent = (props) => {
     
     const [value, onChange] = useState(new Date());
     const dispatch = useDispatch()
@@ -35,11 +35,11 @@ const CalendarComponent = () => {
         <div>
         <div style={{"display":"flex", "flexDirection":"column", "justifyContent":"center", "alignItems":"center"}}>
             <h3><DisplayWeek date={today}></DisplayWeek></h3>
-            <Calendar showNavigation={false} oneWeekCalendar={true} onChange={onChange} value={value} onClickDay={showDate}/>
+            <Calendar locale={"us-US"} showNavigation={false} oneWeekCalendar={true} onChange={onChange} value={value} onClickDay={showDate}/>
         </div>
-        <div>
+        <div style={{"padding":"1rem"}}>
             {/* <h4><ConvertDate date={today} text={""}/></h4> */}
-            <h4><ConvertDate date={value} text={"Goal end date:"}/></h4>
+            {props.basket ? <h4><ConvertDate date={value} text={"Goal end date:"}/></h4> : <></>}
         </div>
         </div>
            
