@@ -1,6 +1,9 @@
-export async function getFromAPI(query, token) {
+import KeycloakService from "../../KeycloakService"
+
+export async function getFromAPI(query) {
 
     const url = 'https://fi-java-mefit-backend.herokuapp.com/api/v1/' + query
+    const token = KeycloakService.getToken()
 
     try {
         const config = {
@@ -19,12 +22,13 @@ export async function getFromAPI(query, token) {
     }
 }
 
-export async function postGoalToAPI(item, token, profile) {
+export async function postGoalToAPI(item) {
 
     const url = 'https://fi-java-mefit-backend.herokuapp.com/api/v1/goals'
+    const token = KeycloakService.getToken()
 
 
-    const jsonProfile = {"profileId": profile.profileId}
+    const jsonProfile = {"profileId": KeycloakService.getId()}
     const jsonProgram = () => {
         if (item.program !== null){
             return {"programId": item.program.programId}
@@ -72,71 +76,22 @@ export async function postGoalToAPI(item, token, profile) {
     }
 }
 
-export async function postUserLogin(username, password) {
-
-    const url = 'https://fi-java-mefit-backend.herokuapp.com/login'
-
-    try {
-        const config = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                    "username": username,
-                    "password": password
-            }),
-        }
-        const response = await fetch(`${url}`, config)
-        const data = await response.json()
-        return [null, data]
-    }
-    catch (error) {
-        return [error.message, null]
-    }
-}
-
-export async function getUserProfile(user) {
-
-    const url = 'https://fi-java-mefit-backend.herokuapp.com/api/v1/profiles/' + user.profileId
+export async function getUserProfile() {
+    
+    const userId = KeycloakService.getId()
+    const token = KeycloakService.getToken()
+    const url = 'https://fi-java-mefit-backend.herokuapp.com/api/v1/profiles/' + userId
 
     try {
         const config = {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": "Bearer " + user.token,
+                "Authorization": "Bearer " + token,
             },
         }
         const response = await fetch(`${url}`, config)
         const data = await response.json()
-        return [null, data]
-    }
-    catch (error) {
-        return [error.message, null]
-    }
-}
-
-export async function postUserRegister(user) {
-
-    const url = 'https://fi-java-mefit-backend.herokuapp.com/register'
-
-    try {
-        const config = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                "firstName": user.firstname,
-                "lastName": user.lastname,
-                "email": user.email,
-                "username": user.username,
-                "password": user.pass
-            }),
-        }
-        const response = await fetch(`${url}`, config)
-        const data = await response.text()
         return [null, data]
     }
     catch (error) {

@@ -3,10 +3,10 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import { postUserLogin, getUserProfile } from "../API/Connection";
 import { useDispatch } from "react-redux";
 import { login, setProfile } from '../../redux/utilitySlice';
 import { useNavigate } from "react-router-dom";
+import KeycloakService from "../../KeycloakService";
 
 
 const LoginForm = () => {
@@ -14,7 +14,7 @@ const LoginForm = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const handleSubmit = async (event) => {
+  /* const handleSubmit = async (event) => {
     event.preventDefault()
     let { username, pass } = document.forms[0]
       
@@ -33,12 +33,12 @@ const LoginForm = () => {
         dispatch(setProfile(userProfile))
         navigate("Dashboard")}
     }
-  }
+  } */
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form>
       <Row>
-        <Col sm="3">
+        {/* <Col sm="3">
           <Form.Control
             type="text"
             placeholder="Username"
@@ -51,12 +51,9 @@ const LoginForm = () => {
             placeholder="Password"
             name="pass"
           ></Form.Control>
-        </Col>
+        </Col> */}
         <Col sm="3" className="d-grid">
-          <Button type="submit" variant="secondary">Login</Button>
-        </Col>
-        <Col sm="3" className="d-grid">
-          <Button variant="info" onClick={() => navigate("register")}>Register</Button>
+          <Button type="button" variant="secondary" onClick={KeycloakService.Login}>Login</Button>
         </Col>
       </Row>
     </Form>

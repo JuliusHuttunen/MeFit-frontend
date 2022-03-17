@@ -8,10 +8,15 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
 import "./navbar.css";
+import KeycloakService from "../../KeycloakService";
+import RenderOnRole from "../authentication/RenderOnRole"
+import LogoutButton from "./LogoutButton";
+import Authenticated from "../authentication/Authenticated"
+import { useEffect, useState } from "react";
 
 function MeFitNavbar() {
-  const loggedIn = useSelector((state) => state.utility.loggedIn);
-  const userRoles = useSelector((state) => state.utility.user.roles);
+  const loggedIn = KeycloakService.isAuthenticated()
+  const [userRoles, setUserRoles] = useState(["contributor", "admin"])
 
   return (
     <Navbar bg="dark" variant="dark" expand={false}>
@@ -28,6 +33,7 @@ function MeFitNavbar() {
           <div className="profilewrapper">
             <ProfileName></ProfileName>
             <ProfilePicture></ProfilePicture>
+            <LogoutButton></LogoutButton>
           </div>
         ) : (
           <LoginForm />
@@ -49,10 +55,12 @@ function MeFitNavbar() {
               <Link className="nav-link text-white h5" to="/workouts">Workouts</Link>
               <Link className="nav-link text-white h5" to="/exercises">Exercises</Link>
               <Link className="nav-link text-white h5" to="/profile">Profile</Link>
-
-              {/* {userRoles.includes("contributor") || userRoles.includes("admin") ? <Link className="nav-link text-white h5" to="/contributor">Contributor Tools</Link> : <></> }
-              {userRoles.includes("admin") ? <Link className="nav-link text-white h5" to="/admin">Admin Tools</Link> : <></>} */}
-
+              <RenderOnRole roles={"contributor"}>
+                <Link className="nav-link text-white h5" to="/contributor">Contributor Tools</Link>
+              </RenderOnRole>
+              <RenderOnRole roles={"admin"}>
+                <Link className="nav-link text-white h5" to="/admin">Admin Tools</Link>
+              </RenderOnRole>
             </Nav>
           </Offcanvas.Body>
         </Navbar.Offcanvas>
