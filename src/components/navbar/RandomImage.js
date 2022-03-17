@@ -7,13 +7,12 @@ function RandomImage() {
             seedArray.push(alphabet[Math.floor(Math.random() * 25)])
         }
         const seed = seedArray.join("")
-        console.log(seed)
         const image = "https://identicon-api.herokuapp.com/" + seed + "/50?format=png"
         return image
     }
 
     return (
-            <img src={randomImage()} alt=""></img>
+        <img src={randomImage()} alt=""></img>
     )
   }
   

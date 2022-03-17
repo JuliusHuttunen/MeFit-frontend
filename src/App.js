@@ -20,7 +20,6 @@ import Register from './views/Register';
 import Authenticated from './components/authentication/Authenticated'
 import NotAuthenticated from './components/authentication/NotAuthenticated'
 
-
 function App() {
   return (
     <BrowserRouter>

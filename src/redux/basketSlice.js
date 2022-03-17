@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { postGoalToAPI } from "../components/API/Connection"
 
 const today = new Date()
 
@@ -9,7 +10,8 @@ export const basketSlice = createSlice({
         achieved: false,
         program: null,
         workouts: [],
-        exercises: []
+        exercises: [],
+        goalStatus: ""
     },
     reducers: {
         add: (state, action) => {
@@ -33,9 +35,24 @@ export const basketSlice = createSlice({
         swapDate: (state, action) => {
             state.endDate = action.payload
         }
+    },
+    extraReducers(builder) {
+        builder
+          .addCase(addGoal.pending, (state) => {
+            state.goalStatus = 'loading'
+          })
+          .addCase(addGoal.fulfilled, (state) => {
+            state.goalStatus = 'succeeded'
+          })
     }
 })
 
 export const { del, add, swapProgram, addExercise, delExercise, delProgram, swapDate } = basketSlice.actions
+
+export const addGoal = createAsyncThunk('addGoal', async (goal) => {
+    const[error, response] = await postGoalToAPI(goal)
+    console.log("ERR", error)
+    console.log("RESP", response)
+})
 
 export default basketSlice.reducer

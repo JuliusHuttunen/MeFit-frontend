@@ -68,7 +68,7 @@ export async function postGoalToAPI(item) {
         }
         console.log(config.body)
         const response = await fetch(`${url}`, config)
-        const data = await response.json()
+        const data = await response.text()
         return [null, data]
     }
     catch (error) {

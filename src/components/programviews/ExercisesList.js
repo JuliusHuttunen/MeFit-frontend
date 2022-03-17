@@ -18,7 +18,7 @@ function ExercisesList(props){
     useEffect(() => {
         const fetchData = async () => {
             if(exercises === null || exercises.length === 0){
-                dispatch(fetchExercises(userToken))
+                dispatch(fetchExercises())
             }
             setExerciseList(exercises.map((exercise, index) => {
                 const muscleGroupImage = "/assets/muscle/" + exercise.targetMuscleGroup.toLowerCase() + ".png"

@@ -17,7 +17,7 @@ const ProgramsList = (props) => {
     useEffect(() => {
         const fetchData = async () => {
             if(programs === null || programs.length === 0){
-                dispatch(fetchPrograms(userToken))
+                dispatch(fetchPrograms())
             }
             setProgramList(programs.map((program, index) => {
                 const workouts = program.workouts.map((workout, index) => {
