@@ -8,9 +8,12 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
 import "./navbar.css";
+import KeycloakService from "../../KeycloakService";
+import RenderOnRole from "../authentication/RenderOnRole"
+import LogoutButton from "./LogoutButton";
 
 function MeFitNavbar() {
-  const loggedIn = useSelector((state) => state.utility.loggedIn);
+  const loggedIn = useSelector((state) => KeycloakService.isAuthenticated());
   const userRoles = useSelector((state) => state.utility.user.roles);
 
   return (
@@ -28,6 +31,7 @@ function MeFitNavbar() {
           <div className="profilewrapper">
             <ProfileName></ProfileName>
             <ProfilePicture></ProfilePicture>
+            <LogoutButton></LogoutButton>
           </div>
         ) : (
           <LoginForm />
@@ -52,17 +56,13 @@ function MeFitNavbar() {
               <Link className="nav-link text-white h5" to="/exercises">Exercises</Link>
               <Link className="nav-link text-white h5" to="/profile">Profile</Link>
 
-              {/* {userRoles.includes("contributor") ||
-              userRoles.includes("admin") ?  */}
+              {/* RenderOnRole not working yet :((*/}
+              <RenderOnRole roles={['contributor']}>
                 <Link className="nav-link text-white h5" to="/contributor">Contributor Tools</Link>
-               {/* : 
-                <li></li>
-              } */}
-              {/* {userRoles.includes("admin") ?  */}
+              </RenderOnRole>
+              <RenderOnRole roles={['admin']}>
                 <Link className="nav-link text-white h5" to="/admin">Admin Tools</Link>
-               {/* : 
-                <li></li>
-              } */}
+              </RenderOnRole>
             </Nav>
           </Offcanvas.Body>
         </Navbar.Offcanvas>

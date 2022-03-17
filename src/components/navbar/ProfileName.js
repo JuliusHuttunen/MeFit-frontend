@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux'
+import KeycloakService from '../../KeycloakService';
 
 function ProfileName() {
 
@@ -6,7 +7,7 @@ function ProfileName() {
 
     return (
       <div className="name">
-        <h2>You are logged in as {user.firstName} {user.lastName} </h2>
+        <h2>You are logged in as {KeycloakService.getFirstName()} {KeycloakService.getLastName()} </h2>
       </div>
     );
   }

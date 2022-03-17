@@ -1,0 +1,8 @@
+{
+    "realm": "mefit",
+    "auth-server-url": "https://fi-java-mefit-keycloak.herokuapp.com/auth/",
+    "ssl-required": "external",
+    "resource": "mefit-app",
+    "public-client": true,
+    "confidential-port": 0
+  }

@@ -6,8 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux'
 import store from './redux/store'
+import KeycloakService from './KeycloakService';
 
-ReactDOM.render(
+const renderer = () => ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
@@ -15,6 +16,8 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+
+KeycloakService.initKeycloak(renderer);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

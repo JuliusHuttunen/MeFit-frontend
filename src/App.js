@@ -17,27 +17,36 @@ import Admin from './views/Admin';
 import Error from './views/Error';
 import Home from './views/Home';
 import Register from './views/Register';
+import Authenticated from './components/authentication/Authenticated'
+import NotAuthenticated from './components/authentication/NotAuthenticated'
 
 
 function App() {
   return (
-      <BrowserRouter>
+    <BrowserRouter>
       <MeFitNavbar />
+      <NotAuthenticated>
         <Routes>
-          <Route path="/" element={<Home />}/>
-          <Route path="/register" element={<Register />}/>
-          <Route path="/profileForm" element={<ProfileForm />}/>
-          <Route path="/dashboard" element={<Dashboard />}/>
-          <Route path="/goals" element={<Goals />}/>
-          <Route path="/programs" element={<Programs />}/>
-          <Route path="/workouts" element={<Workouts />}/>
-          <Route path="/exercises" element={<Exercises />}/>
-          <Route path="/profile" element={<Profile />}/>
-          <Route path="/contributor" element={<Contributor />}/>
-          <Route path="/admin" element={<Admin />}/>
-          <Route path="*" element={<Error />}/>
+        <Route path="/" element={<Home />} />
         </Routes>
-      </BrowserRouter>
+      </NotAuthenticated>
+      <Authenticated>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/profileForm" element={<ProfileForm />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/goals" element={<Goals />} />
+        <Route path="/programs" element={<Programs />} />
+        <Route path="/workouts" element={<Workouts />} />
+        <Route path="/exercises" element={<Exercises />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/contributor" element={<Contributor />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="*" element={<Error />} />
+      </Routes>
+      </Authenticated>
+    </BrowserRouter>
   );
 }
 
