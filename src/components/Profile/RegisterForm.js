@@ -1,14 +1,9 @@
-import React from "react";
+/* import React from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import { login, setProfile } from "../../redux/utilitySlice";
-import {
-  getUserProfile,
-  postUserRegister,
-  postUserLogin,
-} from "../API/Connection";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -157,3 +152,4 @@ const RegisterForm = () => {
 };
 
 export default RegisterForm;
+ */

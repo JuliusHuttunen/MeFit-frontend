@@ -28,6 +28,7 @@ function App() {
       <NotAuthenticated>
         <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="*" element={<Error />} />
         </Routes>
       </NotAuthenticated>
       <Authenticated>
@@ -43,7 +44,6 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/contributor" element={<Contributor />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="*" element={<Error />} />
       </Routes>
       </Authenticated>
     </BrowserRouter>

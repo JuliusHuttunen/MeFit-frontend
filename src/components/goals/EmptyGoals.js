@@ -9,8 +9,9 @@ import ExercisesList from '../programviews/ExercisesList';
 import { useDispatch, useSelector } from 'react-redux';
 import { del, delExercise, delProgram } from '../../redux/basketSlice';
 import Button from 'react-bootstrap/Button';
-import { postGoalToAPI } from '../API/Connection';
+import { getUserProfile, postGoalToAPI } from '../API/Connection';
 import CalendarComponent from '../calendar/CalendarComponent';
+import { setProfile } from '../../redux/utilitySlice';
 
 function EmptyGoals() {
 
@@ -36,9 +37,12 @@ function EmptyGoals() {
     })
 
     const setGoal = async () => {
-        const[error, response] = await postGoalToAPI(goal, userToken, profile)
+        const[error, response] = await postGoalToAPI(goal)
         console.log("ERR:", error)
         console.log("Response:", response)
+        const[error1, response1] = await getUserProfile()
+        console.log(response1)
+        dispatch(setProfile(response1))       
     }
 
     return (

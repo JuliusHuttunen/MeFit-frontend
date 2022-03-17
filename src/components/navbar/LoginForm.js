@@ -3,7 +3,6 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import { postUserLogin, getUserProfile } from "../API/Connection";
 import { useDispatch } from "react-redux";
 import { login, setProfile } from '../../redux/utilitySlice';
 import { useNavigate } from "react-router-dom";
@@ -15,7 +14,7 @@ const LoginForm = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const handleSubmit = async (event) => {
+  /* const handleSubmit = async (event) => {
     event.preventDefault()
     let { username, pass } = document.forms[0]
       
@@ -34,10 +33,10 @@ const LoginForm = () => {
         dispatch(setProfile(userProfile))
         navigate("Dashboard")}
     }
-  }
+  } */
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form>
       <Row>
         {/* <Col sm="3">
           <Form.Control
@@ -56,9 +55,6 @@ const LoginForm = () => {
         <Col sm="3" className="d-grid">
           <Button type="button" variant="secondary" onClick={KeycloakService.Login}>Login</Button>
         </Col>
-        {/* <Col sm="3" className="d-grid">
-          <Button variant="info" onClick={() => navigate("register")}>Register</Button>
-        </Col> */}
       </Row>
     </Form>
   );

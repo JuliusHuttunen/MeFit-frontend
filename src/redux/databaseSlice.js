@@ -40,19 +40,19 @@ export const databaseSlice = createSlice({
 })
 
 export const fetchPrograms = createAsyncThunk('fetchPrograms', async (userToken) => {
-    const[error, programs] = await getFromAPI("programs", userToken)
+    const[error, programs] = await getFromAPI("programs")
     console.log("ERR", error)
     return programs
 })
 
 export const fetchWorkouts = createAsyncThunk('fetchWorkouts', async (userToken) => {
-    const[error, workouts] = await getFromAPI("workouts", userToken)
+    const[error, workouts] = await getFromAPI("workouts")
     console.log("ERR", error)
     return workouts
 })
 
 export const fetchExercises = createAsyncThunk('fetchExercises', async (userToken) => {
-    const[error, exercises] = await getFromAPI("exercises", userToken)
+    const[error, exercises] = await getFromAPI("exercises")
     console.log("ERR", error)
     return exercises
 })
