@@ -82,7 +82,7 @@ function EmptyGoals() {
                         </ul>
                         
                         <Button className='btn btn-success' onClick={() => setGoal()}>Set goal</Button>
-                        <DisplayGoals></DisplayGoals>                
+                        {/* <DisplayGoals></DisplayGoals> */}                
                     </div>
                 </Col>
             </Row>

@@ -8,7 +8,7 @@ const Dashboard = () => {
     return (
         <Container className='w-70 p-3'>
            <CalendarComponent></CalendarComponent>
-           <DisplayGoals></DisplayGoals>
+           {/* <DisplayGoals></DisplayGoals> */}
         </Container> 
     );
 };
