@@ -26,11 +26,6 @@
     transition: 1s;
 }
 
-.name:hover {
-    transform: scale(50%) rotate(720deg);
-    transition: 3s;
-}
-
 .hamburger:hover{
     background-color: #EDF7F6;
     transition: 0.5s;
@@ -88,8 +83,8 @@
 }
 
 .profilepicture img:hover {
-    transform: rotate(360deg);
-    transition: 1s;
+    transform: rotate(3600deg);
+    transition: 13s;
 }
 
 .profilepicture img {

@@ -11,7 +11,6 @@ const WorkoutsList = (props) => {
     const [workoutList, setWorkoutList] = useState(props.basket ? <div>Empty</div> : <div></div>)
 
     const dispatch = useDispatch()
-    const userToken = useSelector((state) => state.utility.user.token)
     const workouts = useSelector((state) => state.db.workouts)
     
 

@@ -11,7 +11,6 @@ const ProgramsList = (props) => {
     const [programList, setProgramList] = useState(props.basket ? <div>Empty</div> : <div></div>)
 
     const dispatch = useDispatch()
-    const userToken = useSelector((state) => state.utility.user.token)
     const programs = useSelector((state) => state.db.programs)
 
     useEffect(() => {

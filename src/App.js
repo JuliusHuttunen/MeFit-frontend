@@ -16,7 +16,6 @@ import Contributor from './views/Contributor';
 import Admin from './views/Admin';
 import Logout from './views/Logout';
 import Home from './views/Home';
-import Register from './views/Register';
 import Authenticated from './components/authentication/Authenticated'
 import NotAuthenticated from './components/authentication/NotAuthenticated'
 
@@ -33,7 +32,6 @@ function App() {
       <Authenticated>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
           <Route path="/profileForm" element={<ProfileForm />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/goals" element={<Goals />} />

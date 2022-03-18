@@ -19,7 +19,7 @@ const CalendarComponent = (props) => {
         const oneJan = new Date(props.date.getFullYear(),0,1)
         const numberOfDays = Math.floor((props.date - oneJan) / (24 * 60 * 60 * 1000));
         const week = Math.ceil(( props.date.getDay() + 1 + numberOfDays) / 7);
-        return (<div>Week {week}</div>)
+        return <div>Week {week}</div>
     }
 
     const today = new Date()

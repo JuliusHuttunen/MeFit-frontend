@@ -11,9 +11,10 @@ import KeycloakService from "../../KeycloakService";
 import RenderOnRole from "../authentication/RenderOnRole"
 import LogoutButton from "./LogoutButton";
 import { useEffect } from "react";
-import { fetchProfile, swapLoggedIn } from "../../redux/utilitySlice";
-import { useDispatch, useSelector } from "react-redux";
+import { fetchProfile } from "../../redux/utilitySlice";
+import { useDispatch} from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { fetchPrograms, fetchWorkouts, fetchExercises } from "../../redux/databaseSlice";
 
 function MeFitNavbar() {
   const loggedIn = KeycloakService.isAuthenticated()
@@ -28,6 +29,9 @@ function MeFitNavbar() {
   useEffect(() => {
     const fetchData = async () => {
       const profile = await dispatch(fetchProfile()).unwrap()
+      await dispatch(fetchExercises()).unwrap()
+      await dispatch(fetchPrograms()).unwrap()
+      await dispatch(fetchWorkouts()).unwrap()
       if(profile === null){
         console.log(profile)
         navigate("profileForm")

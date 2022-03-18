@@ -4,7 +4,6 @@ import { addExercise } from '../../redux/basketSlice';
 import { fetchExercises } from '../../redux/databaseSlice'
 import  Button  from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux'
-import KeycloakService from '../../KeycloakService';
 
 
 function ExercisesList(props){
@@ -12,7 +11,6 @@ function ExercisesList(props){
     const [exerciseList, setExerciseList] = useState(props.basket ? <div>Empty</div> : <div></div>)
 
     const dispatch = useDispatch()
-    const userToken = useSelector((state) => state.utility.user.token)
     const exercises = useSelector((state) => state.db.exercises)
 
     useEffect(() => {
