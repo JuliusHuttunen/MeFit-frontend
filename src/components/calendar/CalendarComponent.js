@@ -3,6 +3,7 @@ import Calendar from 'short-react-calendar';
 import './calendar.css';
 import { useDispatch } from 'react-redux';
 import { swapDate } from '../../redux/basketSlice';
+import ConvertDate from "./ConvertDate"
 
 const CalendarComponent = (props) => {
     
@@ -12,14 +13,6 @@ const CalendarComponent = (props) => {
     const showDate = (value, event) => {
         console.log(value)
         dispatch(swapDate(value.toISOString()))
-    }
-
-    const ConvertDate = (props) => {
-        const day = props.date.getDate()
-        const month = props.date.getMonth() + 1
-        const year = props.date.getFullYear()
-        const pre = props.text
-        return (<div>{pre} {day}.{month}.{year}</div>)
     }
 
     const DisplayWeek = (props) => {
@@ -33,16 +26,14 @@ const CalendarComponent = (props) => {
 
     return (
         <div>
-        <div style={{"display":"flex", "flexDirection":"column", "justifyContent":"center", "alignItems":"center"}}>
-            <h3><DisplayWeek date={today}></DisplayWeek></h3>
-            <Calendar locale={"us-US"} showNavigation={false} oneWeekCalendar={true} onChange={onChange} value={value} onClickDay={showDate}/>
-        </div>
-        <div style={{"padding":"1rem"}}>
-            {/* <h4><ConvertDate date={today} text={""}/></h4> */}
-            {props.basket ? <h4><ConvertDate date={value} text={"Goal end date:"}/></h4> : <></>}
-        </div>
-        </div>
-           
+            <div style={{"display":"flex", "flexDirection":"column", "justifyContent":"center", "alignItems":"center"}}>
+                <h3><DisplayWeek date={today}></DisplayWeek></h3>
+                <Calendar locale={"us-US"} showNavigation={false} oneWeekCalendar={true} onChange={onChange} value={value} onClickDay={showDate}/>
+            </div>
+            <div style={{"padding":"1rem"}}>
+                {props.basket ? <h4><ConvertDate date={value} text={"Goal end date:"}/></h4> : <h4><ConvertDate date={today} text={"Today is: "}/></h4> }
+            </div>
+        </div>   
     );
 };
 
