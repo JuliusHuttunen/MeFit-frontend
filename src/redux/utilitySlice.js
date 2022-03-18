@@ -42,6 +42,9 @@ export const { login, setProfile, logout, swapLoggedIn } = utilitySlice.actions
 
 export const fetchProfile = createAsyncThunk('fetchProfile', async () => {
     const[error, profile] = await getUserProfile()
+    if(profile === 404){
+        return null
+    }
     console.log("ERR", error)
     return profile
 })

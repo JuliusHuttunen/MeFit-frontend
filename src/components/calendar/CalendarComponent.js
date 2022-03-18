@@ -1,7 +1,7 @@
 import {React, useState} from 'react';
 import Calendar from 'short-react-calendar';
 import './calendar.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { swapDate } from '../../redux/basketSlice';
 import ConvertDate from "./ConvertDate"
 
@@ -9,9 +9,9 @@ const CalendarComponent = (props) => {
     
     const [value, onChange] = useState(new Date());
     const dispatch = useDispatch()
+    const date = useSelector((state) => state.basket.endDate)
 
-    const showDate = (value, event) => {
-        console.log(value)
+    const showDate = (value) => {
         dispatch(swapDate(value.toISOString()))
     }
 
@@ -28,7 +28,7 @@ const CalendarComponent = (props) => {
         <div>
             <div style={{"display":"flex", "flexDirection":"column", "justifyContent":"center", "alignItems":"center"}}>
                 <h3><DisplayWeek date={today}></DisplayWeek></h3>
-                <Calendar locale={"us-US"} showNavigation={false} oneWeekCalendar={true} onChange={onChange} value={value} onClickDay={showDate}/>
+                <Calendar locale={"us-US"} showNavigation={false} oneWeekCalendar={true} onChange={onChange} value={new Date(date)} onClickDay={showDate}/>
             </div>
             <div style={{"padding":"1rem"}}>
                 {props.basket ? <h4><ConvertDate date={value} text={"Goal end date:"}/></h4> : <h4><ConvertDate date={today} text={"Today is: "}/></h4> }

@@ -27,8 +27,12 @@ function MeFitNavbar() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(fetchProfile()).unwrap()
-      navigateToDashboard()
+      const profile = await dispatch(fetchProfile()).unwrap()
+      if(profile === null){
+        console.log(profile)
+        navigate("profileForm")
+      }
+      else navigateToDashboard()
     }
     if(KeycloakService.isAuthenticated()) {
       fetchData()
