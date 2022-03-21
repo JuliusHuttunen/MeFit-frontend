@@ -6,7 +6,8 @@ import Workout from '../templates/Workout';
 
 const WorkoutsList = (props) => {
 
-    const [workoutList, setWorkoutList] = useState(props.basket ? <div>Empty</div> : <div></div>)
+    const isBasket = props.basket
+    const [workoutList, setWorkoutList] = useState(<></>)
     const dispatch = useDispatch()
     const workouts = useSelector((state) => state.db.workouts)
 
@@ -16,17 +17,13 @@ const WorkoutsList = (props) => {
                 dispatch(fetchWorkouts().unwrap())
             }
             setWorkoutList(workouts.map((workout, index) => {
-                if(props.basket) return (
-                    <Workout key={index} workout={workout} index={index} basket={true}></Workout>
+                return (
+                    <Workout key={index} workout={workout} index={index} basket={isBasket ? true : false}></Workout>
                 )
-                return(
-                    <Workout key={index} workout={workout} index={index}></Workout>
-                )
-            }
-            ))
+            }))
         }
         fetchData()
-    }, [workouts, dispatch])
+    }, [workouts, dispatch, isBasket])
 
     
 

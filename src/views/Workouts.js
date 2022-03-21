@@ -30,7 +30,9 @@ const Workouts = () => {
                     <Workout key={index} workout={workout} index={index}></Workout>
                 )
             }
+            return <></>
         }
+        
         ))
     }
 

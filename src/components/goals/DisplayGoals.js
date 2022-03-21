@@ -12,7 +12,7 @@ import Program from '../templates/Program';
 const DisplayGoals = () => {
 
     const profile = useSelector((state) => state.utility.profile)
-    const [progress, setProgress] = useState()
+    const [progress, setProgress] = useState(100)
     const db = useSelector((state) => state.db)
     
 
@@ -27,7 +27,7 @@ const DisplayGoals = () => {
             return achieved / profile.goals.length * 100
         }
         setProgress(goalRatio())
-    },[progress])
+    },[progress, setProgress, profile])
 
     const splitUrl = (url) => {
         const split = url.split("/")
@@ -60,7 +60,7 @@ const DisplayGoals = () => {
         }
     }
 
-    const [goalsMap, setGoalsMap] = useState(profile.goals.map((goal, index) => {
+    const goalsMap = profile.goals.map((goal, index) => {
         let currentProgram = null
         if(goal.program !== null){
             currentProgram = getProgram(splitUrl(goal.program))
@@ -90,7 +90,7 @@ const DisplayGoals = () => {
                 </Accordion.Item>
             </Accordion>
         )
-    }))
+    })
 
 
     return (

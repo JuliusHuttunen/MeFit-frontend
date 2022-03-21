@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import  Accordion from 'react-bootstrap/Accordion';
-import  Container  from 'react-bootstrap/Container';
+import Container  from 'react-bootstrap/Container';
 import ExercisesList from '../components/programviews/ExercisesList';
 import { useSelector } from 'react-redux';
 import Exercise from '../components/templates/Exercise';
@@ -17,6 +16,7 @@ const Exercises = () => {
                     <Exercise key={index} exercise={exercise} index={index}></Exercise>
                 )
             }
+            return <></>
         }
         ))
     }
