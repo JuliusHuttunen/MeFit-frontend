@@ -99,6 +99,86 @@ export async function getUserProfile() {
     }
 }
 
+export async function postProfileToAPI(profile) {
+    const url = 'https://fi-java-mefit-backend.herokuapp.com/api/v1/profiles'
+    const token = KeycloakService.getToken()
+    const userId = KeycloakService.getId()
 
+    try {
+        const config = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token,
+            },
+            body: JSON.stringify({
+                    "profileId": userId,
+                    "weight": profile.weight,
+                    "height": profile.height,
+                    "fitnessLevel": profile.fitness_level,
+                    "medicalConditions": profile.medical_conditions,
+                    "disabilities": profile.disabilities,
+                    "address":{
+                        // "addressId": 
+                        "addressLine1": profile.address_line_1,
+                        "addressLine2": profile.address_line_2,
+                        "addressLine3": profile.address_line_3,
+                        "postalCode": profile.postal_code,
+                        "city": profile.city,
+                        "country": profile.country,
+                    },
+                    "goals": [],
+                    "workouts": [],
+                   
+            }),
+        }
+        console.log(config.body)
+        const response = await fetch(`${url}`, config)
+        const data = await response.text()
+        return [null, data]
+    }
+    catch (error) {
+        return [error.message, null]
+    }
+}
 
+export async function updateProfileToAPI(profile) {
+    const userId = KeycloakService.getId()
+    const token = KeycloakService.getToken()
+    const url = 'https://fi-java-mefit-backend.herokuapp.com/api/v1/profiles/' + userId
+    
+    try {
+        const config = {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token,
+            },
+            body: JSON.stringify({
+                    "weight": profile.weight,
+                    "height": profile.height,
+                    "fitnessLevel": profile.fitness_level,
+                    "medicalConditions": profile.medical_conditions,
+                    "disabilities": profile.disabilities,
+                    "address":{
+                        // "addressId": 
+                        "addressLine1": profile.address_line_1,
+                        "addressLine2": profile.address_line_2,
+                        "addressLine3": profile.address_line_3,
+                        "postalCode": profile.postal_code,
+                        "city": profile.city,
+                        "country": profile.country,
+                    },
+                   
+            }),
+        }
+        console.log(config.body)
+        const response = await fetch(`${url}`, config)
+        const data = await response.text()
+        return [null, data]
+    }
+    catch (error) {
+        return [error.message, null]
+    }
+}
 
