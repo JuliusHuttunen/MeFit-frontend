@@ -14,7 +14,7 @@ const Exercises = () => {
         setExerciseList(exercises.map((exercise, index) => {
             if(exercise.targetMuscleGroup === musclegroup || musclegroup === null){
                 return(
-                    <Exercise exercise={exercise} index={index}></Exercise>
+                    <Exercise key={index} exercise={exercise} index={index}></Exercise>
                 )
             }
         }

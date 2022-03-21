@@ -17,10 +17,10 @@ const ProgramsList = (props) => {
             }
             setProgramList(programs.map((program, index) => {
                 if(props.basket) return (
-                    <Program program={program} index={index} basket={true}></Program>
+                    <Program key={index} program={program} index={index} basket={true}></Program>
                 )
                 return(
-                    <Program program={program} index={index}></Program>
+                    <Program key={index} program={program} index={index}></Program>
                 )
             }
             ))

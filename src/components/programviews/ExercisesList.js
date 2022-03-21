@@ -17,10 +17,10 @@ function ExercisesList(props){
             }
             setExerciseList(exercises.map((exercise, index) => {
                 if(props.basket) return(    
-                    <Exercise exercise={exercise} index={index} basket={true}></Exercise>
+                    <Exercise key={index} exercise={exercise} index={index} basket={true}></Exercise>
                 )
                 return (
-                    <Exercise exercise={exercise} index={index}></Exercise>
+                    <Exercise key={index} exercise={exercise} index={index}></Exercise>
                 )
             }
             ))

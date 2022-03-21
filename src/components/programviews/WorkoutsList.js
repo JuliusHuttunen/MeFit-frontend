@@ -17,10 +17,10 @@ const WorkoutsList = (props) => {
             }
             setWorkoutList(workouts.map((workout, index) => {
                 if(props.basket) return (
-                    <Workout workout={workout} index={index} basket={true}></Workout>
+                    <Workout key={index} workout={workout} index={index} basket={true}></Workout>
                 )
                 return(
-                    <Workout workout={workout} index={index}></Workout>
+                    <Workout key={index} workout={workout} index={index}></Workout>
                 )
             }
             ))

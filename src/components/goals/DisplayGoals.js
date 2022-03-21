@@ -67,13 +67,13 @@ const DisplayGoals = () => {
         const workoutMap = goal.workouts.map((workout, index) => {
             const currentWorkout = getWorkout(splitUrl(workout))
             return(
-                <Workout workout={currentWorkout} index={index}></Workout>
+                <Workout key={index} workout={currentWorkout} index={index}></Workout>
             )
         })
         const exerciseMap = goal.exercises.map((exercise, index) => {
             const currentExercise = getExercise(splitUrl(exercise))
             return(
-                <Exercise exercise={currentExercise} index={index}></Exercise>
+                <Exercise key={index} exercise={currentExercise} index={index}></Exercise>
             )
         })
         return(

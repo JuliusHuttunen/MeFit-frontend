@@ -27,7 +27,7 @@ const Programs = () => {
         setProgramList(programs.map((program, index) => {
             if(program.category === category || category === null){
                 return(
-                   <Program program={program} index={index}></Program>
+                   <Program key={index} program={program} index={index}></Program>
                 )
             }
         }

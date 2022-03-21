@@ -27,7 +27,7 @@ const Workouts = () => {
         setWorkoutList(workouts.map((workout, index) => {
             if(workout.type === type || type === null) {
                 return(
-                    <Workout workout={workout} index={index}></Workout>
+                    <Workout key={index} workout={workout} index={index}></Workout>
                 )
             }
         }

@@ -15,7 +15,7 @@ const Program = (props) => {
 
     const workouts = props.program.workouts.map((workout, index) => {
         return(
-           <Workout workout={workout} index={index}></Workout>
+           <Workout key={index} workout={workout} index={index}></Workout>
         )
     })
 
