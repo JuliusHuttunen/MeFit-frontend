@@ -7,25 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 
-// Profile Form for new users
-// HTML + Bootstrap + YUP
-// (https://github.com/jquense/yup, https://react-hook-form.com/get-started, https://dev.to/franciscomendes10866/react-form-validation-with-react-hook-form-and-yup-4a98)
-//
-// Todo:
-//      Validation: OK
-//      Errors: OK
-//      A fitness level evaluation
-//      Submit
-
 const schema = yup.object({
-  first_name: yup
-    .string()
-    .max(20, "Maximum characters 20")
-    .required("First name is required"),
-  last_name: yup
-    .string()
-    .max(20, "Maximum characters 20")
-    .required("Last name is required"),
   address_line_1: yup
     .string()
     .max(100, "Maximum characters 100")
@@ -47,11 +29,6 @@ const schema = yup.object({
     .string()
     .max(10, "Maximum characters 10")
     .required("Postal code is required"),
-  email: yup
-    .string()
-    .email("Email address must be valid")
-    .max(100, "Maximum characters 100")
-    .required("Email is required"),
   height: yup
     .number()
     .typeError("Height must be given as a number")
@@ -68,7 +45,7 @@ const schema = yup.object({
   checkInformation: yup
     .boolean()
     .required("Please check filled information and mark box as checked"),
-  requestForContributor: yup.boolean(),
+ //requestForContributor: yup.boolean(),
 });
 
 const ProfileForm = () => {
@@ -87,38 +64,13 @@ const ProfileForm = () => {
 
   return (
     <>
-      <Container>
+      <Container className="p-3">
         <Form onSubmit={handleSubmit(onSubmit)} className="m-5">
           <h4>Welcome to MeFit!</h4>
           <p>
             Please fill out the form carefully and we will be able to create
             your MeFit-Profile.
           </p>
-          <Row className="mb-3 mt-5">
-            <h4 className="mb-4">Profile and Contact Information</h4>
-            <Col>
-              <Form.Group className="mb-3" controlId="firstName">
-                <Form.Label>First Name</Form.Label>
-                <Form.Control
-                  {...register("first_name")}
-                  type="text"
-                  placeholder="Enter first name"
-                ></Form.Control>
-                <p>{errors.first_name?.message}</p>
-              </Form.Group>
-            </Col>
-            <Col>
-              <Form.Group className="mb-3" controlId="lastName">
-                <Form.Label>Last Name</Form.Label>
-                <Form.Control
-                  {...register("last_name")}
-                  type="text"
-                  placeholder="Enter last name"
-                ></Form.Control>
-                <p>{errors.last_name?.message}</p>
-              </Form.Group>
-            </Col>
-          </Row>
           <Form.Group className="mb-3" controlId="address1">
             <Form.Label>Address</Form.Label>
             <Form.Control
@@ -189,17 +141,6 @@ const ProfileForm = () => {
                 <p>{errors.country?.message}</p>
               </Form.Group>
             </Col>
-            <Col>
-              <Form.Group className="mb-3" controlId="email">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control
-                  {...register("email")}
-                  type="email"
-                  placeholder="Enter email"
-                ></Form.Control>
-                <p>{errors.email?.message}</p>
-              </Form.Group>
-            </Col>
           </Row>
           <hr />
           <Row className="mb-3 mt-3">
@@ -263,7 +204,7 @@ const ProfileForm = () => {
               {...register("fitness_level")}
               inline
               type="radio"
-              label="Fair"
+              label="Poor"
               value={2}
             />
             <Form.Check
@@ -286,13 +227,11 @@ const ProfileForm = () => {
               type="radio"
               label="Excellent"
               value={5}
-            
             />
             <p>{errors.fitness_level?.message}</p>
           </Form.Group>
           <hr />
           <Row className="mb-5">
-            <h4 className="mb-4">Almost ready! Final checks and Submit</h4>
             <Col>
               <Form.Group className="mb-5 mt-3" controlId="checkInformation">
                 <Form.Check
@@ -304,7 +243,7 @@ const ProfileForm = () => {
                 <p>{errors.checkInformation?.message}</p>
               </Form.Group>
             </Col>
-            <Col>
+            {/* <Col>
               <Form.Group
                 className="mb-5 mt-3"
                 controlId="requestForContributor"
@@ -316,7 +255,7 @@ const ProfileForm = () => {
                 />
                 <p>{errors.requestForContributor?.message}</p>
               </Form.Group>
-            </Col>
+            </Col> */}
           </Row>
           <Row>
             <Button type="submit" variant="primary">
