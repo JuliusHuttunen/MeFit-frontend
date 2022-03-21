@@ -26,29 +26,15 @@ const Workout = (props) => {
         )
     })
 
-    //BASKET VERSION
-    if(props.basket) return(
-        <Accordion key={props.index}>
-            <Accordion.Item key={props.index} eventKey={props.index}>
-                <Accordion.Header><h6>{props.workout.name} </h6></Accordion.Header>
-                <Accordion.Body>
-                    <p>Type: {props.workout.type}</p>
-                    <div className="workoutsetsmall">
-                        {sets}
-                    </div>
-                    <Button onClick={() => addItemToBasket(props.workout)}>Add to draft</Button>
-                </Accordion.Body>
-            </Accordion.Item>
-        </Accordion>
-    )
-
     return(
         <Accordion key={props.index}>
             <Accordion.Item key={props.index} eventKey={props.index}>
                 <Accordion.Header><h4>{props.workout.name}</h4></Accordion.Header>
                 <Accordion.Body>
                     <h6>Type: </h6><p>{props.workout.type}</p>
-                    <h6>Sets: </h6><div className='workoutsetswrapper'>{sets}</div>
+                    <h6>Sets: </h6>
+                    <div className='workoutsetswrapper'>{sets}</div>
+                    {props.basket ? <Button onClick={() => addItemToBasket(props.workout)}>Add to draft</Button> : <></>}
                 </Accordion.Body>
             </Accordion.Item>
         </Accordion>

@@ -1,6 +1,4 @@
 import Keycloak from "keycloak-js";
-import { useDispatch } from "react-redux";
-import { fetchProfile } from "./redux/utilitySlice";
 
 const keycloak = new Keycloak('/keycloak.json');
 

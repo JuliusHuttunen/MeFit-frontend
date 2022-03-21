@@ -29,7 +29,8 @@ const Programs = () => {
                 return(
                    <Program key={index} program={program} index={index}></Program>
                 )
-            }
+            } 
+            return <></>
         }
         ))
     }

@@ -11,9 +11,12 @@ import Program from '../templates/Program';
 
 const DisplayGoals = () => {
 
-    const profile = useSelector((state) => state.utility.profile)
+
     const [progress, setProgress] = useState()
+    const [goalsMap, setGoalsMap] = useState(<></>)
     const db = useSelector((state) => state.db)
+    const profile = useSelector((state) => state.profile)
+    
 
     useEffect(() => {
         const goalRatio = () => {
@@ -25,8 +28,9 @@ const DisplayGoals = () => {
             }
             return achieved / profile.goals.length * 100
         }
+        setGoalsMap(goals())
         setProgress(goalRatio())
-    },[progress])
+    },[])
 
     const splitUrl = (url) => {
         const split = url.split("/")
@@ -59,37 +63,40 @@ const DisplayGoals = () => {
         }
     }
 
-    const goalsMap = profile.goals.map((goal, index) => {
-        let currentProgram = null
-        if(goal.program !== null){
-            currentProgram = getProgram(splitUrl(goal.program))
-        }
-        const workoutMap = goal.workouts.map((workout, index) => {
-            const currentWorkout = getWorkout(splitUrl(workout))
+    const goals = () => {
+        const profileGoals = profile.goals.map((goal, index) => {
+            let currentProgram = null
+            if(goal.program !== null){
+                currentProgram = getProgram(splitUrl(goal.program))
+            }
+            const workoutMap = goal.workouts.map((workout, index) => {
+                const currentWorkout = getWorkout(splitUrl(workout))
+                return(
+                    <Workout key={index} workout={currentWorkout} index={index}></Workout>
+                )
+            })
+            const exerciseMap = goal.exercises.map((exercise, index) => {
+                const currentExercise = getExercise(splitUrl(exercise))
+                return(
+                    <Exercise key={index} exercise={currentExercise} index={index}></Exercise>
+                )
+            })
             return(
-                <Workout key={index} workout={currentWorkout} index={index}></Workout>
+                <Accordion key={index}>
+                    <Accordion.Item key={index} eventKey={index}>
+                        <AccordionHeader><h4>Goal #{index + 1}</h4></AccordionHeader>
+                        <Accordion.Body>
+                            {goal.achieved ? <div></div> : <div key={index}><h3><ConvertDate text={"Goal end date: "} date={new Date(goal.endDate)}></ConvertDate></h3></div>}
+                            {currentProgram !== null ? <Program program={currentProgram} index={1}></Program> : <></>}
+                            {workoutMap}
+                            {exerciseMap}
+                        </Accordion.Body>
+                    </Accordion.Item>
+                </Accordion>
             )
         })
-        const exerciseMap = goal.exercises.map((exercise, index) => {
-            const currentExercise = getExercise(splitUrl(exercise))
-            return(
-                <Exercise key={index} exercise={currentExercise} index={index}></Exercise>
-            )
-        })
-        return(
-            <Accordion key={index}>
-                <Accordion.Item key={index} eventKey={index}>
-                    <AccordionHeader><h4>Goal #{index + 1}</h4></AccordionHeader>
-                    <Accordion.Body>
-                        {goal.achieved ? <div></div> : <div key={index}><h3><ConvertDate text={"Goal end date: "} date={new Date(goal.endDate)}></ConvertDate></h3></div>}
-                        {currentProgram !== null ? <Program program={currentProgram} index={1}></Program> : <></>}
-                        {workoutMap}
-                        {exerciseMap}
-                    </Accordion.Body>
-                </Accordion.Item>
-            </Accordion>
-        )
-    })
+        return profileGoals
+    }
 
     return (
         <Container>

@@ -75,3 +75,22 @@
     margin: 1rem;
     border-radius: 10px;
 }
+
+.goalbasketwrapper {
+    border: 1px solid lightgray;
+    padding: 2em;
+    border-radius: 10px;
+    width: 100%;
+    margin-bottom: 1em;
+    background-color: white;
+}
+
+.goalbasketcontainer {
+    border: 1px solid lightgray;
+    padding:1em;
+    border-radius: 10px;
+    width: 100%;
+    background-color: rgba(236, 234, 234, 0.39);
+    display: flex;
+    flex-direction: column;
+}

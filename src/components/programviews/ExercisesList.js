@@ -6,7 +6,8 @@ import Exercise from '../templates/Exercise';
 
 function ExercisesList(props){
 
-    const [exerciseList, setExerciseList] = useState(props.basket ? <div>Empty</div> : <div></div>)
+    const isBasket = props.basket
+    const [exerciseList, setExerciseList] = useState(<></>)
     const dispatch = useDispatch()
     const exercises = useSelector((state) => state.db.exercises)
 
@@ -16,17 +17,13 @@ function ExercisesList(props){
                 dispatch(fetchExercises().unwrap())
             }
             setExerciseList(exercises.map((exercise, index) => {
-                if(props.basket) return(    
-                    <Exercise key={index} exercise={exercise} index={index} basket={true}></Exercise>
-                )
-                return (
-                    <Exercise key={index} exercise={exercise} index={index}></Exercise>
-                )
-            }
-            ))
+                return (    
+                    <Exercise key={index} exercise={exercise} index={index} basket={isBasket ? true : false}></Exercise>
+                )   
+            }))
         }
         fetchData()
-    }, [exercises, dispatch])
+    }, [exercises, dispatch, isBasket])
 
     return (
             <div className='accordiongrid'>
