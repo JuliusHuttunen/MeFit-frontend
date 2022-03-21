@@ -1,6 +1,4 @@
 import Keycloak from "keycloak-js";
-import { useDispatch } from "react-redux";
-import { fetchProfile } from "./redux/utilitySlice";
 
 const keycloak = new Keycloak('/keycloak.json');
 
@@ -15,6 +13,7 @@ const initKeycloak = (renderApp) => {
 
 const Login = keycloak.login;
 const Logout = keycloak.logout;
+const AccountManagement = keycloak.accountManagement;
 const getToken = () => keycloak.token;
 const getId = () => keycloak.tokenParsed?.sub;
 const getUsername = () => keycloak.tokenParsed?.preferred_username;
@@ -30,6 +29,7 @@ const KeycloakService = {
     initKeycloak,
     Login,
     Logout,
+    AccountManagement,
     getToken,
     hasRole,
     getId,
