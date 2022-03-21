@@ -3,6 +3,7 @@ import  Accordion from 'react-bootstrap/Accordion';
 import  Container  from 'react-bootstrap/Container';
 import ExercisesList from '../components/programviews/ExercisesList';
 import { useSelector } from 'react-redux';
+import Exercise from '../components/templates/Exercise';
 
 const Exercises = () => {
 
@@ -11,18 +12,9 @@ const Exercises = () => {
 
     const filterList = (musclegroup) => {
         setExerciseList(exercises.map((exercise, index) => {
-            const muscleGroupImage = "/assets/muscle/" + exercise.targetMuscleGroup.toLowerCase() + ".png"
             if(exercise.targetMuscleGroup === musclegroup || musclegroup === null){
                 return(
-                    <Accordion key={index}>
-                        <Accordion.Item key={index} eventKey={index}>
-                            <Accordion.Header><h4>{exercise.name} <img src={muscleGroupImage} width={"30 px"} alt="muscle img" ></img></h4></Accordion.Header>
-                            <Accordion.Body>
-                                <h6>Description: </h6><p>{exercise.description}</p>
-                                <h6>Target muscle group: </h6><p>{exercise.targetMuscleGroup}</p>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
+                    <Exercise exercise={exercise} index={index}></Exercise>
                 )
             }
         }

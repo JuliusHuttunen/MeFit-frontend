@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState, useEffect } from "react";
-import  Accordion from 'react-bootstrap/Accordion';
 import  Container  from 'react-bootstrap/Container';
 import WorkoutsList from '../components/programviews/WorkoutsList';
 import { useSelector } from 'react-redux';
+import Workout from '../components/templates/Workout';
 
 const Workouts = () => {
 
@@ -13,43 +13,22 @@ const Workouts = () => {
 
     //Generate types
     useEffect(() => {
-        const fetchData = async () => {
+        const generateFilters = () => {
             for(let wo of workouts){
                 if(!types.includes(wo.type)){
                     setTypes([...types, wo.type])
                 }
             }
         }
-        fetchData()
+        generateFilters()
     }, [workouts, types])
 
     const filterList = (type) => {
         setWorkoutList(workouts.map((workout, index) => {
-            const sets = workout.sets.map((set, index) => {
+            if(workout.type === type || type === null) {
                 return(
-                    <Accordion key={index}>
-                        <Accordion.Item key={index} eventKey={index}>
-                            <Accordion.Header><h6>{set.exercise.name} x {set.exerciseRepetitions}</h6></Accordion.Header>
-                            <Accordion.Body>
-                                <p>Description: {set.exercise.description}</p>
-                                <p>Muscles: {set.exercise.targetMuscleGroup}</p>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
+                    <Workout workout={workout} index={index}></Workout>
                 )
-            })
-            if(workout.type === type || type === null){
-            return(
-                <Accordion key={index}>
-                    <Accordion.Item key={index} eventKey={index}>
-                        <Accordion.Header><h4>{workout.name}</h4></Accordion.Header>
-                        <Accordion.Body>
-                            <h6>Type: </h6><p>{workout.type}</p>
-                            <h6>Sets: </h6><div className='workoutsetswrapper'>{sets}</div>
-                        </Accordion.Body>
-                    </Accordion.Item>
-                </Accordion>
-            )
             }
         }
         ))
