@@ -10,17 +10,9 @@ import Container from "react-bootstrap/Container";
 import styles from "./ProfileInformation.module.css";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import { useSelector } from "react-redux";
-
+import KeycloakService from "../../KeycloakService";
 
 const schema = yup.object({
-  first_name: yup
-    .string()
-    .max(20, "Maximum characters 20")
-    .required("First name is required"),
-  last_name: yup
-    .string()
-    .max(20, "Maximum characters 20")
-    .required("Last name is required"),
   address_line_1: yup
     .string()
     .max(100, "Maximum characters 100")
@@ -42,11 +34,6 @@ const schema = yup.object({
     .string()
     .max(10, "Maximum characters 10")
     .required("Postal code is required"),
-  email: yup
-    .string()
-    .email("Email address must be valid")
-    .max(100, "Maximum characters 100")
-    .required("Email is required"),
   height: yup
     .number()
     .typeError("Height must be given as a number")
@@ -64,43 +51,27 @@ const schema = yup.object({
 });
 
 const ProfileInformation = () => {
-  const user = useSelector((state) => state.utility.user)
-  const profile = useSelector((state) => state.utility.profile)
-  
+  const profile = useSelector((state) => state.utility.profile);
+
   let [Person, setPerson] = useState({
-
-    first_name: "Mike",
-    last_name: "Iron",
-    address_line_1: "Power street",
-    address_line_2: "G 3",
-    address_line_3: "",
-    city: "Mikkeli",
-    country: "Suomi",
-    postal_code: "00220",
-    email: "mike@mass.com",
-    height: "160",
-    weight: "110",
-    fitness_level: "2",
-    medical_conditions: "super fit",
-    disabilities: "NO",
-
-    // first_name: user.firstName,
-    // last_name: user.lastName,
-    // address_line_1: profile.address.addressLine1,
-    // address_line_2: profile.address.addressLine2,
-    // address_line_3: profile.address.addressLine3,
-    // city: profile.address.city,
-    // country: profile.address.country,
-    // postal_code: profile.address.postalCode,
-    // email: user.email,
-    // height: profile.height,
-    // weight: profile.weight,
-    // medical_conditions: profile.medicalConditions,
-    // disabilities: profile.disabilities,
+    first_name: KeycloakService.getFirstName(),
+    last_name: KeycloakService.getLastName(),
+    address_line_1: profile.address.addressLine1,
+    address_line_2: profile.address.addressLine2,
+    address_line_3: profile.address.addressLine3,
+    city: profile.address.city,
+    country: profile.address.country,
+    postal_code: profile.address.postalCode,
+    email: KeycloakService.getEmail(),
+    height: profile.height,
+    weight: profile.weight,
+    fitness_level: "2", // profile.fitness_level,
+    medical_conditions: profile.medicalConditions,
+    disabilities: profile.disabilities,
 
     // requestForContributor
   });
-  
+
   const handleChange = (event) => {
     let value = event.target.value;
     let name = event.target.name;
@@ -125,22 +96,45 @@ const ProfileInformation = () => {
   };
 
   return (
-    <Container>
-      <Row className="m-5">
-        <Col className="col-4">
-          <h2>Profile photo</h2>
-          <h4>
-            {Person.first_name} {Person.last_name}
-          </h4>
-          <p>
-            {Person.address_line_1} {Person.address_line_2}
-            {Person.address_line_3}
-          </p>
-          <p>
-            {Person.city}, {Person.country}
-          </p>
+    <Container className="p-3">
+      <Row className="m-3">
+        <Col md={2}>
+          <Row>
+            <h4>
+              {Person.first_name} {Person.last_name}
+            </h4>
+          </Row>
+          <Row>
+            <p>{Person.email}</p>
+          </Row>
+          <Row className="mt-3">
+            <Button
+              onClick={() =>
+                window.open(
+                  "https://fi-java-mefit-keycloak.herokuapp.com/auth/realms/mefit/account/#/personal-info",
+                  "_blank"
+                )
+              }
+              variant="primary"
+            >
+              Edit User account
+            </Button>
+          </Row>
+          <Row className="mt-4 mb-4">
+            <Button
+              onClick={() =>
+                window.open(
+                  "https://fi-java-mefit-keycloak.herokuapp.com/auth/realms/mefit/account/#/security/signingin",
+                  "_blank"
+                )
+              }
+              variant="secondary"
+            >
+              Edit password
+            </Button>
+          </Row>
         </Col>
-        <Col className="col-8">
+        <Col md={{ span: 8, offset: 2 }}>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <h4>Profile</h4>
             <p>You can edit information and update</p>
@@ -149,48 +143,19 @@ const ProfileInformation = () => {
               <Col>
                 <Form.Group
                   className={styles.profileGroup}
-                  controlId="profile_firstName"
+                  controlId="profile_address1"
                 >
-                  <FloatingLabel>First Name</FloatingLabel>
+                  <FloatingLabel>Address</FloatingLabel>
                   <Form.Control
                     className={styles.profileInput}
-                    {...register("first_name")}
-                    value={Person.first_name}
+                    {...register("address_line_1")}
+                    value={Person.address_line_1}
                     type="text"
                     onChange={handleChange}
                   ></Form.Control>
-                  <p>{errors.first_name?.message}</p>
+                  <p>{errors.address_line_1?.message}</p>
                 </Form.Group>
               </Col>
-              <Col>
-                <Form.Group
-                  className={styles.profileGroup}
-                  controlId="profile_lastName"
-                >
-                  <FloatingLabel>Last Name</FloatingLabel>
-                  <Form.Control
-                    className={styles.profileInput}
-                    {...register("last_name")}
-                    value={Person.last_name}
-                    type="text"
-                    onChange={handleChange}
-                  ></Form.Control>
-                  <p>{errors.last_name?.message}</p>
-                </Form.Group>
-              </Col>
-            </Row>
-            <Form.Group className={styles.profileGroup} controlId="profile_address1">
-              <FloatingLabel>Address</FloatingLabel>
-              <Form.Control
-                className={styles.profileInput}
-                {...register("address_line_1")}
-                value={Person.address_line_1}
-                type="text"
-                onChange={handleChange}
-              ></Form.Control>
-              <p>{errors.address_line_1?.message}</p>
-            </Form.Group>
-            <Row>
               <Col>
                 <Form.Group
                   className={styles.profileGroup}
@@ -207,6 +172,8 @@ const ProfileInformation = () => {
                   <p>{errors.address_line_2?.message}</p>
                 </Form.Group>
               </Col>
+            </Row>
+            <Row>
               <Col>
                 <Form.Group
                   className={styles.profileGroup}
@@ -223,8 +190,6 @@ const ProfileInformation = () => {
                   <p>{errors.address_line_3?.message}</p>
                 </Form.Group>
               </Col>
-            </Row>
-            <Row>
               <Col>
                 <Form.Group
                   className={styles.profileGroup}
@@ -241,8 +206,13 @@ const ProfileInformation = () => {
                   <p>{errors.postal_code?.message}</p>
                 </Form.Group>
               </Col>
+            </Row>
+            <Row>
               <Col>
-                <Form.Group className={styles.profileGroup} controlId="profile_city">
+                <Form.Group
+                  className={styles.profileGroup}
+                  controlId="profile_city"
+                >
                   <FloatingLabel>City</FloatingLabel>
                   <Form.Control
                     className={styles.profileInput}
@@ -254,10 +224,11 @@ const ProfileInformation = () => {
                   <p>{errors.city?.message}</p>
                 </Form.Group>
               </Col>
-            </Row>
-            <Row>
               <Col>
-                <Form.Group className={styles.profileGroup} controlId="profile_country">
+                <Form.Group
+                  className={styles.profileGroup}
+                  controlId="profile_country"
+                >
                   <FloatingLabel>Country</FloatingLabel>
                   <Form.Control
                     className={styles.profileInput}
@@ -269,25 +240,15 @@ const ProfileInformation = () => {
                   <p>{errors.country?.message}</p>
                 </Form.Group>
               </Col>
-              <Col>
-                <Form.Group className={styles.profileGroup} controlId="profile_email">
-                  <FloatingLabel>Email address</FloatingLabel>
-                  <Form.Control
-                    className={styles.profileInput}
-                    {...register("email")}
-                    value={Person.email}
-                    type="email"
-                    onChange={handleChange}
-                  ></Form.Control>
-                  <p>{errors.email?.message}</p>
-                </Form.Group>
-              </Col>
             </Row>
             <hr />
             <Row>
-              <h4>Medical and Physical Information</h4>
+              <h5>Medical and Physical Information</h5>
               <Col>
-                <Form.Group className={styles.profileGroup} controlId="profile_height">
+                <Form.Group
+                  className={styles.profileGroup}
+                  controlId="profile_height"
+                >
                   <FloatingLabel>Height in cm</FloatingLabel>
                   <Form.Control
                     className={styles.profileInput}
@@ -300,7 +261,10 @@ const ProfileInformation = () => {
                 </Form.Group>
               </Col>
               <Col>
-                <Form.Group className={styles.profileGroup} controlId="profile_weight">
+                <Form.Group
+                  className={styles.profileGroup}
+                  controlId="profile_weight"
+                >
                   <FloatingLabel>Weight in kg</FloatingLabel>
                   <Form.Control
                     className={styles.profileInput}
@@ -343,29 +307,32 @@ const ProfileInformation = () => {
             </Form.Group>
             <hr />
             <h4>Fitness Level</h4>
-            <Form.Group controlId="profile_fitness_level" >
-              <Form.Select className={styles.profileInput} {...register("fitness_level")} value={Person.fitness_level} onChange={handleChange}>
+            <Form.Group controlId="profile_fitness_level">
+              <Form.Select
+                className={styles.profileInput}
+                {...register("fitness_level")}
+                value={Person.fitness_level}
+                onChange={handleChange}
+              >
                 <option value={1}>Very Poor</option>
-                <option value={2}>Fair</option>
+                <option value={2}>Poor</option>
                 <option value={3}>Average</option>
                 <option value={4}>Good</option>
                 <option value={5}>Excellent</option>
               </Form.Select>
-
-            <p>{errors.fitness_level?.message}</p>
+              <p>{errors.fitness_level?.message}</p>
             </Form.Group>
-
-            <hr />
+            {/* <hr />
             <Row>
               <Form.Group controlId="profile_requestForContributor">
                 <Form.Check
                   {...register("requestForContributor")}
                   type="checkbox"
-                  label="I request Contributor status" 
+                  label="I request Contributor status"
                 />
                 <p>{errors.requestForContributor?.message}</p>
               </Form.Group>
-            </Row>
+            </Row> */}
             <hr />
             <Row>
               <Button type="submit" variant="primary">
