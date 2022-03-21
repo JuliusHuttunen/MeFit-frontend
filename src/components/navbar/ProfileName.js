@@ -1,9 +1,6 @@
-import { useSelector } from 'react-redux'
 import KeycloakService from '../../KeycloakService';
 
 function ProfileName() {
-
-    const user = useSelector((state) => state.utility.user);
 
     return (
       <div className="name">

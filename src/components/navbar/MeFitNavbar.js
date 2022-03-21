@@ -11,10 +11,10 @@ import KeycloakService from "../../KeycloakService";
 import RenderOnRole from "../authentication/RenderOnRole"
 import LogoutButton from "./LogoutButton";
 import { useEffect } from "react";
-import { fetchProfile } from "../../redux/utilitySlice";
 import { useDispatch} from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchPrograms, fetchWorkouts, fetchExercises } from "../../redux/databaseSlice";
+import { fetchProfile } from "../../redux/profileSlice"
 
 function MeFitNavbar() {
   const loggedIn = KeycloakService.isAuthenticated()

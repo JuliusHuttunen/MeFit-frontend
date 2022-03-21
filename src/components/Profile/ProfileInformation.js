@@ -51,7 +51,7 @@ const schema = yup.object({
 });
 
 const ProfileInformation = () => {
-  const profile = useSelector((state) => state.utility.profile);
+  const profile = useSelector((state) => state.profile);
 
   let [Person, setPerson] = useState({
     first_name: KeycloakService.getFirstName(),

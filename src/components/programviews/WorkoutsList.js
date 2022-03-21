@@ -28,8 +28,6 @@ const WorkoutsList = (props) => {
         fetchData()
     }, [workouts, dispatch])
 
-    
-
     return (
         <div className='accordiongrid'>
             {workoutList}

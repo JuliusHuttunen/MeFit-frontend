@@ -19,18 +19,6 @@ const Program = (props) => {
         )
     })
 
-    if(props.basket) return (
-        <Accordion key={props.index}>
-            <Accordion.Item key={props.index} eventKey={props.index}>
-                <Accordion.Header><h6>{props.program.name} </h6></Accordion.Header>
-                <Accordion.Body>
-                    <h6>Category: </h6><p>{props.program.category}</p>
-                    <Button onClick={() => swap(props.program)}>Add to draft</Button>
-                </Accordion.Body>
-            </Accordion.Item>
-        </Accordion>
-    )
-
     return(
         <Accordion key={props.index}>
             <Accordion.Item key={props.index} eventKey={props.index}>
@@ -38,6 +26,7 @@ const Program = (props) => {
                 <Accordion.Body>
                     <h6>Category: </h6><p>{props.program.category}</p>
                     <h6>Workouts: </h6>{workouts}
+                    {props.basket ? <Button onClick={() => swap(props.program)}>Add to draft</Button> : <></>}
                 </Accordion.Body>
             </Accordion.Item>
         </Accordion>

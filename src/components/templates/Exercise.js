@@ -13,19 +13,6 @@ const Exercise = (props) => {
     const addItemToBasket = (exercise) => {
         dispatch(addExercise(exercise))
     }
-
-    if (props.basket) return (
-        <Accordion key={props.index}>
-            <Accordion.Item key={props.index} eventKey={props.index}>
-                <Accordion.Header><h6>{props.exercise.name} <img src={muscleGroupImage} width={"20 px"} alt="muscle img" ></img></h6></Accordion.Header>
-                <Accordion.Body>
-                    <p>Description: {props.exercise.description}</p>
-                    <p>Target muscle group: {props.exercise.targetMuscleGroup}</p>
-                    <Button onClick={() => addItemToBasket(props.exercise)}>Add to draft</Button>
-                </Accordion.Body>
-            </Accordion.Item>
-        </Accordion>
-    )
     
     return (
         <Accordion key={props.index}>
@@ -34,6 +21,7 @@ const Exercise = (props) => {
                 <Accordion.Body>
                     <h6>Description: </h6><p>{props.exercise.description}</p>
                     <h6>Target muscle group: </h6><p>{props.exercise.targetMuscleGroup}</p>
+                    {props.basket ? <Button onClick={() => addItemToBasket(props.exercise)}>Add to draft</Button>: <></>}
                 </Accordion.Body>
             </Accordion.Item>
         </Accordion>

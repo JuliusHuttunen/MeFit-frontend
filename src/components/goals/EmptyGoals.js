@@ -11,7 +11,7 @@ import { del, delExercise, delProgram } from '../../redux/basketSlice';
 import Button from 'react-bootstrap/Button';
 import CalendarComponent from '../calendar/CalendarComponent';
 import { addGoal } from "../../redux/basketSlice"
-import { fetchProfile } from '../../redux/utilitySlice';
+import { fetchProfile } from "../../redux/profileSlice"
 
 function EmptyGoals() {
 
@@ -19,7 +19,6 @@ function EmptyGoals() {
     const currentProgram = useSelector((state) => state.basket.program)
     const goal = useSelector((state) => state.basket)
     const exercises = useSelector((state) => state.basket.exercises)
-    
     const dispatch = useDispatch()
 
     const basketMap = basket.map((item, index) => {
