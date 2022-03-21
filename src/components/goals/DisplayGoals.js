@@ -5,6 +5,9 @@ import AccordionHeader from 'react-bootstrap/esm/AccordionHeader';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { useSelector } from 'react-redux';
 import ConvertDate from '../calendar/ConvertDate';
+import Exercise from '../templates/Exercise';
+import Workout from '../templates/Workout';
+import Program from '../templates/Program';
 
 const DisplayGoals = () => {
 
@@ -30,6 +33,7 @@ const DisplayGoals = () => {
         const finalIndex = split[split.length - 1]
         return finalIndex
     }
+
 
     const getWorkout = (index) => {
         for(let workout of db.workouts){
@@ -63,29 +67,13 @@ const DisplayGoals = () => {
         const workoutMap = goal.workouts.map((workout, index) => {
             const currentWorkout = getWorkout(splitUrl(workout))
             return(
-                <Accordion key={index}>
-                    <Accordion.Item key={index} eventKey={index}>
-                        <Accordion.Header>{currentWorkout.name}</Accordion.Header>
-                        <Accordion.Body>
-                            <p>Type: {currentWorkout.type}</p>
-                            <p>{currentWorkout.completed ? <>Completed</> : <>Not complete</>}</p>
-                        </Accordion.Body>
-                    </Accordion.Item>
-                </Accordion>
+                <Workout key={index} workout={currentWorkout} index={index}></Workout>
             )
         })
         const exerciseMap = goal.exercises.map((exercise, index) => {
             const currentExercise = getExercise(splitUrl(exercise))
             return(
-                <Accordion key={index}>
-                    <Accordion.Item key={index} eventKey={index}>
-                        <Accordion.Header>{currentExercise.name}</Accordion.Header>
-                        <Accordion.Body>
-                            <p>Muscle group: {currentExercise.targetMuscleGroup}</p>
-                            <p>Description: {currentExercise.description}</p>
-                        </Accordion.Body>
-                    </Accordion.Item>
-                </Accordion>
+                <Exercise key={index} exercise={currentExercise} index={index}></Exercise>
             )
         })
         return(
@@ -93,8 +81,8 @@ const DisplayGoals = () => {
                 <Accordion.Item key={index} eventKey={index}>
                     <AccordionHeader><h4>Goal #{index + 1}</h4></AccordionHeader>
                     <Accordion.Body>
-                        {goal.achieved ? <div></div> : <div key={index}><h6><ConvertDate text={"Goal end date: "} date={new Date(goal.endDate)}></ConvertDate></h6></div>}
-                        {currentProgram !== null ? <h6>Program: {currentProgram.name}</h6> : <></>}
+                        {goal.achieved ? <div></div> : <div key={index}><h3><ConvertDate text={"Goal end date: "} date={new Date(goal.endDate)}></ConvertDate></h3></div>}
+                        {currentProgram !== null ? <Program program={currentProgram} index={1}></Program> : <></>}
                         {workoutMap}
                         {exerciseMap}
                     </Accordion.Body>
@@ -104,15 +92,13 @@ const DisplayGoals = () => {
     })
 
     return (
-        <div>
         <Container>
-        <h6>Your goal progress this week</h6>
-        <ProgressBar style={{"height":"2em","width":"100%"}}now={progress} label={`${progress}%`}/>
-        {goalsMap}
-        </Container>
-        
-        </div>
-        
+            <h6>Your goal progress this week</h6>
+            <ProgressBar style={{"height":"2em","width":"100%"}}now={progress} label={`${progress}%`}/>
+            <div style={{"paddingTop":"1em"}}className='accordiongrid'>
+                {goalsMap}
+            </div>
+        </Container> 
     );
 };
 
