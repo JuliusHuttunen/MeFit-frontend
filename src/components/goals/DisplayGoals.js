@@ -14,6 +14,7 @@ const DisplayGoals = () => {
     const profile = useSelector((state) => state.utility.profile)
     const [progress, setProgress] = useState()
     const db = useSelector((state) => state.db)
+    
 
     useEffect(() => {
         const goalRatio = () => {
@@ -59,7 +60,7 @@ const DisplayGoals = () => {
         }
     }
 
-    const goalsMap = profile.goals.map((goal, index) => {
+    const [goalsMap, setGoalsMap] = useState(profile.goals.map((goal, index) => {
         let currentProgram = null
         if(goal.program !== null){
             currentProgram = getProgram(splitUrl(goal.program))
@@ -89,7 +90,8 @@ const DisplayGoals = () => {
                 </Accordion.Item>
             </Accordion>
         )
-    })
+    }))
+
 
     return (
         <Container>

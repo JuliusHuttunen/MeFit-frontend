@@ -12,7 +12,6 @@ import Button from 'react-bootstrap/Button';
 import CalendarComponent from '../calendar/CalendarComponent';
 import { addGoal } from "../../redux/basketSlice"
 import { fetchProfile } from '../../redux/utilitySlice';
-import DisplayGoals from './DisplayGoals';
 
 function EmptyGoals() {
 
@@ -41,12 +40,13 @@ function EmptyGoals() {
     }
 
     return (
-        <Container>
+        <Container className='w-70 p-3'>
             <Row className="m-5">
                 <Col>
-                <h2 style={{"padding": "10px"}}>Create a goal</h2>
-                <CalendarComponent basket={true}></CalendarComponent>
-                <div className='accordiongrid'>
+                <div className='goalbasketcontainer'>
+                    <h2 style={{"padding": "10px"}}>Create a goal</h2>
+                    <CalendarComponent basket={true}></CalendarComponent>
+                    <div className='accordiongrid'>
                         <Accordion>
                             <Accordion.Item eventKey='0'>
                                 <Accordion.Header><h4>Programs</h4></Accordion.Header>
@@ -66,23 +66,28 @@ function EmptyGoals() {
                             </Accordion.Item>
                         </Accordion>
                     </div>
+                    </div>
                 </Col>
                 <Col>
-                <div style={{"display":"flex", "alignItems":"center", "justifyContent":"center", "flexDirection":"column"}}>
-                    <h2 style={{"padding": "10px"}}>Your goal draft</h2>
-                    <h5 style={{"fontStyle":"italic"}}>Current program: {currentProgram === null ? <>none</> : currentProgram.name} </h5>
-                    <Button style={{"marginBottom":"10px"}} className="btn btn-warning" onClick={() => dispatch(delProgram())}>Revert</Button>
-                        <h4>Workouts</h4>
-                        <ul className='goalbasket'>
-                            {basket.length === 0 ? <li style={{"width": "30em", "fontStyle":"italic", "textAlign":"center"}}>Workouts empty</li> : basketMap}
-                        </ul>
-                        <h4>Exercises</h4>
-                        <ul className='goalbasket'>
-                            {exercises.length === 0 ? <li style={{"width": "30em", "fontStyle":"italic", "textAlign":"center"}}>Exercises empty</li> : exerciseMap}
-                        </ul>
-                        
-                        <Button className='btn btn-success' onClick={() => setGoal()}>Set goal</Button>
-                        {/* <DisplayGoals></DisplayGoals> */}                
+                    <div className='goalbasketcontainer'>
+                        <h2 style={{"padding": "10px", "alignSelf":"flex-start"}}>Your goal draft</h2>
+                        <div className='goalbasketwrapper'>
+                            <h5 style={{"fontStyle":"italic", "padding":"10px"}}>Current program: {currentProgram === null ? <>none</> : currentProgram.name} </h5>
+                            <Button style={{"marginBottom":"10px"}} className="btn btn-warning" onClick={() => dispatch(delProgram())}>Revert</Button>
+                        </div>
+                        <div className='goalbasketwrapper'>
+                            <h4 style={{"alignSelf":"flex-start"}}>Workouts</h4>
+                            <ul className='goalbasket'>
+                                {basket.length === 0 ? <li style={{"width": "30em", "fontStyle":"italic", "textAlign":"center"}}>Workouts empty</li> : basketMap}
+                            </ul>
+                        </div>
+                        <div className='goalbasketwrapper'>
+                            <h4 style={{"alignSelf":"flex-start"}}>Exercises</h4>
+                            <ul className='goalbasket'>
+                                {exercises.length === 0 ? <li style={{"width": "30em", "fontStyle":"italic", "textAlign":"center"}}>Exercises empty</li> : exerciseMap}
+                            </ul>
+                        </div>
+                        <Button className='btn btn-success' onClick={() => setGoal()}>Set goal</Button>             
                     </div>
                 </Col>
             </Row>

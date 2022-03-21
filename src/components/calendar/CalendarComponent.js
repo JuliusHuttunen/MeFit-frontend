@@ -4,12 +4,14 @@ import './calendar.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { swapDate } from '../../redux/basketSlice';
 import ConvertDate from "./ConvertDate"
+import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom'
 
 const CalendarComponent = (props) => {
     
-    const [value, onChange] = useState(new Date());
+    const [value, onChange] = useState(new Date(useSelector((state) => state.basket.endDate)));
     const dispatch = useDispatch()
-    const date = useSelector((state) => state.basket.endDate)
+    const navigate = useNavigate()
 
     const showDate = (value) => {
         dispatch(swapDate(value.toISOString()))
@@ -28,10 +30,11 @@ const CalendarComponent = (props) => {
         <div>
             <div style={{"display":"flex", "flexDirection":"column", "justifyContent":"center", "alignItems":"center"}}>
                 <h3><DisplayWeek date={today}></DisplayWeek></h3>
-                <Calendar locale={"us-US"} showNavigation={false} oneWeekCalendar={true} onChange={onChange} value={new Date(date)} onClickDay={showDate}/>
+                <Calendar locale={"us-US"} showNavigation={false} oneWeekCalendar={true} onChange={onChange} value={value} onClickDay={showDate}/>
             </div>
             <div style={{"padding":"1rem"}}>
-                {props.basket ? <h4><ConvertDate date={value} text={"Goal end date:"}/></h4> : <h4><ConvertDate date={today} text={"Today is: "}/></h4> }
+                {props.basket ? <h4><ConvertDate date={value} text={"Goal end date:"}/></h4> : 
+                <div><h4><ConvertDate date={today} text={"Today is: "}/></h4><h4><ConvertDate date={value} text={"Goal end date:"}/></h4><Button onClick={() => navigate("/goals")}>Set a goal</Button></div>}
             </div>
         </div>   
     );
