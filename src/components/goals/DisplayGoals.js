@@ -11,6 +11,7 @@ import Program from '../templates/Program';
 
 const DisplayGoals = () => {
 
+
     const [progress, setProgress] = useState()
     const [goalsMap, setGoalsMap] = useState(<></>)
     const db = useSelector((state) => state.db)
@@ -96,9 +97,6 @@ const DisplayGoals = () => {
         })
         return profileGoals
     }
-
-    
-
 
     return (
         <Container>

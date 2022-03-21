@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const ProgramsList = (props) => {
 
-    const [programList, setProgramList] = useState(props.basket ? <div>Empty</div> : <div></div>)
+    const isBasket = props.basket
+    const [programList, setProgramList] = useState(<></>)
     const dispatch = useDispatch()
     const programs = useSelector((state) => state.db.programs)
 
@@ -16,17 +17,13 @@ const ProgramsList = (props) => {
                 dispatch(fetchPrograms().unwrap())
             }
             setProgramList(programs.map((program, index) => {
-                if(props.basket) return (
-                    <Program key={index} program={program} index={index} basket={true}></Program>
+                return (
+                    <Program key={index} program={program} index={index} basket={isBasket ? true : false}></Program>
                 )
-                return(
-                    <Program key={index} program={program} index={index}></Program>
-                )
-            }
-            ))
+            }))
         }
         fetchData()
-    }, [programs, dispatch])
+    }, [programs, dispatch, isBasket])
 
     return (
         <div className='accordiongrid'>
