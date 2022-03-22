@@ -10,7 +10,7 @@ export const profileSlice = createSlice({
         fitnessLevel: null,
         medicalConditions: "",
         disabilities: "",
-        address: null,
+        address: {},
         goals: [],
         workouts: [],
     },
