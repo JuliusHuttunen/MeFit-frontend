@@ -21,6 +21,7 @@ const getFirstName = () => keycloak.tokenParsed?.given_name;
 const getLastName = () => keycloak.tokenParsed?.family_name;
 const getEmail = () => keycloak.tokenParsed?.email;
 const getRoles = () => keycloak.tokenParsed?.roles;
+const requestSent = () => keycloak.tokenParsed?.contributorRequest;
 const hasRole = (roles) => roles.some((role) => keycloak.hasRealmRole(role));
 
 const isAuthenticated = () => !!keycloak.token;
@@ -32,6 +33,7 @@ const KeycloakService = {
     AccountManagement,
     getToken,
     hasRole,
+    requestSent,
     getId,
     getUsername,
     getFirstName,
