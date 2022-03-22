@@ -26,13 +26,13 @@ const DisplayGoals = () => {
     useEffect(() => {
         const goalRatio = () => {
             let achieved = 0
-            if(profile.goals === null || profile.goals.length === 0) return 0
+            if(profile.goals === undefined || profile.goals === null || profile.goals.length === 0) return 0
             for(let goal of profile.goals){
                 if(goal.achieved){
                     achieved++
                 }
             }
-            return achieved / profile.goals.length * 100
+            return (achieved / profile.goals.length * 100).toFixed(1)
         }
         setGoalsMap(goals())
         setProgress(goalRatio())
@@ -69,15 +69,18 @@ const DisplayGoals = () => {
         }
     }
 
-    const markGoalAsCompleted = async (goal) => {
-        const[error, response] = await setGoalCompleted(goal)
+    const markGoalAsCompleted = async (goal, boolean) => {
+        const[error, response] = await setGoalCompleted(goal, boolean)
         console.log("ERR:", error)
         console.log("RESP:", response)
         await dispatch(fetchProfile()).unwrap()
     }
 
     const goals = () => {
-        const profileGoals = profile.goals.map((goal, index) => {
+        let profileGoals
+        if(!!profile.goals){
+        profileGoals = 
+            profile.goals.map((goal, index) => {
             let currentProgram = null
             if(goal.program !== null){
                 currentProgram = getProgram(splitUrl(goal.program))
@@ -103,21 +106,24 @@ const DisplayGoals = () => {
                             {currentProgram !== null ? <Program program={currentProgram} index={1}></Program> : <></>}
                             {workoutMap}
                             {exerciseMap}
-                            <Button variant="success" onClick={() => markGoalAsCompleted(goal)}>Mark as completed</Button>
+                            {goal.achieved ? <Button variant="secondary" onClick={() => markGoalAsCompleted(goal, false)}>Revert</Button> : <Button variant="success" onClick={() => markGoalAsCompleted(goal, true)}>Mark as completed</Button>}
                         </Accordion.Body>
                     </Accordion.Item>
                 </Accordion>
             )
         })
+        }
+        else profileGoals = <></>
+
         return profileGoals
     }
 
     return (
         <Container>
-            {difference < 2 ? <h3>You only have {difference} days to complete your goals. Keep it up!</h3> : <h3>You still have {difference} days to complete your goals.</h3>}
+            {progress === "100.0" ? <h3>You have completed all your goals! Congratulations!</h3>: <h3>You still have {difference} days to complete your goals.</h3>}
             <h6>Your goal progress this week</h6>
-            <ProgressBar style={{"height":"2em","width":"100%"}}now={progress} label={`${progress}%`}/>
-            <div style={{"paddingTop":"1em"}}className='accordiongrid'>
+            <ProgressBar variant="success" style={{"height":"2em","width":"100%", "fontSize":"1.7em"}}now={progress} label={`${progress}%`}/>
+            <div style={{"paddingTop":"1em"}} className='accordiongrid2'>
                 {goalsMap}
             </div>
         </Container> 

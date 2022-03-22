@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import  Accordion from 'react-bootstrap/Accordion';
 import { useDispatch, useSelector } from 'react-redux';
 import { swapProgram } from '../../redux/basketSlice';
@@ -14,11 +14,10 @@ const Program = (props) => {
     }
 
     const workouts = props.program.workouts.map((workout, index) => {
-        return(
-           <Workout key={index} workout={workout} index={index}></Workout>
-        )
-    })
-
+                    return(
+                        <Workout key={index} workout={workout} index={index}></Workout>
+                    )})
+                    
     return(
         <Accordion key={props.index}>
             <Accordion.Item key={props.index} eventKey={props.index}>

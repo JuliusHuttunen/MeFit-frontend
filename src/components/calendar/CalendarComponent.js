@@ -40,12 +40,12 @@ const CalendarComponent = (props) => {
             <div style={{"display":"flex", "flexDirection":"column", "justifyContent":"center", "alignItems":"center"}}>
                 <div style={{"display":"flex", "width":"70%", "justifyContent":"space-around", "alignItems":"center"}}>
                     <h3>Week {currentWeek}</h3>
-                    {locale !== "US" ? <Button style={{"margin":"10px"}} onClick={() => swapCalendarTypeToUS()}>Swap week starting day</Button> : <Button style={{"margin":"10px"}} onClick={() => swapCalendarTypeToDefault()}>Swap week starting day</Button>}
                 </div>
                 <Calendar locale={"us-US"} calendarType={locale} showNavigation={false} oneWeekCalendar={true} onChange={onChange} value={value} onClickDay={(value, event) => swapStartDay(value)}/>
             </div>
             <div style={{"padding":"1rem"}}>
                 {!props.basket ? <div><h4>Today is: {formatDay}</h4><h4>Active date: {reduxStartDate}</h4><Button onClick={() => navigate("/goals")}>Set a goal starting from this date</Button></div> : <div><h4>Goal start date: {reduxStartDate}</h4><h4>Goal end date: {reduxEndDate}</h4></div>}
+                {locale !== "US" ? <Button style={{"margin-top":"10px", "margin-bottom":"10px"}} onClick={() => swapCalendarTypeToUS()}>Swap week starting day</Button> : <Button style={{"margin-top":"10px", "margin-bottom":"10px",}} onClick={() => swapCalendarTypeToDefault()}>Swap week starting day</Button>}
             </div>
         </div>   
     );
