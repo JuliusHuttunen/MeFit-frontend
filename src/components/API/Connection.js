@@ -53,6 +53,7 @@ export async function postGoalToAPI(item) {
         Authorization: "Bearer " + token,
       },
       body: JSON.stringify({
+        startDate: item.startDate,
         endDate: item.endDate,
         profile: jsonProfile,
         achieved: item.achieved,
@@ -70,7 +71,7 @@ export async function postGoalToAPI(item) {
   }
 }
 
-export async function setGoalCompleted(goal) {
+export async function setGoalCompleted(goal, boolean) {
   const url =
     "https://fi-java-mefit-backend.herokuapp.com/api/v1/goals/" + goal.goalId;
   const token = KeycloakService.getToken();
@@ -83,7 +84,7 @@ export async function setGoalCompleted(goal) {
         Authorization: "Bearer " + token,
       },
       body: JSON.stringify({
-        achieved: true,
+        achieved: boolean,
       }),
     };
     const response = await fetch(`${url}`, config);
@@ -108,7 +109,7 @@ export async function getUserProfile() {
             },
         }
         const response = await fetch(`${url}`, config)
-        const data = await response.text()
+        const data = await response.json()
         return [null, data]
     }
     catch (error) {

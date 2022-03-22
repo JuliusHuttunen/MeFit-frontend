@@ -12,6 +12,12 @@
     gap: 2em
 }
 
+.accordiongrid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2em
+}
+
 .filterwrapper img{
     margin: 1em;
     width: 70px;
