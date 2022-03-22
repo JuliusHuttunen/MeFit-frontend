@@ -1,17 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { postGoalToAPI } from "../components/API/Connection"
+import { nextSunday } from "date-fns";
 
 const today = new Date()
+const initEndDate = nextSunday(today)
 
 export const basketSlice = createSlice({
     name: 'basket',
     initialState: {
-        endDate: today,
+        endDate: initEndDate,
         achieved: false,
         program: null,
         workouts: [],
         exercises: [],
-        goalStatus: ""
+        goalStatus: "",
+        locale: "ISO 8601",
+        startDate: today
     },
     reducers: {
         add: (state, action) => {
@@ -33,7 +37,11 @@ export const basketSlice = createSlice({
             state.program = null
         },
         swapDate: (state, action) => {
-            state.endDate = action.payload
+            state.endDate = action.payload[0]
+            state.locale = action.payload[1]
+        },
+        swapStartDate: (state, action) => {
+            state.startDate = action.payload
         }
     },
     extraReducers(builder) {
@@ -47,7 +55,7 @@ export const basketSlice = createSlice({
     }
 })
 
-export const { del, add, swapProgram, addExercise, delExercise, delProgram, swapDate } = basketSlice.actions
+export const { del, add, swapProgram, addExercise, delExercise, delProgram, swapDate, swapStartDate } = basketSlice.actions
 
 export const addGoal = createAsyncThunk('addGoal', async (goal) => {
     const[error, response] = await postGoalToAPI(goal)
