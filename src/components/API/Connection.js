@@ -100,7 +100,6 @@ export async function getUserProfile() {
   const url =
     "https://fi-java-mefit-backend.herokuapp.com/api/v1/profiles/" + userId;
 
-<<<<<<< HEAD
     const userId = KeycloakService.getId()
     const token = KeycloakService.getToken()
     const url = 'https://fi-java-mefit-backend.herokuapp.com/api/v1/profiles/' + userId
@@ -120,22 +119,6 @@ export async function getUserProfile() {
     catch (error) {
         return [error.message, null]
     }
-=======
-  try {
-    const config = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-    };
-    const response = await fetch(`${url}`, config);
-    const data = await response.json();
-    return [null, data];
-  } catch (error) {
-    return [error.message, null];
-  }
->>>>>>> 114609870e08106ed8c77e2f0026d77ce8f66bc6
 }
 
 export async function getKeycloakUsers() {
