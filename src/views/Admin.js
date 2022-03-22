@@ -1,11 +1,12 @@
 import React from 'react';
 import AdminComponent from '../components/admin/AdminComponent'
+import Container from 'react-bootstrap/Container';
 
 const Admin = () => {
     return (
-        <div>
+        <Container className='p-3'>
             <AdminComponent/>
-        </div>
+        </Container>
     );
 };
 
