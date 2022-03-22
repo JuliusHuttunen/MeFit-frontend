@@ -1,9 +1,10 @@
 import React from 'react';
+import AdminComponent from '../components/admin/AdminComponent'
 
 const Admin = () => {
     return (
         <div>
-            Admin page
+            <AdminComponent/>
         </div>
     );
 };
