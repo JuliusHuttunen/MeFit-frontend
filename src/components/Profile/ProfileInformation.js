@@ -12,7 +12,6 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 import { useSelector } from "react-redux";
 import KeycloakService from "../../KeycloakService";
 import { updateProfileToAPI, requestContributorRole } from "../API/Connection";
-import Keycloak from "keycloak-js";
 
 const schema = yup.object({
   address_line_1: yup
