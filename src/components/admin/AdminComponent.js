@@ -1,35 +1,34 @@
 import Button from "react-bootstrap/Button"
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import Table from "react-bootstrap/Table"
-import { getKeycloakUsers, addContributorRole, completeContributorRequest, deleteUser } from '../API/Connection'
-//import Modal from "react-bootstrap/Modal"
-//import { ModalHeader } from "react-bootstrap"
+import { addContributorRole, completeContributorRequest, deleteUser } from '../API/Connection'
+import { useSelector, useDispatch } from "react-redux"
+import { fetchUsers } from "../../redux/adminSlice"
 
 const AdminComponent = () => {
+
+    const dispatch = useDispatch()
+    const users = useSelector((state) => state.admin.users)
 
     const addContributorBtn = async (id) => {
         await addContributorRole(id)
         await completeContributorRequest(id)
+        await dispatch(fetchUsers()).unwrap()
     }
 
     const deleteUserBtn = async (id) => {
-        const [error, data] = await deleteUser(id)
+        await deleteUser(id)
+        await dispatch(fetchUsers()).unwrap()
     }
 
-    //const [showModal, setShowModal] = useState(false)
-    const [users, setUsers] = useState([])
-
     useEffect(() => {
-        const fetchUsers = async () => {
-            const [error, data] = await getKeycloakUsers()
-            setUsers(data)
+        const getUsers = async () => {
+            await dispatch(fetchUsers()).unwrap()
         }
-        fetchUsers()
-
+        getUsers()
     }, [])
 
     const UserList = users.map((user, index) => {
-
         return (
             <tr key={index}>
                 <td>{user.username}</td>
@@ -38,25 +37,8 @@ const AdminComponent = () => {
                     <td>
                         <Button type="button" onClick={() => addContributorBtn(user.id)}>Add as Contributor</Button>
                     </td> : <td></td>}
-
                 <td>
                 <Button type="button" variant="danger" onClick={() => { if(window.confirm('Are you sure you want to delete user ' + user.username + '?')) deleteUserBtn(user.id)}}>Delete</Button>
-                    {/* <Modal isOpen={showModal} onRequestClose={() => setShowModal(false)}>
-                        <Modal.Dialog>
-                            <Modal.Header closeButton>
-                                <Modal.Title>Warning</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <p>Are you sure you want to delete this user?</p>
-                                <p>{user.username}</p>
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="secondary" onClick={() => setShowModal(false)} >Cancel</Button>
-                                <Button type="button" variant="danger" onClick={() => deleteUser(user.id)}>Delete</Button>
-                            </Modal.Footer>
-                        </Modal.Dialog>
-                    </Modal>
-                    <Button type="button" variant="danger" onClick={() => setShowModal(true)}>Delete</Button> */}
                 </td>
             </tr>
         )
