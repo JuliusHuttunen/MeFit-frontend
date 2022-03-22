@@ -100,20 +100,25 @@ export async function getUserProfile() {
   const url =
     "https://fi-java-mefit-backend.herokuapp.com/api/v1/profiles/" + userId;
 
-  try {
-    const config = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-    };
-    const response = await fetch(`${url}`, config);
-    const data = await response.json();
-    return [null, data];
-  } catch (error) {
-    return [error.message, null];
-  }
+    const userId = KeycloakService.getId()
+    const token = KeycloakService.getToken()
+    const url = 'https://fi-java-mefit-backend.herokuapp.com/api/v1/profiles/' + userId
+
+    try {
+        const config = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token,
+            },
+        }
+        const response = await fetch(`${url}`, config)
+        const data = await response.text()
+        return [null, data]
+    }
+    catch (error) {
+        return [error.message, null]
+    }
 }
 
 export async function getKeycloakUsers() {
