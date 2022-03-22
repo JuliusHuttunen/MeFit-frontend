@@ -11,6 +11,7 @@ import styles from "./ProfileInformation.module.css";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import { useSelector } from "react-redux";
 import KeycloakService from "../../KeycloakService";
+import { updateProfileToAPI } from "../API/Connection";
 
 const schema = yup.object({
   address_line_1: yup
@@ -65,7 +66,7 @@ const ProfileInformation = () => {
     email: KeycloakService.getEmail(),
     height: profile.height,
     weight: profile.weight,
-    fitness_level: "2", // profile.fitness_level,
+    fitness_level: profile.fitness_level,
     medical_conditions: profile.medicalConditions,
     disabilities: profile.disabilities,
 
@@ -92,6 +93,7 @@ const ProfileInformation = () => {
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
+    updateProfileToAPI(data)
     console.log(data);
   };
 

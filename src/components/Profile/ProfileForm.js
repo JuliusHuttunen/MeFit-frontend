@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import { postProfileToAPI } from "../API/Connection";
 
 const schema = yup.object({
   address_line_1: yup
@@ -59,6 +60,7 @@ const ProfileForm = () => {
   });
   const onSubmit = (data) => {
     console.log(data);
+    postProfileToAPI(data);
     reset();
   };
 
@@ -129,7 +131,7 @@ const ProfileForm = () => {
               </Form.Group>
             </Col>
           </Row>
-          <Row className="mb-5">
+          <Row >
             <Col>
               <Form.Group className="mb-3" controlId="country">
                 <Form.Label>Country</Form.Label>
@@ -143,7 +145,7 @@ const ProfileForm = () => {
             </Col>
           </Row>
           <hr />
-          <Row className="mb-3 mt-3">
+          <Row>
             <h4 className="mb-4">Medical and Physical Information</h4>
             <Col>
               <Form.Group className="mb-3" controlId="height">
