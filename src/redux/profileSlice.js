@@ -22,23 +22,29 @@ export const profileSlice = createSlice({
             console.log("Getting profile")
         })
         .addCase(fetchProfile.fulfilled, (state, action) => {
-            console.log("Profile fetched")
-            state.profileId = action.payload.profileId
-            state.weight = action.payload.weight
-            state.height = action.payload.height
-            state.fitnessLevel = action.payload.fitnessLevel
-            state.medicalConditions = action.payload.medicalConditions
-            state.disabilities = action.payload.disabilities
-            state.address = action.payload.address
-            state.goals = action.payload.goals
-            state.workouts = action.payload.workouts
+            if(!!action.payload){
+                console.log("Profile fetched")
+                state.profileId = action.payload.profileId
+                state.weight = action.payload.weight
+                state.height = action.payload.height
+                state.fitnessLevel = action.payload.fitnessLevel
+                state.medicalConditions = action.payload.medicalConditions
+                state.disabilities = action.payload.disabilities
+                state.address = action.payload.address
+                state.goals = action.payload.goals
+                state.workouts = action.payload.workouts
+            }
+            else {
+                console.log("Null profile")
+            }
         })
     }
 })
 
 export const fetchProfile = createAsyncThunk('fetchProfile', async () => {
     const[error, profile] = await getUserProfile()
-    if(profile === 404){
+    if(profile === ""){
+        console.log("Profile not found")
         return null
     }
     console.log("ERR", error)

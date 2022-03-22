@@ -29,11 +29,10 @@ function MeFitNavbar() {
   useEffect(() => {
     const fetchData = async () => {
       const profile = await dispatch(fetchProfile()).unwrap()
-      await dispatch(fetchExercises()).unwrap()
+      /* await dispatch(fetchExercises()).unwrap()
       await dispatch(fetchPrograms()).unwrap()
-      await dispatch(fetchWorkouts()).unwrap()
+      await dispatch(fetchWorkouts()).unwrap() */
       if(profile === null){
-        console.log(profile)
         navigate("profileform")
       }
       else navigateToDashboard()
