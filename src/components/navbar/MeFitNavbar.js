@@ -34,7 +34,7 @@ function MeFitNavbar() {
       await dispatch(fetchWorkouts()).unwrap()
       if(profile === null){
         console.log(profile)
-        navigate("profileForm")
+        navigate("profileform")
       }
       else navigateToDashboard()
     }

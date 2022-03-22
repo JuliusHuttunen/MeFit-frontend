@@ -14,7 +14,7 @@ function ExercisesList(props){
     useEffect(() => {
         const fetchData = async () => {
             if(exercises === null || exercises.length === 0){
-                dispatch(fetchExercises().unwrap())
+                dispatch(fetchExercises()).unwrap()
             }
             setExerciseList(exercises.map((exercise, index) => {
                 return (    

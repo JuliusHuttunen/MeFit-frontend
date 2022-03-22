@@ -4,6 +4,7 @@ import  Container  from 'react-bootstrap/Container';
 import ProgramsList from '../components/programviews/ProgramsList';
 import { useSelector } from 'react-redux';
 import Program from '../components/templates/Program';
+import Exercises from './Exercises';
 
 const Programs = () => {
 
@@ -45,7 +46,7 @@ const Programs = () => {
     return (
         <div className='cardcontainer'>
             <h2>Programs</h2>
-            {programs === null ? <p>No programs found.</p> : 
+            {programs === null || programs.length === 0 ? <p>No programs found.</p> : 
             <div className="filterwrapper">
                 <div onClick={() => filterList(null)}>
                     <h5>All</h5>

@@ -24,7 +24,7 @@ const Exercises = () => {
     return (
         <div className='cardcontainer'>
             <h2>Exercises</h2>
-            {exercises === null ? <p>No exercises found.</p> : <div className="filterwrapper">
+            {exercises === null || exercises.length === 0 ? <p>No exercises found.</p> : <div className="filterwrapper">
                 <img src="/assets/muscle/person.png" alt="muscle img" onClick={() => filterList(null)} ></img>
                 <img src="/assets/muscle/abs.png" alt="muscle img" onClick={() => filterList("Abs")} ></img>
                 <img src="/assets/muscle/biceps.png" alt="muscle img" onClick={() => filterList("Biceps")} ></img>
