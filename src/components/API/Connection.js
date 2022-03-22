@@ -128,13 +128,40 @@ export async function requestContributorRole() {
             method: "POST",
             headers: {
                 "Authorization": "Bearer " + token,
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 "email": KeycloakService.getEmail(),
                 "firstName": KeycloakService.getFirstName(),
                 "lastName": KeycloakService.getLastName(),
                 "attributes": {
-                    "contributorRequest": true
+                    "contributorRequest": [true]
+                }
+            }),
+        }
+        const response = await fetch(`${url}`, config)
+        const data = await response.json()
+        return [null, data]
+    }
+    catch (error) {
+        return [error.message, null]
+    }
+}
+
+export async function completeContributorRequest(userId) {
+    const token = KeycloakService.getToken()
+    const url = `https://fi-java-mefit-keycloak.herokuapp.com/auth/admin/realms/mefit/users/${userId}`
+
+    try {
+        const config = {
+            method: "PUT",
+            headers: {
+                "Authorization": "Bearer " + token,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "attributes":{
+                    "contributorRequest":[false]
                 }
             }),
         }
@@ -156,14 +183,15 @@ export async function addContributorRole(userId) {
             method: "POST",
             headers: {
                 "Authorization": "Bearer " + token,
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify({
+            body: JSON.stringify([{
                 "id": "cd237d3e-0501-4779-9224-14a49641d35b",
                 "name": "contributor",
                 "composite": false,
                 "clientRole": false,
                 "containerId": "b362efb8-43a0-45f3-b5d1-78ae63549405"
-            }),
+            }]),
         }        
         const response = await fetch(`${url}`, config)
         const data = await response.json()
@@ -183,15 +211,36 @@ export async function deleteContributorRole(userId) {
             method: "DELETE",
             headers: {
                 "Authorization": "Bearer " + token,
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify({
+            body: JSON.stringify([{
                 "id": "cd237d3e-0501-4779-9224-14a49641d35b",
                 "name": "contributor",
                 "composite": false,
                 "clientRole": false,
                 "containerId": "b362efb8-43a0-45f3-b5d1-78ae63549405"
-            }),
+            }]),
         }        
+        const response = await fetch(`${url}`, config)
+        const data = await response.json()
+        return [null, data]
+    }
+    catch (error) {
+        return [error.message, null]
+    }
+}
+
+export async function deleteUser(userId) {
+    const token = KeycloakService.getToken()
+    const url = `https://fi-java-mefit-keycloak.herokuapp.com/auth/admin/realms/mefit/users/${userId}`
+
+    try {
+        const config = {
+            method: "DELETE",
+            headers: {
+                "Authorization": "Bearer " + token,
+            },
+        }
         const response = await fetch(`${url}`, config)
         const data = await response.json()
         return [null, data]
