@@ -76,6 +76,30 @@ export async function postGoalToAPI(item) {
     }
 }
 
+export async function setGoalCompleted(goal) {
+    const url = 'https://fi-java-mefit-backend.herokuapp.com/api/v1/goals/' + goal.goalId
+    const token = KeycloakService.getToken()
+
+    try {
+        const config = {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token,
+            },
+            body: JSON.stringify({
+                    "achieved": true,
+            }),
+        }
+        const response = await fetch(`${url}`, config)
+        const data = await response.text()
+        return [null, data]
+    }
+    catch (error) {
+        return [error.message, null]
+    }
+}
+
 export async function getUserProfile() {
 
     const userId = KeycloakService.getId()

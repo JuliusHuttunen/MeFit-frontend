@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container'
 import Accordion from 'react-bootstrap/Accordion';
+import Button from 'react-bootstrap/Button'
 import AccordionHeader from 'react-bootstrap/esm/AccordionHeader';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import { useSelector } from 'react-redux';
-import ConvertDate from '../calendar/ConvertDate';
+import { useDispatch, useSelector } from 'react-redux';
 import Exercise from '../templates/Exercise';
 import Workout from '../templates/Workout';
 import Program from '../templates/Program';
+import { format, differenceInDays } from 'date-fns';
+import { setGoalCompleted } from '../API/Connection';
+import { fetchProfile } from '../../redux/profileSlice';
 
 const DisplayGoals = () => {
 
@@ -16,11 +19,14 @@ const DisplayGoals = () => {
     const [goalsMap, setGoalsMap] = useState(<></>)
     const db = useSelector((state) => state.db)
     const profile = useSelector((state) => state.profile)
-    
+    const dispatch = useDispatch()
 
+    const difference = differenceInDays(useSelector((state) => state.basket.endDate), new Date())
+    
     useEffect(() => {
         const goalRatio = () => {
             let achieved = 0
+            if(profile.goals === null || profile.goals.length === 0) return 0
             for(let goal of profile.goals){
                 if(goal.achieved){
                     achieved++
@@ -30,7 +36,7 @@ const DisplayGoals = () => {
         }
         setGoalsMap(goals())
         setProgress(goalRatio())
-    },[])
+    },[profile])
 
     const splitUrl = (url) => {
         const split = url.split("/")
@@ -63,6 +69,13 @@ const DisplayGoals = () => {
         }
     }
 
+    const markGoalAsCompleted = async (goal) => {
+        const[error, response] = await setGoalCompleted(goal)
+        console.log("ERR:", error)
+        console.log("RESP:", response)
+        await dispatch(fetchProfile()).unwrap()
+    }
+
     const goals = () => {
         const profileGoals = profile.goals.map((goal, index) => {
             let currentProgram = null
@@ -86,10 +99,11 @@ const DisplayGoals = () => {
                     <Accordion.Item key={index} eventKey={index}>
                         <AccordionHeader><h4>Goal #{index + 1}</h4></AccordionHeader>
                         <Accordion.Body>
-                            {goal.achieved ? <div></div> : <div key={index}><h3><ConvertDate text={"Goal end date: "} date={new Date(goal.endDate)}></ConvertDate></h3></div>}
+                            <div><h4>Goal end date: {format(new Date(goal.endDate), "dd.MM.yyyy")}</h4></div>
                             {currentProgram !== null ? <Program program={currentProgram} index={1}></Program> : <></>}
                             {workoutMap}
                             {exerciseMap}
+                            <Button variant="success" onClick={() => markGoalAsCompleted(goal)}>Mark as completed</Button>
                         </Accordion.Body>
                     </Accordion.Item>
                 </Accordion>
@@ -100,6 +114,7 @@ const DisplayGoals = () => {
 
     return (
         <Container>
+            {difference < 2 ? <h3>You only have {difference} days to complete your goals. Keep it up!</h3> : <h3>You still have {difference} days to complete your goals.</h3>}
             <h6>Your goal progress this week</h6>
             <ProgressBar style={{"height":"2em","width":"100%"}}now={progress} label={`${progress}%`}/>
             <div style={{"paddingTop":"1em"}}className='accordiongrid'>
