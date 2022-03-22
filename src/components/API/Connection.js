@@ -97,12 +97,7 @@ export async function setGoalCompleted(goal) {
 export async function getUserProfile() {
   const userId = KeycloakService.getId();
   const token = KeycloakService.getToken();
-  const url =
-    "https://fi-java-mefit-backend.herokuapp.com/api/v1/profiles/" + userId;
-
-    const userId = KeycloakService.getId()
-    const token = KeycloakService.getToken()
-    const url = 'https://fi-java-mefit-backend.herokuapp.com/api/v1/profiles/' + userId
+  const url = "https://fi-java-mefit-backend.herokuapp.com/api/v1/profiles/" + userId;
 
     try {
         const config = {
