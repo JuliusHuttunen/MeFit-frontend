@@ -9,8 +9,6 @@ import { fetchProfile } from '../../redux/profileSlice';
 import { format } from 'date-fns';
 import Button from "react-bootstrap/Button"
 
-
-
 const Goal = (props) => {
 
     const db = useSelector((state) => state.db)
@@ -85,8 +83,8 @@ const Goal = (props) => {
 
     return (
             <Accordion key={props.index}>
-                <Accordion.Item key={props.index} eventKey={props.index}>
-                    <Accordion.Header>{props.history ? <h4 style={{ "marginRight": "2em" }}>Goal ({format(new Date(props.goal.startDate), "dd.MM.yyyy")}-{format(new Date(props.goal.endDate), "dd.MM.yyyy")})</h4> : <><h4 style={{ "marginRight": "2em" }}>Goal #{props.counter}</h4><h4 style={{ "fontStyle": "italic" }}>{props.difference} days left</h4></>}</Accordion.Header>
+                <Accordion.Item style={{"backgroundColor": props.achieved? "#defade" : "white"}} key={props.index} eventKey={props.index}>
+                    <Accordion.Header >{props.history ? <h4 style={{ "marginRight": "2em" }}>Goal ({format(new Date(props.goal.startDate), "dd.MM.yyyy")}-{format(new Date(props.goal.endDate), "dd.MM.yyyy")})</h4> : <><h4 style={{ "marginRight": "2em" }}>Goal #{props.counter}</h4><h4 style={{ "fontStyle": "italic" }}>{props.difference} days left</h4></>}</Accordion.Header>
                     <Accordion.Body>
                         <div>
                             <h4>Goal timespan: {format(new Date(props.goal.startDate), "dd.MM.yyyy")}-{format(new Date(props.goal.endDate), "dd.MM.yyyy")}</h4>

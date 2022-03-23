@@ -4,7 +4,6 @@ import  Container  from 'react-bootstrap/Container';
 import ProgramsList from '../components/programviews/ProgramsList';
 import { useSelector } from 'react-redux';
 import Program from '../components/templates/Program';
-import Exercises from './Exercises';
 
 const Programs = () => {
 

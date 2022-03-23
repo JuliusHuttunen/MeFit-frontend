@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import  Accordion from 'react-bootstrap/Accordion';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { swapProgram } from '../../redux/basketSlice';
 import Button from 'react-bootstrap/Button'
 import Workout from './Workout';
