@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container'
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { differenceInDays } from 'date-fns';
 import Goal from '../templates/Goal';
 
@@ -19,13 +19,18 @@ const DisplayGoals = (props) => {
         //Calculate progress bar value
         const goalRatio = () => {
             let achieved = 0
+            let weekGoalAmount = 0
             if (profile.goals === undefined || profile.goals === null || profile.goals.length === 0) return 0
             for (let goal of profile.goals) {
-                if (goal.achieved) {
+                const difference = differenceInDays(new Date(goal.endDate), new Date())
+                if (goal.achieved && difference < 7) {
                     achieved++
                 }
+                if (difference < 7) {
+                    weekGoalAmount++
+                }
             }
-            return (achieved / profile.goals.length * 100).toFixed(1)
+            return (achieved / weekGoalAmount * 100).toFixed(1)
         }
         //Set goals function => goalsMap
         setGoalsMap(goals())
@@ -51,7 +56,13 @@ const DisplayGoals = (props) => {
                     if (difference < 7 && !goal.achieved) {
                         counter++
                         return (
-                            <Goal key={index} goal={goal} counter={counter} index={index} difference={difference}></Goal>
+                           <Goal key={index} goal={goal} counter={counter} index={index} difference={difference}></Goal>
+                        )
+                    }
+                    else if (goal.achieved) {
+                        counter ++
+                        return(
+                            <Goal achieved={true} key={index} goal={goal} counter={counter} index={index} difference={difference}></Goal>
                         )
                     }
                 })
@@ -72,7 +83,7 @@ const DisplayGoals = (props) => {
                     //Only print in dashboard and if the goal is on this week
                     if (difference < 0 || goal.achieved) {
                         return (
-                            <Goal key={index} goal={goal} index={index} difference={difference} history={true}></Goal>
+                            <Goal achieved={true} key={index} goal={goal} index={index} difference={difference} history={true}></Goal>
                         )
                     }
                 })
@@ -105,7 +116,7 @@ const DisplayGoals = (props) => {
     }
 
     return (
-        <Container className='pt-5'>
+        <Container className='pt-3'>
             {progress === "100.0" ? <h3>You have completed all your goals! Congratulations!</h3> : <h3></h3>}
             <h5>Your goal progress this week</h5>
             <ProgressBar variant="success" style={{ "height": "2em", "width": "100%", "fontSize": "1.7em", "marginBottom": "1em" }} now={progress} label={`${progress}%`} />
