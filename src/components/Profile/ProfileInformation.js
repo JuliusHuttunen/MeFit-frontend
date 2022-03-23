@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import KeycloakService from "../../KeycloakService";
 import { updateProfileToAPI, requestContributorRole } from "../API/Connection";
 
+// yup validation schema
 const schema = yup.object({
   address_line_1: yup
     .string()
@@ -51,6 +52,7 @@ const schema = yup.object({
   requestForContributor: yup.boolean(),
 });
 
+// User and profile data
 const ProfileInformation = () => {
   const profile = useSelector((state) => state.profile);
 
@@ -69,8 +71,6 @@ const ProfileInformation = () => {
     fitness_level: profile.fitness_level,
     medical_conditions: profile.medicalConditions,
     disabilities: profile.disabilities,
-
-    // requestForContributor
   });
 
   const handleChange = (event) => {
@@ -87,9 +87,9 @@ const ProfileInformation = () => {
 
   const requestContributor = async () => {
     if (!KeycloakService.getRoles().includes("contributor")) {
-      await requestContributorRole()
+      await requestContributorRole();
     }
-  }
+  };
 
   const {
     register,
@@ -99,14 +99,14 @@ const ProfileInformation = () => {
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
-    updateProfileToAPI(data)
+    updateProfileToAPI(data);
     console.log(data);
   };
 
   return (
     <Container className="p-3">
       <Row className="m-3">
-        <Col md={2}>
+        <Col name="user-col" md={2}>
           <Row>
             <h4>
               {Person.first_name} {Person.last_name}
@@ -115,10 +115,13 @@ const ProfileInformation = () => {
           <Row>
             <p>{Person.email}</p>
           </Row>
-          {KeycloakService.getRoles().includes("contributor") ? 
-          <Row>
-            <p>Contributor</p>
-          </Row> : <></>}
+          {KeycloakService.getRoles().includes("contributor") ? (
+            <Row>
+              <p>Contributor</p>
+            </Row>
+          ) : (
+            <></>
+          )}
           <Row className="mt-3">
             <Button
               onClick={() =>
@@ -145,27 +148,23 @@ const ProfileInformation = () => {
               Edit password
             </Button>
           </Row>
-          <Row>
-            {!KeycloakService.getRoles().includes("contributor") ? 
-            KeycloakService.requestSent() === "true" ? 
-            <Button disabled
-            variant="secondary"
-            >
-              Contributor Request pending
-          </Button>
-            :
-            <Button 
-              onClick={requestContributor}
-              variant="secondary"
-              >
-                Request Contributor Role
-            </Button>
-            :
-            <></>
-            }
+          <Row className="mt-4 mb-4">
+            {!KeycloakService.getRoles().includes("contributor") ? (
+              KeycloakService.requestSent() === "true" ? (
+                <Button disabled variant="secondary">
+                  Contributor Request pending
+                </Button>
+              ) : (
+                <Button onClick={requestContributor} variant="secondary">
+                  Request Contributor Role
+                </Button>
+              )
+            ) : (
+              <></>
+            )}
           </Row>
         </Col>
-        <Col md={{ span: 8, offset: 2 }}>
+        <Col name="profile-col" md={{ span: 8, offset: 2 }}>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <h4>Profile</h4>
             <p>You can edit information and update</p>
@@ -353,20 +352,9 @@ const ProfileInformation = () => {
               </Form.Select>
               <p>{errors.fitness_level?.message}</p>
             </Form.Group>
-            {/* <hr />
-            <Row>
-              <Form.Group controlId="profile_requestForContributor">
-                <Form.Check
-                  {...register("requestForContributor")}
-                  type="checkbox"
-                  label="I request Contributor status"
-                />
-                <p>{errors.requestForContributor?.message}</p>
-              </Form.Group>
-            </Row> */}
             <hr />
             <Row>
-              <Button type="submit" variant="primary">
+              <Button name="update-profile" type="submit" variant="primary">
                 Save
               </Button>
             </Row>

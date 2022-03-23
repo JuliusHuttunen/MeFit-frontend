@@ -98,23 +98,23 @@ export async function setGoalCompleted(goal, boolean) {
 export async function getUserProfile() {
   const userId = KeycloakService.getId();
   const token = KeycloakService.getToken();
-  const url = "https://fi-java-mefit-backend.herokuapp.com/api/v1/profiles/" + userId;
+  const url =
+    "https://fi-java-mefit-backend.herokuapp.com/api/v1/profiles/" + userId;
 
-    try {
-        const config = {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + token,
-            },
-        }
-        const response = await fetch(`${url}`, config)
-        const data = await response.json()
-        return [null, data]
-    }
-    catch (error) {
-        return [error.message, null]
-    }
+  try {
+    const config = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    const response = await fetch(`${url}`, config);
+    const data = await response.json();
+    return [null, data];
+  } catch (error) {
+    return [error.message, null];
+  }
 }
 
 export async function getKeycloakUsers() {
@@ -287,11 +287,12 @@ export async function postProfileToAPI(profile) {
         fitnessLevel: profile.fitness_level,
         medicalConditions: profile.medical_conditions,
         disabilities: profile.disabilities,
+        /* Needs modification to back-end*/
         address: {
           // "addressId":
-          addressLine1: profile.address_line_1,
-          addressLine2: profile.address_line_2,
-          addressLine3: profile.address_line_3,
+          addressLine_1: profile.address_line_1,
+          addressLine_2: profile.address_line_2,
+          addressLine_3: profile.address_line_3,
           postalCode: profile.postal_code,
           city: profile.city,
           country: profile.country,
@@ -328,11 +329,12 @@ export async function updateProfileToAPI(profile) {
         fitnessLevel: profile.fitness_level,
         medicalConditions: profile.medical_conditions,
         disabilities: profile.disabilities,
+        /* Needs modification to back-end*/
         address: {
           // "addressId":
-          addressLine1: profile.address_line_1,
-          addressLine2: profile.address_line_2,
-          addressLine3: profile.address_line_3,
+          addressLine_1: profile.address_line_1,
+          addressLine_2: profile.address_line_2,
+          addressLine_3: profile.address_line_3,
           postalCode: profile.postal_code,
           city: profile.city,
           country: profile.country,
