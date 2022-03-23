@@ -15,8 +15,12 @@ export const profileSlice = createSlice({
         workouts: [],
         exercises: [],
         programs: [],
+        hasSentContributorRequest: false
     },
     reducers: {
+        contributorRequest: (state) => {
+            state.hasSentContributorRequest = true
+        }
     },
     extraReducers(builder) {
         builder
@@ -44,6 +48,8 @@ export const profileSlice = createSlice({
         })
     }
 })
+
+export const { contributorRequest } = profileSlice.actions
 
 export const fetchProfile = createAsyncThunk('fetchProfile', async () => {
     const[error, profile] = await getUserProfile()

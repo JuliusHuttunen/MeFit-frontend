@@ -9,9 +9,11 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import styles from "./ProfileInformation.module.css";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import KeycloakService from "../../KeycloakService";
 import { updateProfileToAPI, requestContributorRole } from "../API/Connection";
+import { fetchProfile } from "../../redux/profileSlice";
+import { contributorRequest } from "../../redux/profileSlice";
 
 // yup validation schema
 const schema = yup.object({
@@ -73,6 +75,8 @@ const ProfileInformation = () => {
     disabilities: profile.disabilities,
   });
 
+  const contributorRequestStatus = useSelector((state) => state.profile.hasSentContributorRequest)
+
   const handleChange = (event) => {
     let value = event.target.value;
     let name = event.target.name;
@@ -85,9 +89,12 @@ const ProfileInformation = () => {
     });
   };
 
+  const dispatch = useDispatch()
+
   const requestContributor = async () => {
     if (!KeycloakService.getRoles().includes("contributor")) {
       await requestContributorRole();
+      dispatch(contributorRequest())
     }
   };
 
@@ -98,8 +105,9 @@ const ProfileInformation = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) => {
-    updateProfileToAPI(data);
+  const onSubmit = async (data) => {
+    await updateProfileToAPI(data);
+    await dispatch(fetchProfile()).unwrap()
     console.log(data);
   };
 
@@ -150,7 +158,7 @@ const ProfileInformation = () => {
           </Row>
           <Row className="mt-4 mb-4">
             {!KeycloakService.getRoles().includes("contributor") ? (
-              KeycloakService.requestSent() === "true" ? (
+              KeycloakService.requestSent() === "true" || contributorRequestStatus ? (
                 <Button disabled variant="secondary">
                   Contributor Request pending
                 </Button>
