@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { swapDate, swapStartDate } from '../../redux/basketSlice';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom'
-import { getWeek, format, nextSunday, nextSaturday } from 'date-fns';
+import { getWeek, format, nextSunday, nextMonday } from 'date-fns';
 
 const CalendarComponent = (props) => {
     
@@ -17,8 +17,8 @@ const CalendarComponent = (props) => {
 
     const currentWeek = getWeek(today)
     const formatDay = format(today, "dd.MM.yyyy")
-    const endDate = nextSunday(today)
-    const endDateUS = nextSaturday(today)
+    const endDate = nextMonday(today)
+    const endDateUS = nextSunday(today)
 
     const reduxEndDate = format(useSelector((state) => state.basket.endDate), "dd.MM.yyyy")
     const reduxStartDate = format(useSelector((state) => state.basket.startDate), "dd.MM.yyyy")
@@ -45,7 +45,7 @@ const CalendarComponent = (props) => {
             </div>
             <div style={{"padding":"1rem"}}>
                 {!props.basket ? <div><h4>Today is: {formatDay}</h4><h4>Active date: {reduxStartDate}</h4><Button onClick={() => navigate("/goals")}>Set a goal starting from this date</Button></div> : <div><h4>Goal start date: {reduxStartDate}</h4><h4>Goal end date: {reduxEndDate}</h4></div>}
-                {locale !== "US" ? <Button style={{"margin-top":"10px", "margin-bottom":"10px"}} onClick={() => swapCalendarTypeToUS()}>Swap week starting day</Button> : <Button style={{"margin-top":"10px", "margin-bottom":"10px",}} onClick={() => swapCalendarTypeToDefault()}>Swap week starting day</Button>}
+                {locale !== "US" ? <Button style={{"marginTop":"10px", "marginBottom":"10px"}} onClick={() => swapCalendarTypeToUS()}>Swap week starting day</Button> : <Button style={{"margin-top":"10px", "margin-bottom":"10px",}} onClick={() => swapCalendarTypeToDefault()}>Swap week starting day</Button>}
             </div>
         </div>   
     );

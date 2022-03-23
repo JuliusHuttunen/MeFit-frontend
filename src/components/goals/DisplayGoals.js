@@ -1,132 +1,130 @@
 import React, { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container'
-import Accordion from 'react-bootstrap/Accordion';
-import Button from 'react-bootstrap/Button'
-import AccordionHeader from 'react-bootstrap/esm/AccordionHeader';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { useDispatch, useSelector } from 'react-redux';
-import Exercise from '../templates/Exercise';
-import Workout from '../templates/Workout';
-import Program from '../templates/Program';
-import { format, differenceInDays } from 'date-fns';
-import { setGoalCompleted } from '../API/Connection';
-import { fetchProfile } from '../../redux/profileSlice';
+import { differenceInDays } from 'date-fns';
+import Goal from '../templates/Goal';
 
-const DisplayGoals = () => {
+const DisplayGoals = (props) => {
 
-
+    //Initialize basic variables
     const [progress, setProgress] = useState()
-    const [goalsMap, setGoalsMap] = useState(<></>)
-    const db = useSelector((state) => state.db)
-    const profile = useSelector((state) => state.profile)
-    const dispatch = useDispatch()
+    const [goalsMap, setGoalsMap] = useState(<>Empty</>)
+    const [historyMap, setHistoryMap] = useState(<>Empty</>)
+    const [otherMap, setOtherMap] = useState(<>Empty</>)
 
-    const difference = differenceInDays(useSelector((state) => state.basket.endDate), new Date())
-    
+    const profile = useSelector((state) => state.profile)
+
     useEffect(() => {
+        //Calculate progress bar value
         const goalRatio = () => {
             let achieved = 0
-            if(profile.goals === undefined || profile.goals === null || profile.goals.length === 0) return 0
-            for(let goal of profile.goals){
-                if(goal.achieved){
+            if (profile.goals === undefined || profile.goals === null || profile.goals.length === 0) return 0
+            for (let goal of profile.goals) {
+                if (goal.achieved) {
                     achieved++
                 }
             }
             return (achieved / profile.goals.length * 100).toFixed(1)
         }
+        //Set goals function => goalsMap
         setGoalsMap(goals())
+        setHistoryMap(history())
+        setOtherMap(other())
+        //Update progress bar
         setProgress(goalRatio())
-    },[profile])
+    }, [profile])
 
-    const splitUrl = (url) => {
-        const split = url.split("/")
-        const finalIndex = split[split.length - 1]
-        return finalIndex
-    }
-
-
-    const getWorkout = (index) => {
-        for(let workout of db.workouts){
-            if(workout.workoutId == index){
-                return workout
-            }
-        }
-    }
-
-    const getExercise = (index) => {
-        for(let exercise of db.exercises){
-            if(exercise.exerciseId == index){
-                return exercise
-            }
-        }
-    }
-
-    const getProgram = (index) => {
-        for(let program of db.programs){
-            if(program.programId == index){
-                return program
-            }
-        }
-    }
-
-    const markGoalAsCompleted = async (goal, boolean) => {
-        const[error, response] = await setGoalCompleted(goal, boolean)
-        console.log("ERR:", error)
-        console.log("RESP:", response)
-        await dispatch(fetchProfile()).unwrap()
-    }
-
+    //Goal map function
     const goals = () => {
-        let profileGoals
-        if(!!profile.goals){
-        profileGoals = 
-            profile.goals.map((goal, index) => {
-            let currentProgram = null
-            if(goal.program !== null){
-                currentProgram = getProgram(splitUrl(goal.program))
-            }
-            const workoutMap = goal.workouts.map((workout, index) => {
-                const currentWorkout = getWorkout(splitUrl(workout))
-                return(
-                    <Workout key={index} workout={currentWorkout} index={index}></Workout>
-                )
-            })
-            const exerciseMap = goal.exercises.map((exercise, index) => {
-                const currentExercise = getExercise(splitUrl(exercise))
-                return(
-                    <Exercise key={index} exercise={currentExercise} index={index}></Exercise>
-                )
-            })
-            return(
-                <Accordion key={index}>
-                    <Accordion.Item key={index} eventKey={index}>
-                        <AccordionHeader><h4>Goal #{index + 1}</h4></AccordionHeader>
-                        <Accordion.Body>
-                            <div><h4>Goal end date: {format(new Date(goal.endDate), "dd.MM.yyyy")}</h4></div>
-                            {currentProgram !== null ? <Program program={currentProgram} index={1}></Program> : <></>}
-                            {workoutMap}
-                            {exerciseMap}
-                            {goal.achieved ? <Button variant="secondary" onClick={() => markGoalAsCompleted(goal, false)}>Revert</Button> : <Button variant="success" onClick={() => markGoalAsCompleted(goal, true)}>Mark as completed</Button>}
-                        </Accordion.Body>
-                    </Accordion.Item>
-                </Accordion>
-            )
-        })
+        //Initial value
+        let profileGoals = <></>
+        //Goal number init
+        let counter = 0
+        //When goals are not null/empty:
+        if (!!profile.goals) {
+            profileGoals =
+                profile.goals.map((goal, index) => {
+                    //Difference in days
+                    const difference = differenceInDays(new Date(goal.endDate), new Date())
+                    //Only print in dashboard and if the goal is on this week
+                    if (difference < 7 && !goal.achieved) {
+                        counter++
+                        return (
+                            <Goal key={index} goal={goal} counter={counter} index={index} difference={difference}></Goal>
+                        )
+                    }
+                })
         }
-        else profileGoals = <></>
-
         return profileGoals
     }
 
+    //Goal map function
+    const history = () => {
+        //Initial value
+        let goals = <></>
+        //When goals are not null/empty:
+        if (!!profile.goals) {
+            goals =
+                profile.goals.map((goal, index) => {
+                    //Difference in days
+                    const difference = differenceInDays(new Date(goal.endDate), new Date())
+                    //Only print in dashboard and if the goal is on this week
+                    if (difference < 0 || goal.achieved) {
+                        return (
+                            <Goal key={index} goal={goal} index={index} difference={difference} history={true}></Goal>
+                        )
+                    }
+                })
+        }
+        return goals
+    }
+
+    //Goal map function
+    const other = () => {
+        //Initial value
+        let goals = <></>
+        //Goal number init
+        let counter = 0
+        //When goals are not null/empty:
+        if (!!profile.goals) {
+            goals =
+                profile.goals.map((goal, index) => {
+                    //Difference in days
+                    const difference = differenceInDays(new Date(goal.endDate), new Date())
+                    //Only print in dashboard and if the goal is on this week
+                    if (difference >= 7) {
+                        counter++
+                        return (
+                            <Goal key={index} goal={goal} counter={counter} index={index} difference={difference}></Goal>
+                        )
+                    }
+                })
+        }
+        return goals
+    }
+
     return (
-        <Container>
-            {progress === "100.0" ? <h3>You have completed all your goals! Congratulations!</h3>: <h3>You still have {difference} days to complete your goals.</h3>}
-            <h6>Your goal progress this week</h6>
-            <ProgressBar variant="success" style={{"height":"2em","width":"100%", "fontSize":"1.7em"}}now={progress} label={`${progress}%`}/>
-            <div style={{"paddingTop":"1em"}} className='accordiongrid2'>
-                {goalsMap}
-            </div>
-        </Container> 
+        <Container className='pt-5'>
+            {progress === "100.0" ? <h3>You have completed all your goals! Congratulations!</h3> : <h3></h3>}
+            <h5>Your goal progress this week</h5>
+            <ProgressBar variant="success" style={{ "height": "2em", "width": "100%", "fontSize": "1.7em", "marginBottom": "1em" }} now={progress} label={`${progress}%`} />
+            <Container className='p-3'>
+                <h3>This week's goals</h3><hr style={{ margin: "0", padding: "0" }} />
+                <div style={{ "paddingTop": "1em" }} className='accordiongrid'>
+                    {goalsMap}
+                </div>
+            </Container>
+            {props.enlarge ? <>
+                <Container className='p-3'>
+                    <h3>Other goals</h3><hr style={{ margin: "0", padding: "0" }} />
+                    <div style={{ "paddingTop": "1em" }} className='accordiongrid'>
+                        {otherMap}</div></Container><Container className='p-3'><h3>History</h3><hr style={{ margin: "0", padding: "0" }} />
+                    <div style={{ "paddingTop": "1em" }} className='accordiongrid'>
+                        {historyMap}
+                    </div>
+                </Container></> : <></>}
+        </Container>
     );
 };
 
