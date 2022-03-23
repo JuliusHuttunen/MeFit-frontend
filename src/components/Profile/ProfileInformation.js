@@ -56,19 +56,21 @@ const schema = yup.object({
 const ProfileInformation = () => {
   const profile = useSelector((state) => state.profile);
 
+  console.log(profile)
+
   let [Person, setPerson] = useState({
     first_name: KeycloakService.getFirstName(),
     last_name: KeycloakService.getLastName(),
-    address_line_1: profile.address.addressLine1,
-    address_line_2: profile.address.addressLine2,
-    address_line_3: profile.address.addressLine3,
+    address_line_1: profile.address.addressLine_1,
+    address_line_2: profile.address.addressLine_2,
+    address_line_3: profile.address.addressLine_3,
     city: profile.address.city,
     country: profile.address.country,
     postal_code: profile.address.postalCode,
     email: KeycloakService.getEmail(),
     height: profile.height,
     weight: profile.weight,
-    fitness_level: profile.fitness_level,
+    fitness_level: profile.fitnessLevel,
     medical_conditions: profile.medicalConditions,
     disabilities: profile.disabilities,
   });

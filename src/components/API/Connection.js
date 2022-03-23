@@ -299,6 +299,8 @@ export async function postProfileToAPI(profile) {
         },
         goals: [],
         workouts: [],
+        exercise: [],
+        program: [],
       }),
     };
     console.log(config.body);
