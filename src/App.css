@@ -1,38 +1,102 @@
-.App {
-  text-align: center;
+.cardcontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1em;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.accordiongrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2em
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.accordiongrid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2em
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.filterwrapper img{
+    margin: 1em;
+    width: 70px;
+    transition: 0.2s;
+    padding-bottom: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.filterwrapper img:hover{
+    transition: 0.2s;
+    cursor: pointer;
+    filter: drop-shadow(0 0 0.1rem blue);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.workoutsetswrapper {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    gap: 1em;
+}
+
+.filterwrapper div{
+    margin: 1em;
+    transition: 0.2s;
+    border: 1px solid lightblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    width: 20%;
+}
+
+.filterwrapper div:hover{
+    transition: 0.2s;
+    cursor: pointer;
+    background-color: aliceblue;
+}
+
+.filterwrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filterwrapper h5 {
+    padding: 2em;
+}
+
+.workoutsetsmall {
+    display: flex;
+    align-items: stretch
+}
+
+.goalbasket {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.goalbasket li {
+    border: 1px solid lightgray;
+    padding: 1em;
+    margin: 1rem;
+    border-radius: 10px;
+}
+
+.goalbasketwrapper {
+    border: 1px solid lightgray;
+    padding: 2em;
+    border-radius: 10px;
+    width: 100%;
+    margin-bottom: 1em;
+    background-color: white;
+}
+
+.goalbasketcontainer {
+    border: 1px solid lightgray;
+    padding:1em;
+    border-radius: 10px;
+    width: 100%;
+    background-color: rgba(236, 234, 234, 0.39);
+    display: flex;
+    flex-direction: column;
 }
