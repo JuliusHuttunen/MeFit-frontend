@@ -13,6 +13,8 @@ export const profileSlice = createSlice({
         address: {},
         goals: [],
         workouts: [],
+        exercises: [],
+        programs: [],
     },
     reducers: {
     },
@@ -33,6 +35,8 @@ export const profileSlice = createSlice({
                 state.address = action.payload.address
                 state.goals = action.payload.goals
                 state.workouts = action.payload.workouts
+                state.exercises = action.payload.exercises
+                state.programs = action.payload.programs
             }
             else {
                 console.log("Null profile")
