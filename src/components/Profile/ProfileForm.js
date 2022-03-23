@@ -8,6 +8,8 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import { postProfileToAPI } from "../API/Connection";
 import { useNavigate } from "react-router-dom";
+import { fetchProfile } from "../../redux/profileSlice";
+import { useDispatch } from "react-redux";
 
 // yup validation schema
 const schema = yup.object({
@@ -52,6 +54,7 @@ const schema = yup.object({
 
 const ProfileForm = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const {
     register,
@@ -61,8 +64,9 @@ const ProfileForm = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => {
-    postProfileToAPI(data);
+  const onSubmit = async (data) => {
+    await postProfileToAPI(data);
+    await dispatch(fetchProfile()).unwrap()
      navigate("/dashboard")
   };
 
