@@ -303,7 +303,6 @@ export async function postProfileToAPI(profile) {
         program: [],
       }),
     };
-    console.log(config.body);
     const response = await fetch(`${url}`, config);
     const data = await response.text();
     return [null, data];
@@ -343,7 +342,6 @@ export async function updateProfileToAPI(profile) {
         },
       }),
     };
-    console.log(config.body);
     const response = await fetch(`${url}`, config);
     const data = await response.text();
     return [null, data];

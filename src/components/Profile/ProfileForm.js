@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import { postProfileToAPI } from "../API/Connection";
+import { useNavigate } from "react-router-dom";
 
 // yup validation schema
 const schema = yup.object({
@@ -50,19 +51,19 @@ const schema = yup.object({
 });
 
 const ProfileForm = () => {
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
 
   const onSubmit = (data) => {
-    console.log(data);
     postProfileToAPI(data);
-    reset();
+     navigate("/dashboard")
   };
 
   return (

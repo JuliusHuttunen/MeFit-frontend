@@ -56,8 +56,6 @@ const schema = yup.object({
 const ProfileInformation = () => {
   const profile = useSelector((state) => state.profile);
 
-  console.log(profile)
-
   let [Person, setPerson] = useState({
     first_name: KeycloakService.getFirstName(),
     last_name: KeycloakService.getLastName(),
