@@ -8,6 +8,7 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import { postProfileToAPI } from "../API/Connection";
 
+// yup validation schema
 const schema = yup.object({
   address_line_1: yup
     .string()
@@ -46,7 +47,6 @@ const schema = yup.object({
   checkInformation: yup
     .boolean()
     .required("Please check filled information and mark box as checked"),
- //requestForContributor: yup.boolean(),
 });
 
 const ProfileForm = () => {
@@ -58,6 +58,7 @@ const ProfileForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+
   const onSubmit = (data) => {
     console.log(data);
     postProfileToAPI(data);
@@ -131,7 +132,7 @@ const ProfileForm = () => {
               </Form.Group>
             </Col>
           </Row>
-          <Row >
+          <Row>
             <Col>
               <Form.Group className="mb-3" controlId="country">
                 <Form.Label>Country</Form.Label>
@@ -245,19 +246,6 @@ const ProfileForm = () => {
                 <p>{errors.checkInformation?.message}</p>
               </Form.Group>
             </Col>
-            {/* <Col>
-              <Form.Group
-                className="mb-5 mt-3"
-                controlId="requestForContributor"
-              >
-                <Form.Check
-                  {...register("requestForContributor")}
-                  type="checkbox"
-                  label="I request Contributor status"
-                />
-                <p>{errors.requestForContributor?.message}</p>
-              </Form.Group>
-            </Col> */}
           </Row>
           <Row>
             <Button type="submit" variant="primary">
