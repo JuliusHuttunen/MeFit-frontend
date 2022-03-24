@@ -70,7 +70,6 @@ const EditProgramForm = () => {
         <Button variant="secondary" onClick={() => handleClose(Program)}>
           Cancel
         </Button>
-
       </Modal.Footer>
     </Modal>
   );

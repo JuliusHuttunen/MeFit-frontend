@@ -28,7 +28,6 @@ const WorkoutTable = () => {
             <th>#</th>
             <th>Name</th>
             <th>Type</th>
-            <th>Level</th>
             <th>Edit</th>
           </tr>
         </thead>

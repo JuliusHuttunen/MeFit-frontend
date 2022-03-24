@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { displayWorkoutForm, fetchWorkouts } from '../../redux/databaseSlice';
 import Button from 'react-bootstrap/Button';
-import ExerciseForm from './ExerciseForm';
+import { postWorkoutToAPI } from '../API/Connection';
 
 const WorkoutForm = () => {
 
     const dispatch = useDispatch()
     const show = useSelector((state) => state.db.showWorkoutForm)
     const handleClose = () => dispatch(displayWorkoutForm())
+    const exercises = useSelector((state) => state.db.exercises)
 
     const {
         register,
@@ -19,9 +20,15 @@ const WorkoutForm = () => {
     } = useForm();
 
     const onSubmit = async (data) => {
-      //post to Api
-        await dispatch(fetchWorkouts()).unwrap()
+      await postWorkoutToAPI(data)
+      await dispatch(fetchWorkouts()).unwrap()
     };
+
+    const exerciseMap = exercises.map((exercise, index) => {
+      return(
+        <option key={index} value={exercise.exerciseId}>{exercise.name}</option>
+      )
+    })
 
     return (
         <>
@@ -45,30 +52,45 @@ const WorkoutForm = () => {
                     type="text"
                     placeholder="Type of workout" />
             </Form.Group>
-            <hr/>
-            List of Sets
-
-            <hr/>
             <h4>Choose Exercise and number of repetitions</h4>
             <Form.Group className="mb-3" controlId="formType">
-              <Form.Label>Exercises</Form.Label>
+              <Form.Label>Exercises of set #1</Form.Label>
               <Form.Select value= {undefined}
-                {...register("exerciseSet")}
-              >
-                <option value={ExerciseForm.name}>{ExerciseForm.name}</option>
-                <option value={"Abs"}>Abs</option>
-                <option value={"Biceps"}>Biceps</option>
-                <option value={"Chest"}>Chest</option>
-                <option value={"Forearms"}>Forearms</option>
-                <option value={"Quads"}>Quads</option>
+                {...register("exerciseId1")}>
+                <option value="">Empty</option>
+                {exerciseMap}
               </Form.Select>
               <Form.Label>Number of repetitions</Form.Label>
               <Form.Control
-                   // {...register("type")}
+                    {...register("exerciseRepetitions1")}
                     type="number"
                     placeholder="Number of repetitions" />
-            
-            <Button>Add</Button><Button>Clear</Button>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formType">
+              <Form.Label>Exercises of set #2</Form.Label>
+              <Form.Select value= {undefined}
+                {...register("exerciseId2")}>
+                <option value="">Empty</option>
+                {exerciseMap}
+              </Form.Select>
+              <Form.Label>Number of repetitions</Form.Label>
+              <Form.Control
+                    {...register("exerciseRepetitions2")}
+                    type="number"
+                    placeholder="Number of repetitions" />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formType">
+              <Form.Label>Exercises of set #3</Form.Label>
+              <Form.Select value= {undefined}
+                {...register("exerciseId3")}>
+                <option value="">Empty</option>
+                {exerciseMap}
+              </Form.Select>
+              <Form.Label>Number of repetitions</Form.Label>
+              <Form.Control
+                    {...register("exerciseRepetitions3")}
+                    type="number"
+                    placeholder="Number of repetitions" />
             </Form.Group>
 
             <Button variant="primary" type="submit">
