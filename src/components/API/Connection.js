@@ -76,6 +76,26 @@ export async function setGoalCompleted(goal, boolean) {
     "https://fi-java-mefit-backend.herokuapp.com/api/v1/goals/" + goal.goalId;
   const token = KeycloakService.getToken();
 
+  const jsonProgram = () => {
+    if (goal.program !== null) {
+      return { programId: goal.program.programId };
+    } else return null;
+  };
+  const jsonWorkouts = () => {
+    const workoutArray = [];
+    for (let workout of goal.workouts) {
+      workoutArray.push({ workoutId: workout.workoutId });
+    }
+    return workoutArray;
+  };
+  const jsonExercises = () => {
+    const exerciseArray = [];
+    for (let exercise of goal.exercises) {
+      exerciseArray.push({ exerciseId: exercise.exerciseId });
+    }
+    return exerciseArray;
+  };
+
   try {
     const config = {
       method: "PATCH",
@@ -84,7 +104,16 @@ export async function setGoalCompleted(goal, boolean) {
         Authorization: "Bearer " + token,
       },
       body: JSON.stringify({
-        achieved: boolean,
+          goalId: goal.goalId,
+          endDate: goal.endDate,
+          startDate: goal.startDate,
+          achieved: boolean,
+          profile: {
+            profileId: goal.profile.profileId
+          },
+          program: jsonProgram(),
+          workouts: jsonWorkouts(),
+          exercises: jsonExercises()
       }),
     };
     const response = await fetch(`${url}`, config);
