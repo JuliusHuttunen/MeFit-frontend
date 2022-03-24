@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { displayExerciseForm, displayProgramForm, displayWorkoutForm } from "../../redux/databaseSlice";
 import ProgramForm from "./ProgramForm";
 import WorkoutForm from "./WorkoutForm";
+import EditExerciseForm from "./EditExerciseForm";
 
 const ContributorTabs = () => {
 
@@ -26,6 +27,7 @@ const ContributorTabs = () => {
           Add Exercise
         </Button>
         <ExerciseForm></ExerciseForm>
+        <EditExerciseForm ></EditExerciseForm>
       </Tab>
       <Tab eventKey="workouts" title="Workouts">
         <WorkoutTable />
