@@ -1,11 +1,15 @@
 import React from "react";
 import Table from "react-bootstrap/Table"
 import Button from "react-bootstrap/Button"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { editProgram } from "../../redux/databaseSlice";
 
 const ProgramTable = () => {
 
   const programs = useSelector((state) => state.db.programs)
+  const dispatch = useDispatch()
+
+  const handleOpen = (program) => dispatch(editProgram(program))
 
   const programsMap = programs.map((program, index) => {
       return(
@@ -13,7 +17,7 @@ const ProgramTable = () => {
           <td>{program.programId}</td>
           <td>{program.name}</td>
           <td>{program.category}</td>
-          <td><Button>edit</Button></td>
+          <td><Button onClick={() => handleOpen(program)}>edit</Button></td>
         </tr>
       )
   })
@@ -23,9 +27,7 @@ const ProgramTable = () => {
           <tr>
             <th>#</th>
             <th>Name</th>
-            <th>Description</th>
-            <th>Target Muscle</th>
-            <th>Level</th>
+            <th>Category</th>
             <th>Edit</th>
           </tr>
         </thead>

@@ -16,7 +16,9 @@ export const databaseSlice = createSlice({
         showEditExercise: false,
         showEditWorkout: false,
         showEditProgram: false,
-        currentExercise: {}
+        currentExercise: {},
+        currentWorkout: {},
+        currentProgram: {}
     },
     reducers: {
       displayExerciseForm: (state) => {
@@ -32,11 +34,13 @@ export const databaseSlice = createSlice({
         state.showEditExercise = !state.showEditExercise
         state.currentExercise = action.payload
       },
-      editWorkout: (state) => {
+      editWorkout: (state, action) => {
         state.showEditWorkout = !state.showEditWorkout
+        state.currentWorkout = action.payload
       },
-      editProgram: (state) => {
+      editProgram: (state, action) => {
         state.showEditProgram = !state.showEditProgram
+        state.currentProgram = action.payload
       }
     },
     extraReducers(builder) {

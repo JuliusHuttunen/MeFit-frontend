@@ -11,6 +11,8 @@ import { displayExerciseForm, displayProgramForm, displayWorkoutForm } from "../
 import ProgramForm from "./ProgramForm";
 import WorkoutForm from "./WorkoutForm";
 import EditExerciseForm from "./EditExerciseForm";
+import EditProgramForm from "./EditProgramForm";
+import EditWorkoutForm from "./EditWorkoutForm";
 
 const ContributorTabs = () => {
 
@@ -33,11 +35,13 @@ const ContributorTabs = () => {
         <WorkoutTable />
         <Button variant="dark" onClick={handleWorkoutShow}>Add Workout</Button>
         <WorkoutForm></WorkoutForm>
+        <EditWorkoutForm></EditWorkoutForm>
       </Tab>
       <Tab eventKey="programs" title="Programs">
         <ProgramTable />
         <Button variant="dark" onClick={handleProgramShow}>Add Program</Button>
         <ProgramForm></ProgramForm>
+        <EditProgramForm></EditProgramForm>
       </Tab>
     </Tabs>
   );

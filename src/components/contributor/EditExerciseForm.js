@@ -15,12 +15,7 @@ const EditExerciseForm = () => {
   const [Exercise, setExercise] = useState({});
 
   useEffect(() => {
-    setExercise({
-      name: exercise.name,
-      description: exercise.description,
-      targetMuscleGroup: exercise.targetMuscleGroup,
-      fitnessLevel: exercise.fitnessLevel,
-    })
+    setExercise(exercise)
   },[exercise])
 
   const handleChange = (event) => {
@@ -43,7 +38,7 @@ const EditExerciseForm = () => {
   const onSubmit = async (data) => { };
 
   return (
-    <Modal show={show} onHide={() => handleClose(exercise)}>
+    <Modal show={show} onHide={() => handleClose(Exercise)}>
       <Modal.Header closeButton>
         <Modal.Title>Edit Exercise</Modal.Title>
       </Modal.Header>
@@ -99,7 +94,7 @@ const EditExerciseForm = () => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={() => handleClose(exercise)}>
+        <Button variant="secondary" onClick={() => handleClose(Exercise)}>
           Cancel
         </Button>
 

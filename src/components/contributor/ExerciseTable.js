@@ -3,7 +3,6 @@ import Table from "react-bootstrap/Table"
 import Button from "react-bootstrap/Button"
 import { useDispatch, useSelector } from "react-redux";
 import { editExercise } from "../../redux/databaseSlice";
-import EditExerciseForm from "./EditExerciseForm";
 
 const ExerciseTable = () => {
 
@@ -14,7 +13,6 @@ const ExerciseTable = () => {
 
   const exercisesMap = exercises.map((exercise, index) => {
       return(
-        <>
         <tr key={index}>
           <td>{exercise.exerciseId}</td>
           <td>{exercise.name}</td>
@@ -23,7 +21,6 @@ const ExerciseTable = () => {
           <td>{exercise.fitnessLevel}</td>
           <td><Button onClick={() => handleOpen(exercise)}>edit</Button></td>
         </tr>
-        </>
       )
   })
   return (
