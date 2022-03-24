@@ -1,11 +1,15 @@
 import React from "react";
 import Table from "react-bootstrap/Table"
 import Button from "react-bootstrap/Button"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { editExercise } from "../../redux/databaseSlice";
 
 const ExerciseTable = () => {
 
   const exercises = useSelector((state) => state.db.exercises)
+  const dispatch = useDispatch()
+
+  const handleOpen = (exercise) => dispatch(editExercise(exercise))
 
   const exercisesMap = exercises.map((exercise, index) => {
       return(
@@ -15,7 +19,7 @@ const ExerciseTable = () => {
           <td>{exercise.description}</td>
           <td>{exercise.targetMuscleGroup}</td>
           <td>{exercise.fitnessLevel}</td>
-          <td><Button>edit</Button></td>
+          <td><Button onClick={() => handleOpen(exercise)}>edit</Button></td>
         </tr>
       )
   })

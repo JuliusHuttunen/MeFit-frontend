@@ -12,7 +12,13 @@ export const databaseSlice = createSlice({
         workoutStatus: "",
         showExerciseForm: false,
         showWorkoutForm: false,
-        showProgramForm: false
+        showProgramForm: false,
+        showEditExercise: false,
+        showEditWorkout: false,
+        showEditProgram: false,
+        currentExercise: {},
+        currentWorkout: {},
+        currentProgram: {}
     },
     reducers: {
       displayExerciseForm: (state) => {
@@ -23,6 +29,18 @@ export const databaseSlice = createSlice({
       },
       displayProgramForm: (state) => {
         state.showProgramForm = !state.showProgramForm
+      },
+      editExercise: (state, action) => {
+        state.showEditExercise = !state.showEditExercise
+        state.currentExercise = action.payload
+      },
+      editWorkout: (state, action) => {
+        state.showEditWorkout = !state.showEditWorkout
+        state.currentWorkout = action.payload
+      },
+      editProgram: (state, action) => {
+        state.showEditProgram = !state.showEditProgram
+        state.currentProgram = action.payload
       }
     },
     extraReducers(builder) {
@@ -69,6 +87,6 @@ export const fetchExercises = createAsyncThunk('fetchExercises', async () => {
     return exercises
 })
 
-export const { displayExerciseForm, displayWorkoutForm, displayProgramForm } = databaseSlice.actions
+export const { displayExerciseForm, displayWorkoutForm, displayProgramForm, editExercise, editWorkout, editProgram } = databaseSlice.actions
 
 export default databaseSlice.reducer
