@@ -23,6 +23,7 @@ const ExerciseForm = () => {
         await dispatch(fetchExercises()).unwrap()
     };
 
+
     return (
         <>
       <Modal show={show} onHide={handleClose}>
