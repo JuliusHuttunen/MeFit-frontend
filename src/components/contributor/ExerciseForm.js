@@ -21,6 +21,7 @@ const ExerciseForm = () => {
     const onSubmit = async (data) => {
         await postExerciseToAPI(data)
         await dispatch(fetchExercises()).unwrap()
+        handleClose()
     };
 
 

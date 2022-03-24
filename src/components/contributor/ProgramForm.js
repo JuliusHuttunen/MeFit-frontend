@@ -3,15 +3,16 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { postExerciseToAPI } from '../API/Connection';
 import { displayProgramForm, fetchPrograms } from '../../redux/databaseSlice';
 import Button from 'react-bootstrap/Button';
+import { postProgramToAPI } from '../API/Connection';
 
 const ProgramForm = () => {
 
     const dispatch = useDispatch()
     const show = useSelector((state) => state.db.showProgramForm)
     const handleClose = () => dispatch(displayProgramForm())
+    const workouts = useSelector((state) => state.db.workouts)
 
     const {
         register,
@@ -19,14 +20,21 @@ const ProgramForm = () => {
     } = useForm();
 
     const onSubmit = async (data) => {
-      //Post to api
+        await postProgramToAPI(data)
         await dispatch(fetchPrograms()).unwrap()
+        handleClose()
     };
+
+    const workoutMap = workouts.map((workout, index) => {
+      return(
+        <option key={index} value={workout.workoutId}>{workout.name}</option>
+      )
+    })
 
   
     return (
         <>
-      <Modal show={show} onHide={handleClose}>
+      <Modal size="lg" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Add New Program</Modal.Title>
         </Modal.Header>
@@ -42,7 +50,7 @@ const ProgramForm = () => {
             <Form.Group className="mb-3" controlId="formCategory">
               <Form.Label>Category</Form.Label>
               <Form.Control
-                  //  {...register("category")}
+                    {...register("category")}
                     type="text"
                     placeholder="Category of program" />
             </Form.Group>
@@ -52,27 +60,29 @@ const ProgramForm = () => {
               <Form.Select value= {undefined}
                {...register("workoutId1")}
               >
-                <option value={1}>1</option>
+                <option value="">Empty</option>
+                {workoutMap}
               </Form.Select>
   
             </Form.Group>
             <Form.Group className="mb-3" controlId="formType">
               <Form.Label>Wourkout #2</Form.Label>
               <Form.Select value= {undefined}
-              // {...register("workoutId2")}
+                {...register("workoutId2")}
               >
-                <option value={2}>2</option>
+                <option value="">Empty</option>
+                {workoutMap}
               </Form.Select>
   
             </Form.Group>
             <Form.Group className="mb-3" controlId="formType">
               <Form.Label>Wourkout #3</Form.Label>
               <Form.Select value= {undefined}
-             // {...register("workoutId3")}
+                {...register("workoutId3")}
               >
-                <option value={3}>3</option>
+                <option value="">Empty</option>
+                {workoutMap}
               </Form.Select>
-  
             </Form.Group>
             <Button variant="primary" type="submit">
               Save

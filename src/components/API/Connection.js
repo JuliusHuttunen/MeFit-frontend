@@ -421,6 +421,49 @@ export async function postWorkoutToAPI(workout) {
           sets: jsonSets()
       }),
     };
+    console.log(config.body)
+    const response = await fetch(`${url}`, config);
+    const data = await response.text();
+    return [null, data];
+  } catch (error) {
+    return [error.message, null];
+  }
+}
+
+export async function postProgramToAPI(program) {
+  const token = KeycloakService.getToken()
+  const url = "https://fi-java-mefit-backend.herokuapp.com/api/v1/programs"
+
+  const jsonWorkouts = () => {
+    const workoutArray = []
+    if(program.workoutId1 !== ""){
+      workoutArray.push(
+        {workoutId: program.workoutId1})
+    }
+    if(program.workoutId2 !== ""){
+      workoutArray.push(
+        {workoutId: program.workoutId2})
+    }
+    if(program.workoutId2 !== ""){
+      workoutArray.push(
+        {workoutId: program.workoutId2})
+    }
+    return workoutArray
+  }
+
+  try {
+    const config = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+          name: program.name,
+          category: program.category,
+          workouts: jsonWorkouts()
+      }),
+    };
     const response = await fetch(`${url}`, config);
     const data = await response.text();
     return [null, data];

@@ -20,8 +20,11 @@ const WorkoutForm = () => {
     } = useForm();
 
     const onSubmit = async (data) => {
-      await postWorkoutToAPI(data)
+      const[error, response] = await postWorkoutToAPI(data)
+      console.log(error)
+      console.log(response)
       await dispatch(fetchWorkouts()).unwrap()
+      handleClose()
     };
 
     const exerciseMap = exercises.map((exercise, index) => {
