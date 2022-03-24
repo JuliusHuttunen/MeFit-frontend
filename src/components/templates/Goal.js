@@ -57,7 +57,6 @@ const Goal = (props) => {
         await dispatch(fetchProfile()).unwrap()
     }
 
-    
     //Initialize goal program
     let currentProgram = null
     //Assign a value if not null
