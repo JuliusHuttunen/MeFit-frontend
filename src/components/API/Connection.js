@@ -349,3 +349,31 @@ export async function updateProfileToAPI(profile) {
     return [error.message, null];
   }
 }
+
+export async function postExerciseToAPI(exercise) {
+  const token = KeycloakService.getToken()
+  const url = "https://fi-java-mefit-backend.herokuapp.com/api/v1/exercises"
+
+  try {
+    const config = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+          name: exercise.name,
+          description: exercise.description,
+          targetMuscleGroup: exercise.targetMuscleGroup,
+          image: null,
+          fitnessLevel: exercise.fitnessLevel,
+          vidLink: null
+      }),
+    };
+    const response = await fetch(`${url}`, config);
+    const data = await response.text();
+    return [null, data];
+  } catch (error) {
+    return [error.message, null];
+  }
+}

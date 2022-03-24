@@ -1,47 +1,39 @@
 import React from "react";
 import Table from "react-bootstrap/Table"
 import Button from "react-bootstrap/Button"
+import { useSelector } from "react-redux";
 
 const ProgramTable = () => {
-    return (
-        <div>
-            Programs in table
-            <Table striped bordered hover size="sm">
+
+  const programs = useSelector((state) => state.db.programs)
+
+  const programsMap = programs.map((program, index) => {
+      return(
+        <tr key={index}>
+          <td>{program.programId}</td>
+          <td>{program.name}</td>
+          <td>{program.category}</td>
+          <td><Button>edit</Button></td>
+        </tr>
+      )
+  })
+  return (
+      <Table striped bordered hover size="sm">
         <thead>
           <tr>
             <th>#</th>
             <th>Name</th>
+            <th>Description</th>
             <th>Target Muscle</th>
             <th>Level</th>
             <th>Edit</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Leg raise</td>
-            <td>Abs</td>
-            <td>2</td>
-            <td><Button>edit</Button></td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Bicep curl</td>
-            <td>Biceps</td>
-            <td>3</td>
-            <td><Button>edit</Button></td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Pull up</td>
-            <td>Biceps</td>
-            <td>2</td>
-            <td><Button>edit</Button></td>
-          </tr>
+          {programsMap}
         </tbody>
       </Table>
-        </div>
-    );
+  );
 };
 
 export default ProgramTable;

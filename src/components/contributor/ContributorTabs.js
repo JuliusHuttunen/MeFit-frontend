@@ -1,65 +1,41 @@
-import React, { useState } from "react";
+import React from "react";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import ExerciseTable from "./ExerciseTable";
 import WorkoutTable from "./WorkoutTable";
 import ProgramTable from "./ProgramTable";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
+import ExerciseForm from "./ExerciseForm";
+import { useDispatch } from "react-redux";
+import { displayExerciseForm, displayProgramForm, displayWorkoutForm } from "../../redux/databaseSlice";
+import ProgramForm from "./ProgramForm";
+import WorkoutForm from "./WorkoutForm";
 
 const ContributorTabs = () => {
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
+  const dispatch = useDispatch()
+  const handleExerciseShow = () => dispatch(displayExerciseForm())
+  const handleWorkoutShow = () => dispatch(displayWorkoutForm())
+  const handleProgramShow = () => dispatch(displayProgramForm())
+  
   return (
     <Tabs defaultActiveKey="exercises" className="mb-3">
       <Tab eventKey="exercises" title="Exercises">
         <ExerciseTable />
-        <Button variant="dark" onClick={handleShow}>
+        <Button variant="dark" onClick={handleExerciseShow}>
           Add Exercise
         </Button>
-        <>
-          <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>Add New Exercise</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              Fill Form and Save
-              <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Email address</Form.Label>
-                  <Form.Control type="email" placeholder="Enter email" />
-                  <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
-                  </Form.Text>
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="Password" />
-                </Form.Group>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                Cancel
-              </Button>
-              <Button variant="primary" onClick={handleClose}>
-                Save
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </>
+        <ExerciseForm></ExerciseForm>
       </Tab>
       <Tab eventKey="workouts" title="Workouts">
         <WorkoutTable />
-        <Button variant="dark">Add Workout</Button>
+        <Button variant="dark" onClick={handleWorkoutShow}>Add Workout</Button>
+        <WorkoutForm></WorkoutForm>
       </Tab>
       <Tab eventKey="programs" title="Programs">
         <ProgramTable />
-        <Button variant="dark">Add Program</Button>
+        <Button variant="dark" onClick={handleProgramShow}>Add Program</Button>
+        <ProgramForm></ProgramForm>
       </Tab>
     </Tabs>
   );
