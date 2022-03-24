@@ -63,7 +63,6 @@ const ProgramForm = () => {
                 <option value="">Empty</option>
                 {workoutMap}
               </Form.Select>
-  
             </Form.Group>
             <Form.Group className="mb-3" controlId="formType">
               <Form.Label>Wourkout #2</Form.Label>

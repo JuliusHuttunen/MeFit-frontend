@@ -16,9 +16,14 @@ export const databaseSlice = createSlice({
         showEditExercise: false,
         showEditWorkout: false,
         showEditProgram: false,
-        currentExercise: {},
+        currentExercise: {
+        },
         currentWorkout: {},
-        currentProgram: {}
+        currentProgram: {
+          workouts:[
+            {},{},{}
+          ]
+        }
     },
     reducers: {
       displayExerciseForm: (state) => {

@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { editExercise } from "../../redux/databaseSlice";
+import { editExercise, fetchExercises } from "../../redux/databaseSlice";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import { updateExerciseToAPI } from "../API/Connection";
 
 const EditExerciseForm = () => {
+  
   const dispatch = useDispatch();
   const show = useSelector((state) => state.db.showEditExercise);
   const exercise = useSelector((state) => state.db.currentExercise);
@@ -31,7 +33,8 @@ const EditExerciseForm = () => {
 
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
-    // post
+  await updateExerciseToAPI(data, exercise.exerciseId)
+  await dispatch(fetchExercises()).unwrap()
   };
 
   return (
