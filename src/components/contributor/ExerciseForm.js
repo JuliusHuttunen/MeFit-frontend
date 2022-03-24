@@ -58,15 +58,15 @@ const ExerciseForm = () => {
                     placeholder="Description" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formFitnessLevel">
-            <Form.Label>Fitness Level</Form.Label>
+            <Form.Label>Level of Exercise</Form.Label>
               <Form.Select value= {undefined}
                 {...register("fitnessLevel")}
               >
-                <option value={1}>Very Poor</option>
-                <option value={2}>Poor</option>
+                <option value={1}>Very Easy</option>
+                <option value={2}>Easy</option>
                 <option value={3}>Average</option>
-                <option value={4}>Good</option>
-                <option value={5}>Excellent</option>
+                <option value={4}>Hard</option>
+                <option value={5}>World Class</option>
               </Form.Select>
             </Form.Group>
             <Button variant="primary" type="submit">
