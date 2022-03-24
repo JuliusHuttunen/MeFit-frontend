@@ -11,7 +11,7 @@ const WorkoutTable = () => {
           <tr>
             <th>#</th>
             <th>Name</th>
-            <th>Target Muscle</th>
+            <th>Type</th>
             <th>Level</th>
             <th>Edit</th>
           </tr>

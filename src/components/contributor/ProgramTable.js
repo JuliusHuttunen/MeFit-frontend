@@ -23,9 +23,7 @@ const ProgramTable = () => {
           <tr>
             <th>#</th>
             <th>Name</th>
-            <th>Description</th>
-            <th>Target Muscle</th>
-            <th>Level</th>
+            <th>Category</th>
             <th>Edit</th>
           </tr>
         </thead>

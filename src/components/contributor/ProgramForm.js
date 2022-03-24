@@ -16,7 +16,6 @@ const ProgramForm = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
     } = useForm();
 
     const onSubmit = async (data) => {
@@ -24,6 +23,7 @@ const ProgramForm = () => {
         await dispatch(fetchPrograms()).unwrap()
     };
 
+  
     return (
         <>
       <Modal show={show} onHide={handleClose}>
@@ -33,42 +33,18 @@ const ProgramForm = () => {
         <Modal.Body>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <Form.Group className="mb-3" controlId="formName">
-              <Form.Label>Name</Form.Label>
+              <Form.Label>Enter name of Program</Form.Label>
               <Form.Control
                     {...register("name")}
                     type="text"
-                    placeholder="Enter name" />
+                    placeholder="Enter program name" />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formMuscleGroup">
-              <Form.Label>Target muscle group</Form.Label>
-              <Form.Select value= {undefined}
-                {...register("targetMuscleGroup")}
-              >
-                <option value={"Abs"}>Abs</option>
-                <option value={"Biceps"}>Biceps</option>
-                <option value={"Chest"}>Chest</option>
-                <option value={"Forearms"}>Forearms</option>
-                <option value={"Quads"}>Quads</option>
-              </Form.Select>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formDescription">
-              <Form.Label>Description</Form.Label>
+            <Form.Group className="mb-3" controlId="formCategory">
+              <Form.Label>Category</Form.Label>
               <Form.Control
-                    {...register("description")}
+                    {...register("category")}
                     type="text"
-                    placeholder="Description" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formFitnessLevel">
-            <Form.Label>Fitness Level</Form.Label>
-              <Form.Select value= {undefined}
-                {...register("fitnessLevel")}
-              >
-                <option value={1}>Very Poor</option>
-                <option value={2}>Poor</option>
-                <option value={3}>Average</option>
-                <option value={4}>Good</option>
-                <option value={5}>Excellent</option>
-              </Form.Select>
+                    placeholder="Category of program" />
             </Form.Group>
             <Button variant="primary" type="submit">
               Save

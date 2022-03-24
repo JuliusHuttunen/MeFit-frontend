@@ -16,7 +16,6 @@ const ExerciseForm = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
     } = useForm();
 
     const onSubmit = async (data) => {

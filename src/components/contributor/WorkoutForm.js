@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { displayWorkoutForm, fetchWorkouts } from '../../redux/databaseSlice';
 import Button from 'react-bootstrap/Button';
+import ExerciseForm from './ExerciseForm';
 
 const WorkoutForm = () => {
 
@@ -15,7 +16,6 @@ const WorkoutForm = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
     } = useForm();
 
     const onSubmit = async (data) => {
@@ -25,7 +25,7 @@ const WorkoutForm = () => {
 
     return (
         <>
-      <Modal show={show} onHide={handleClose}>
+      <Modal size="lg" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Add New Workout</Modal.Title>
         </Modal.Header>
@@ -36,39 +36,41 @@ const WorkoutForm = () => {
               <Form.Control
                     {...register("name")}
                     type="text"
-                    placeholder="Enter name" />
+                    placeholder="Enter name of workout" />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formMuscleGroup">
-              <Form.Label>Target muscle group</Form.Label>
+            <Form.Group className="mb-3" controlId="formType">
+              <Form.Label>Type</Form.Label>
+              <Form.Control
+                    {...register("type")}
+                    type="text"
+                    placeholder="Type of workout" />
+            </Form.Group>
+            <hr/>
+            List of Sets
+
+            <hr/>
+            <h4>Choose Exercise and number of repetitions</h4>
+            <Form.Group className="mb-3" controlId="formType">
+              <Form.Label>Exercises</Form.Label>
               <Form.Select value= {undefined}
-                {...register("targetMuscleGroup")}
+                {...register("exerciseSet")}
               >
+                <option value={ExerciseForm.name}>{ExerciseForm.name}</option>
                 <option value={"Abs"}>Abs</option>
                 <option value={"Biceps"}>Biceps</option>
                 <option value={"Chest"}>Chest</option>
                 <option value={"Forearms"}>Forearms</option>
                 <option value={"Quads"}>Quads</option>
               </Form.Select>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formDescription">
-              <Form.Label>Description</Form.Label>
+              <Form.Label>Number of repetitions</Form.Label>
               <Form.Control
-                    {...register("description")}
-                    type="text"
-                    placeholder="Description" />
+                   // {...register("type")}
+                    type="number"
+                    placeholder="Number of repetitions" />
+            
+            <Button>Add</Button><Button>Clear</Button>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formFitnessLevel">
-            <Form.Label>Fitness Level</Form.Label>
-              <Form.Select value= {undefined}
-                {...register("fitnessLevel")}
-              >
-                <option value={1}>Very Poor</option>
-                <option value={2}>Poor</option>
-                <option value={3}>Average</option>
-                <option value={4}>Good</option>
-                <option value={5}>Excellent</option>
-              </Form.Select>
-            </Form.Group>
+
             <Button variant="primary" type="submit">
               Save
             </Button>
