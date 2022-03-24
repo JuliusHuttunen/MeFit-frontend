@@ -33,7 +33,7 @@ const ProgramForm = () => {
         <Modal.Body>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <Form.Group className="mb-3" controlId="formName">
-              <Form.Label>Enter name of Program</Form.Label>
+              <Form.Label>Enter name of the Program</Form.Label>
               <Form.Control
                     {...register("name")}
                     type="text"
@@ -42,9 +42,37 @@ const ProgramForm = () => {
             <Form.Group className="mb-3" controlId="formCategory">
               <Form.Label>Category</Form.Label>
               <Form.Control
-                    {...register("category")}
+                  //  {...register("category")}
                     type="text"
                     placeholder="Category of program" />
+            </Form.Group>
+            <h4>Choose Workouts</h4>
+            <Form.Group className="mb-3" controlId="formType">
+              <Form.Label>Wourkout #1</Form.Label>
+              <Form.Select value= {undefined}
+               {...register("workoutId1")}
+              >
+                <option value={1}>1</option>
+              </Form.Select>
+  
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formType">
+              <Form.Label>Wourkout #2</Form.Label>
+              <Form.Select value= {undefined}
+              // {...register("workoutId2")}
+              >
+                <option value={2}>2</option>
+              </Form.Select>
+  
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formType">
+              <Form.Label>Wourkout #3</Form.Label>
+              <Form.Select value= {undefined}
+             // {...register("workoutId3")}
+              >
+                <option value={3}>3</option>
+              </Form.Select>
+  
             </Form.Group>
             <Button variant="primary" type="submit">
               Save
