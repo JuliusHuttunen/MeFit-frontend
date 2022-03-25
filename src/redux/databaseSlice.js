@@ -19,13 +19,7 @@ export const databaseSlice = createSlice({
         currentExercise: {
         },
         currentWorkout: {},
-        currentProgram: {
-          name:"Henry´s sweatpants",
-          category:"Full body workout",
-          workouts:[
-            {workoutId: 0},{workoutId: 0},{workoutId: 0}
-          ]
-        }
+        currentProgram: {}
     },
     reducers: {
       displayExerciseForm: (state) => {
