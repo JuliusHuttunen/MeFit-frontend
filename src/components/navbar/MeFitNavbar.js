@@ -50,13 +50,8 @@ function MeFitNavbar() {
         ) : (
           <div></div>
         )}
-<<<<<<< HEAD
         <Navbar.Brand href="#">
           <h1><span>Me</span><span style={{ color: "grey" }}>Fit</span></h1>
-=======
-        <Navbar.Brand>
-          <h1>MeFit</h1>
->>>>>>> b4dbcdccf2d197c62f58063687428f0fa637f083
         </Navbar.Brand>
         {loggedIn ? (
           <div className="profilewrapper">
