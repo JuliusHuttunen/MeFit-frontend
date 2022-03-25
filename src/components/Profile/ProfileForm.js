@@ -67,6 +67,7 @@ const ProfileForm = () => {
   const onSubmit = async (data) => {
     await postProfileToAPI(data);
     await dispatch(fetchProfile()).unwrap()
+    console.log("Profile created")
      navigate("/dashboard")
   };
 

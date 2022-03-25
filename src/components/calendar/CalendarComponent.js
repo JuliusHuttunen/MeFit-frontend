@@ -45,7 +45,7 @@ const CalendarComponent = (props) => {
             </div>
             <div style={{"padding":"1rem"}}>
                 {!props.basket ? <div><h4>Today is: {formatDay}</h4><h4>Active date: {reduxStartDate}</h4><Button onClick={() => navigate("/goals")}>Set a goal starting from this date</Button></div> : <div><h4>Goal start date: {reduxStartDate}</h4><h4>Goal end date: {reduxEndDate}</h4></div>}
-                {locale !== "US" ? <Button style={{"marginTop":"10px", "marginBottom":"10px"}} onClick={() => swapCalendarTypeToUS()}>Swap week starting day</Button> : <Button style={{"margin-top":"10px", "margin-bottom":"10px",}} onClick={() => swapCalendarTypeToDefault()}>Swap week starting day</Button>}
+                {locale !== "US" ? <Button style={{"marginTop":"10px", "marginBottom":"10px"}} onClick={() => swapCalendarTypeToUS()}>Swap week starting day</Button> : <Button style={{"marginTop":"10px", "marginBottom":"10px",}} onClick={() => swapCalendarTypeToDefault()}>Swap week starting day</Button>}
             </div>
         </div>   
     );

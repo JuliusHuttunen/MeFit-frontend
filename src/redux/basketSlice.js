@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { postGoalToAPI } from "../components/API/Connection"
-import { nextSunday } from "date-fns";
+import { nextMonday } from "date-fns";
 
 const today = new Date()
-const initEndDate = nextSunday(today)
+const initEndDate = nextMonday(today)
 
 export const basketSlice = createSlice({
     name: 'basket',

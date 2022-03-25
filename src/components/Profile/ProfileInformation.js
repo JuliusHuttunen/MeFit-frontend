@@ -108,7 +108,7 @@ const ProfileInformation = () => {
   const onSubmit = async (data) => {
     await updateProfileToAPI(data);
     await dispatch(fetchProfile()).unwrap()
-    console.log(data);
+    console.log("Profile updated");
   };
 
   return (
