@@ -6,6 +6,8 @@ import { editExercise, fetchExercises } from "../../redux/databaseSlice";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { updateExerciseToAPI } from "../API/Connection";
+import Row from 'react-bootstrap/Row'
+import Container from 'react-bootstrap/Container'
 
 const EditExerciseForm = () => {
   const dispatch = useDispatch();
@@ -77,7 +79,7 @@ const EditExerciseForm = () => {
               <option value={"Quads"}>Quads</option>
             </Form.Select>
           </Form.Group>
-          <Form.Group  className="mb-3" controlId="fitnessLevel">
+          <Form.Group className="mb-3" controlId="fitnessLevel">
             <Form.Label>Level of Exercise</Form.Label>
             <Form.Select
               {...register("fitnessLevel")}
@@ -91,15 +93,23 @@ const EditExerciseForm = () => {
               <option value={5}>World Class</option>
             </Form.Select>
           </Form.Group>
-          <Button variant="primary" type="submit">
-            Save
-          </Button>
+          <Container fluid>
+            <Row style={{ padding: "10px" }}>
+              <Button variant="primary" type="submit">
+                Save
+              </Button>
+            </Row>
+          </Container>
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={() => handleClose(Exercise)}>
-          Cancel
-        </Button>
+        <Container fluid>
+          <Row style={{ padding: "10px" }}>
+            <Button variant="secondary" onClick={() => handleClose(Exercise)}>
+              Cancel
+            </Button>
+          </Row>
+        </Container>
       </Modal.Footer>
     </Modal>
   );

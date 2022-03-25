@@ -32,15 +32,17 @@ export async function postGoalToAPI(item) {
   };
   const jsonWorkouts = () => {
     const workoutArray = [];
-    for (let workout of item.workouts) {
-      workoutArray.push({ workoutId: workout.workoutId });
+    for (let wo of item.workouts) {
+      workoutArray.push({completed: false,
+        workout: { workoutId: wo.workoutId }});
     }
     return workoutArray;
   };
   const jsonExercises = () => {
     const exerciseArray = [];
-    for (let exercise of item.exercises) {
-      exerciseArray.push({ exerciseId: exercise.exerciseId });
+    for (let exer of item.exercises) {
+      exerciseArray.push({completed: false,
+        exercise: { exerciseId: exer.exerciseId }});
     }
     return exerciseArray;
   };
@@ -399,6 +401,7 @@ export async function postExerciseToAPI(exercise) {
           vidLink: null
       }),
     };
+    console.log(config.body)
     const response = await fetch(`${url}`, config);
     const data = await response.text();
     return [null, data];

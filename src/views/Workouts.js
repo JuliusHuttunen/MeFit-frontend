@@ -72,7 +72,7 @@ const Workouts = () => {
           </Row>
         </Container>
       )}
-      <Container className="'p-3 mb-5'">
+      <Container className="p-3 mb-5">
         <div className="accordiongrid">{workoutList}</div>
       </Container>
     </div>

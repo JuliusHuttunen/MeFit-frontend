@@ -3,6 +3,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import { useDispatch } from 'react-redux';
 import { addExercise } from '../../redux/basketSlice';
 import Button from 'react-bootstrap/Button';
+import "../../App.css"
 
 const Exercise = (props) => {
 
@@ -23,7 +24,7 @@ const Exercise = (props) => {
 
     try {
         return (
-            <Accordion key={props.index}>
+            <Accordion key={props.index} className="exerciseAccordion">
                 <Accordion.Item key={props.index} eventKey={props.index}>
                     <Accordion.Header><h4>{props.exercise.name} <img src={muscleGroupImage} width={"30 px"} alt="muscle img" ></img></h4></Accordion.Header>
                     <Accordion.Body>
