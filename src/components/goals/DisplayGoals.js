@@ -81,7 +81,7 @@ const DisplayGoals = (props) => {
                 profile.goals.map((goal, index) => {
                     //Difference in days
                     const difference = differenceInDays(new Date(goal.endDate), new Date())
-                    //Only print in dashboard and if the goal is on this week
+                    //Only print if is achieved or difference is smaller than zero
                     if (difference < 0 || goal.achieved) {
                         return (
                             <Goal achieved={true} key={index} goal={goal} index={index} difference={difference} history={true}></Goal>
@@ -104,7 +104,7 @@ const DisplayGoals = (props) => {
                 profile.goals.map((goal, index) => {
                     //Difference in days
                     const difference = differenceInDays(new Date(goal.endDate), new Date())
-                    //Only print in dashboard and if the goal is on this week
+                    //Print to future goals if difference is higher than week
                     if (difference >= 7) {
                         counter++
                         return (
