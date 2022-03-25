@@ -67,9 +67,7 @@ const Goal = (props) => {
     const workoutMap = props.goal.workouts.map((workout, index) => {
         const currentWorkout = getWorkout(splitUrl(workout))
         return (
-            <>
-                <Workout key={index} workout={currentWorkout} index={index}></Workout>
-            </>
+            <Workout key={index} workout={currentWorkout} index={index}></Workout>
         )
     })
     //Map the exercises

@@ -20,8 +20,10 @@ export const databaseSlice = createSlice({
         },
         currentWorkout: {},
         currentProgram: {
+          name:"Henry´s sweatpants",
+          category:"Full body workout",
           workouts:[
-            {},{},{}
+            {workoutId: 0},{workoutId: 0},{workoutId: 0}
           ]
         }
     },

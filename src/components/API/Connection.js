@@ -568,3 +568,54 @@ export async function updateProgramToAPI(program, id) {
     return [error.message, null];
   }
 }
+
+export async function updateWorkoutToAPI(workout, id) {
+  const token = KeycloakService.getToken()
+  const url = "https://fi-java-mefit-backend.herokuapp.com/api/v1/workouts/" + id
+
+  const jsonSets = () => {
+    const setArray = []
+    if(workout.exerciseId1 !== "" && workout.exerciseRepetitions1 !== ""){
+      setArray.push(
+        {exerciseRepetitions: workout.exerciseRepetitions1,
+        exercise: {
+          exerciseId: workout.exerciseId1
+        }})
+    }
+    if(workout.exerciseId2 !== "" && workout.exerciseRepetitions2 !== ""){
+      setArray.push(
+        {exerciseRepetitions: workout.exerciseRepetitions2,
+        exercise: {
+          exerciseId: workout.exerciseId2
+        }})
+    }
+    if(workout.exerciseId3 !== "" && workout.exerciseRepetitions3 !== ""){
+      setArray.push(
+        {exerciseRepetitions: workout.exerciseRepetitions3,
+        exercise: {
+          exerciseId: workout.exerciseId3
+        }})
+    }
+    return setArray
+  }
+
+  try {
+    const config = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+          name: workout.name,
+          category: workout.category,
+         sets: jsonSets()
+      }),
+    };
+    const response = await fetch(`${url}`, config);
+    const data = await response.text();
+    return [null, data];
+  } catch (error) {
+    return [error.message, null];
+  }
+}

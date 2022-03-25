@@ -60,7 +60,7 @@ const WorkoutForm = () => {
               <Form.Label>Exercises of set #1</Form.Label>
               <Form.Select value= {undefined}
                 {...register("exerciseId1")}>
-                <option value="">Empty</option>
+                <option value="">Choose exercise</option>
                 {exerciseMap}
               </Form.Select>
               <Form.Label>Number of repetitions</Form.Label>
@@ -73,7 +73,7 @@ const WorkoutForm = () => {
               <Form.Label>Exercises of set #2</Form.Label>
               <Form.Select value= {undefined}
                 {...register("exerciseId2")}>
-                <option value="">Empty</option>
+                <option value="">Choose exercise</option>
                 {exerciseMap}
               </Form.Select>
               <Form.Label>Number of repetitions</Form.Label>
@@ -86,7 +86,7 @@ const WorkoutForm = () => {
               <Form.Label>Exercises of set #3</Form.Label>
               <Form.Select value= {undefined}
                 {...register("exerciseId3")}>
-                <option value="">Empty</option>
+                <option value="">Choose exercise</option>
                 {exerciseMap}
               </Form.Select>
               <Form.Label>Number of repetitions</Form.Label>
