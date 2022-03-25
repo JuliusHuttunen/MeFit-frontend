@@ -50,7 +50,7 @@ function MeFitNavbar() {
         ) : (
           <div></div>
         )}
-        <Navbar.Brand href="#">
+        <Navbar.Brand>
           <h1>MeFit</h1>
         </Navbar.Brand>
         {loggedIn ? (
