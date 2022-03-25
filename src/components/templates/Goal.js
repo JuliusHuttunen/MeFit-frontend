@@ -12,7 +12,7 @@ import Button from "react-bootstrap/Button"
 const Goal = (props) => {
 
     const db = useSelector((state) => state.db)
-    
+
     const dispatch = useDispatch()
 
     //Split url string to get index
@@ -79,27 +79,27 @@ const Goal = (props) => {
     })
 
     return (
-            <Accordion key={props.index}>
-                <Accordion.Item style={{"backgroundColor": props.achieved? "#defade" : "white"}} key={props.index} eventKey={props.index}>
-                    <Accordion.Header >{props.history ? <h4 style={{ "marginRight": "2em" }}>Goal ({format(new Date(props.goal.startDate), "dd.MM.yyyy")}-{format(new Date(props.goal.endDate), "dd.MM.yyyy")})</h4> : <><h4 style={{ "marginRight": "2em" }}>Goal #{props.counter}</h4><h4 style={{ "fontStyle": "italic" }}>{props.difference} days left</h4></>}</Accordion.Header>
-                    <Accordion.Body>
-                        <div>
-                            <h4>Goal timespan: {format(new Date(props.goal.startDate), "dd.MM.yyyy")}-{format(new Date(props.goal.endDate), "dd.MM.yyyy")}</h4>
-                        </div>
-                        {currentProgram !== null ? <Program program={currentProgram} index={1}></Program> : <></>}
-                        {workoutMap}
-                        {props.goal.exercises.length !== 0 ? <Accordion key={props.index}>
-                            <Accordion.Item key={2} eventKey={2}>
-                                <Accordion.Header><h4>Custom workout</h4></Accordion.Header>
-                                <Accordion.Body>
-                                    {exerciseMap}
-                                </Accordion.Body>
-                            </Accordion.Item>
-                        </Accordion> : <></>}
-                        {props.goal.achieved ? <Button style={{ "margin": "10px" }} variant="secondary" onClick={() => markGoalAsCompleted(props.goal, false)}>Revert</Button> : <Button style={{ "margin": "10px" }} variant="success" onClick={() => markGoalAsCompleted(props.goal, true)}>Mark as completed</Button>}
-                    </Accordion.Body>
-                </Accordion.Item>
-            </Accordion>
+        <Accordion key={props.index}>
+            <Accordion.Item style={{ "backgroundColor": props.achieved ? "#defade" : "white" }} key={props.index} eventKey={props.index}>
+                <Accordion.Header >{props.history ? <h4 style={{ "marginRight": "2em" }}>Goal ({format(new Date(props.goal.startDate), "dd.MM.yyyy")}-{format(new Date(props.goal.endDate), "dd.MM.yyyy")})</h4> : <><h4 style={{ "marginRight": "2em" }}>Goal #{props.counter}</h4><h4 style={{ "fontStyle": "italic" }}>{props.difference} days left</h4></>}</Accordion.Header>
+                <Accordion.Body>
+                    <div>
+                        <h4>Goal timespan: {format(new Date(props.goal.startDate), "dd.MM.yyyy")}-{format(new Date(props.goal.endDate), "dd.MM.yyyy")}</h4>
+                    </div>
+                    {currentProgram !== null ? <Program program={currentProgram} index={1}></Program> : <></>}
+                    {workoutMap}
+                    {props.goal.exercises.length !== 0 ? <Accordion key={props.index}>
+                        <Accordion.Item key={2} eventKey={2}>
+                            <Accordion.Header><h4>Custom workout</h4></Accordion.Header>
+                            <Accordion.Body>
+                                {exerciseMap}
+                            </Accordion.Body>
+                        </Accordion.Item>
+                    </Accordion> : <></>}
+                    {props.goal.achieved ? <Button style={{ "margin": "10px" }} variant="secondary" onClick={() => markGoalAsCompleted(props.goal, false)}>Revert</Button> : <Button style={{ "margin": "10px" }} variant="success" onClick={() => markGoalAsCompleted(props.goal, true)}>Mark as completed</Button>}
+                </Accordion.Body>
+            </Accordion.Item>
+        </Accordion>
     );
 };
 

@@ -1,70 +1,59 @@
-# Getting Started with Create React App
+# Mefit-frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
-## Available Scripts
+## React frontend for the final assignment of Noroff Java Fullstack course
 
-In the project directory, you can run:
+MeFit is a sports scheduler app for the physically active.
 
-### `npm start`
+Main features:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Users are able to define their fitness level, which has impact on their suggested goal structure.
+2. Users can choose from many different programs, workouts and exercises and add those to their weekly goals.
+3. If a user has contributor status, they are able to add and edit programs, workouts and exercises.
+4. Admins can approve contributor requests from regular users to add them as contributors.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Table of Contents
 
-### `npm test`
+- [Install](#install)
+- [Usage](#usage)
+- [API](#api)
+- [Maintainers](#maintainers)
+- [License](#license)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Install
 
-### `npm run build`
+Clone the contents of the repository to a file directory of your choice. Install with ````npm install````. Run with ````npm start````.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Commands:
+```
+git clone https://github.com/JuliusHuttunen/MeFit-frontend.git
+cd mefit
+npm install
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Usage
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### 1. Local
 
-### `npm run eject`
+After successful installation run with ````npm start```` command.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### 2. Deployed version
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The newest stable version of the frontend is deployed to [Heroku](https://fi-java-mefit-frontend.herokuapp.com/).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## API
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+API and backend documentation available in [backend repo](https://github.com/Azruim/MeFit-backend).
 
-## Learn More
+## Maintainers
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[@JuliusHuttunen](https://github.com/JuliusHuttunen)
+[@teemunasanen](https://github.com/teemunasanen)
+[Nico Behnen](https://github.com/Azruim)
+[Sasu Korhonen](https://github.com/bgf122)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## License
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+MIT © 2022 Nico Behnen, Julius Huttunen, Sasu Korhonen, Teemu Näsänen
