@@ -4,7 +4,7 @@ function ProfileName() {
 
     return (
       <div className="name">
-        <h2>You are logged in as {KeycloakService.getFirstName()} {KeycloakService.getLastName()} </h2>
+        <h4>You are logged in as <a href='/profile' className='profile-name'>{KeycloakService.getFirstName()} {KeycloakService.getLastName()} </a></h4>
       </div>
     );
   }
