@@ -28,7 +28,8 @@
 .filterwrapper img:hover{
     transition: 0.2s;
     cursor: pointer;
-    filter: drop-shadow(0 0 0.1rem blue);
+    filter: drop-shadow(0 0 0.1rem );
+    color: #F19953;
 }
 
 .workoutsetswrapper {
@@ -36,23 +37,6 @@
     grid-template-columns: 2fr 2fr;
     gap: 1em;
 }
-
-.filterwrapper div{
-    /* margin: 1em;
-    transition: 0.2s;
-    border: 1px solid lightblue;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 20px;
-    width: 20%; */
-}
-
-/* .filterwrapper img:hover{
-    transition: 0.2s;
-    cursor: pointer;
-    background-color: aliceblue;
-} */
 
 .filterwrapper {
     display: flex;
@@ -102,8 +86,21 @@
 }
 
 .progressBar {
-    height: 2em;
-    width: 100%;
-    font-size: 1.7em;
-    margin-bottom: 1em;
+    height: 2em !important;
+    font-size: 1.7em !important;
+    margin-bottom: 1em !important;
+}
+
+.hoverlinks .nav-link:hover {
+    color: rgba(236, 234, 234, 0.39) !important;
+}
+
+.accordion-button:hover {
+    /* background-color: #e7f1ff; */
+    background-color: rgb(226, 226, 226);
+    transition: 0.2s
+}
+
+.accordion-button .collapsed {
+    transition: 0.2s
 }

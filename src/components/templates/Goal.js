@@ -15,13 +15,6 @@ const Goal = (props) => {
 
     const dispatch = useDispatch()
 
-    //Split url string to get index
-    const splitUrl = (url) => {
-        const split = url.split("/")
-        const finalIndex = split[split.length - 1]
-        return finalIndex
-    }
-
     //Get workout from db with index
     const getWorkout = (index) => {
         for (let workout of db.workouts) {
@@ -61,20 +54,26 @@ const Goal = (props) => {
     let currentProgram = null
     //Assign a value if not null
     if (!!props.goal.program) {
-        currentProgram = getProgram(splitUrl(props.goal.program))
+        currentProgram = getProgram(props.goal.program.programId)
     }
     //Map the workouts
     const workoutMap = props.goal.workouts.map((workout, index) => {
-        const currentWorkout = getWorkout(splitUrl(workout))
+        const currentWorkout = getWorkout(workout.workout.workoutId)
         return (
+            <>
             <Workout key={index} workout={currentWorkout} index={index}></Workout>
+            {workout.completed ? <>Completed</> : <Button>Mark as completed</Button>}
+            </>
         )
     })
     //Map the exercises
     const exerciseMap = props.goal.exercises.map((exercise, index) => {
-        const currentExercise = getExercise(splitUrl(exercise))
+        const currentExercise = getExercise(exercise.exercise.exerciseId)
         return (
+            <>
             <Exercise key={index} exercise={currentExercise} index={index}></Exercise>
+            {exercise.completed ? <>Completed</> : <Button>Mark as completed</Button>}
+            </>
         )
     })
 

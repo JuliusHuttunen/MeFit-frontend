@@ -6,6 +6,8 @@ import { useForm } from 'react-hook-form';
 import { displayProgramForm, fetchPrograms } from '../../redux/databaseSlice';
 import Button from 'react-bootstrap/Button';
 import { postProgramToAPI } from '../API/Connection';
+import Row from 'react-bootstrap/Row'
+import Container from 'react-bootstrap/Container'
 
 const ProgramForm = () => {
 
@@ -56,7 +58,7 @@ const ProgramForm = () => {
             </Form.Group>
             <h4>Choose Workouts</h4>
             <Form.Group className="mb-3" controlId="formType">
-              <Form.Label>Wourkout #1</Form.Label>
+              <Form.Label>Workout #1</Form.Label>
               <Form.Select value= {undefined}
                {...register("workoutId1")}
               >
@@ -65,7 +67,7 @@ const ProgramForm = () => {
               </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formType">
-              <Form.Label>Wourkout #2</Form.Label>
+              <Form.Label>Workout #2</Form.Label>
               <Form.Select value= {undefined}
                 {...register("workoutId2")}
               >
@@ -75,7 +77,7 @@ const ProgramForm = () => {
   
             </Form.Group>
             <Form.Group className="mb-3" controlId="formType">
-              <Form.Label>Wourkout #3</Form.Label>
+              <Form.Label>Workout #3</Form.Label>
               <Form.Select value= {undefined}
                 {...register("workoutId3")}
               >
@@ -83,15 +85,23 @@ const ProgramForm = () => {
                 {workoutMap}
               </Form.Select>
             </Form.Group>
-            <Button variant="primary" type="submit">
-              Save
-            </Button>
+            <Container fluid>
+              <Row style={{ padding: "10px" }}>
+                <Button variant="primary" type="submit">
+                  Save
+                </Button>
+              </Row>
+            </Container>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cancel
-          </Button>
+          <Container fluid>
+            <Row style={{ padding: "10px" }}>
+              <Button variant="secondary" onClick={handleClose}>
+                Cancel
+              </Button>
+            </Row>
+          </Container>
         </Modal.Footer>
       </Modal>
     </>

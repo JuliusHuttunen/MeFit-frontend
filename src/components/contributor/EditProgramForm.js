@@ -6,6 +6,8 @@ import { editProgram, fetchPrograms } from "../../redux/databaseSlice";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { updateProgramToAPI } from "../API/Connection";
+import Row from 'react-bootstrap/Row'
+import Container from 'react-bootstrap/Container'
 
 const EditProgramForm = () => {
 
@@ -98,15 +100,23 @@ const EditProgramForm = () => {
               {workoutMap}
             </Form.Select>
           </Form.Group>
-          <Button variant="primary" type="submit">
-            Save
-          </Button>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={() => handleClose(Program)}>
-          Cancel
-        </Button>
+          <Container fluid>
+              <Row style={{ padding: "10px" }}>
+                <Button variant="primary" type="submit">
+                  Save
+                </Button>
+              </Row>
+            </Container>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Container fluid>
+            <Row style={{ padding: "10px" }}>
+              <Button variant="secondary" onClick={() => handleClose(Program)}>
+                Cancel
+              </Button>
+            </Row>
+          </Container>
       </Modal.Footer>
     </Modal>
   );

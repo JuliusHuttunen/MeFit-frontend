@@ -46,18 +46,14 @@
 .profilewrapper .profile-name{
     text-decoration: none;
     color: #fafafa;
+    transition: 0.2s;
 }
-
-/* .profilewrapper:hover{
-    background-color: #EDF7F6;
-    transition: 0.5s;
-    filter: drop-shadow(0 0 0.75rem #5e391d);
-    cursor: pointer;
-} */
 
 .profilewrapper:hover .profile-name{
     color: #F19953;
+    transition: 0.2s;
 }
+
 .profilewrapper img{
     margin-right: 1em;
 }
