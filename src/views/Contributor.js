@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 
 const Contributor = () => {
     return (
-        <Container>
+        <Container className='pt-3 pb-5'>
             <ContributorTabs />
         </Container>
     );

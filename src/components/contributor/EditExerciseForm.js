@@ -8,7 +8,6 @@ import Button from "react-bootstrap/Button";
 import { updateExerciseToAPI } from "../API/Connection";
 
 const EditExerciseForm = () => {
-  
   const dispatch = useDispatch();
   const show = useSelector((state) => state.db.showEditExercise);
   const exercise = useSelector((state) => state.db.currentExercise);
@@ -33,12 +32,12 @@ const EditExerciseForm = () => {
 
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
-  await updateExerciseToAPI(data, exercise.exerciseId)
-  await dispatch(fetchExercises()).unwrap()
+    await updateExerciseToAPI(data, exercise.exerciseId);
+    await dispatch(fetchExercises()).unwrap();
   };
 
   return (
-    <Modal show={show} onHide={() => handleClose(Exercise)}>
+    <Modal size="lg" show={show} onHide={() => handleClose(Exercise)}>
       <Modal.Header closeButton>
         <Modal.Title>Edit Exercise</Modal.Title>
       </Modal.Header>
@@ -78,7 +77,7 @@ const EditExerciseForm = () => {
               <option value={"Quads"}>Quads</option>
             </Form.Select>
           </Form.Group>
-          <Form.Group controlId="fitnessLevel">
+          <Form.Group  className="mb-3" controlId="fitnessLevel">
             <Form.Label>Level of Exercise</Form.Label>
             <Form.Select
               {...register("fitnessLevel")}

@@ -13,6 +13,7 @@ import WorkoutForm from "./WorkoutForm";
 import EditExerciseForm from "./EditExerciseForm";
 import EditProgramForm from "./EditProgramForm";
 import EditWorkoutForm from "./EditWorkoutForm";
+import Container from "react-bootstrap/Container";
 
 const ContributorTabs = () => {
 
@@ -22,7 +23,9 @@ const ContributorTabs = () => {
   const handleProgramShow = () => dispatch(displayProgramForm())
   
   return (
-    <Tabs defaultActiveKey="exercises" className="mb-3">
+    <Container className="mb-5">
+      <h2>Contributor tools</h2>
+    <Tabs defaultActiveKey="exercises" className="mb-3 mt-3">
       <Tab eventKey="exercises" title="Exercises">
         <ExerciseTable />
         <Button variant="dark" onClick={handleExerciseShow}>
@@ -44,6 +47,7 @@ const ContributorTabs = () => {
         <EditProgramForm></EditProgramForm>
       </Tab>
     </Tabs>
+    </Container>
   );
 };
 
