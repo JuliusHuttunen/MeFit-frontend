@@ -76,6 +76,7 @@ const EditProgramForm = () => {
             <Form.Select
               {...register("workoutId1")}
             >
+              <option value="">Choose workout</option>
               {workoutMap}
             </Form.Select>
           </Form.Group>
@@ -84,6 +85,7 @@ const EditProgramForm = () => {
             <Form.Select
               {...register("workoutId2")}
             >
+              <option value="">Choose workout</option>
               {workoutMap}
             </Form.Select>
           </Form.Group>
@@ -92,6 +94,7 @@ const EditProgramForm = () => {
             <Form.Select value={undefined}
               {...register("workoutId3")}
             >
+              <option value="">Choose workout</option>
               {workoutMap}
             </Form.Select>
           </Form.Group>

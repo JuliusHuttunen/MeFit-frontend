@@ -81,10 +81,10 @@ const DisplayGoals = (props) => {
                 profile.goals.map((goal, index) => {
                     //Difference in days
                     const difference = differenceInDays(new Date(goal.endDate), new Date())
-                    //Only print in dashboard and if the goal is on this week
+                    //Only print if is achieved or difference is smaller than zero
                     if (difference < 0 || goal.achieved) {
                         return (
-                            <Goal achieved={true} key={index} goal={goal} index={index} difference={difference} history={true}></Goal>
+                                <Goal achieved={true} key={index} goal={goal} index={index} difference={difference} history={true}></Goal>
                         )
                     }
                 })
@@ -104,7 +104,7 @@ const DisplayGoals = (props) => {
                 profile.goals.map((goal, index) => {
                     //Difference in days
                     const difference = differenceInDays(new Date(goal.endDate), new Date())
-                    //Only print in dashboard and if the goal is on this week
+                    //Print to future goals if difference is higher than week
                     if (difference >= 7) {
                         counter++
                         return (
@@ -120,12 +120,12 @@ const DisplayGoals = (props) => {
         <Container className='pt-3'>
             {progress === "100.0" ? <h3>You have completed all your goals! Congratulations!</h3> : <h3></h3>}
             <h5>Your goal progress this week</h5>
-            <ProgressBar variant="success" style={{ "height": "2em", "width": "100%", "fontSize": "1.7em", "marginBottom": "1em" }} now={progress} label={`${progress}%`} />
+            <ProgressBar variant="success" className="progressbar"  now={progress} label={`${progress}%`} />
             <Container className='p-3'>
                 <h3>This week's goals</h3><hr style={{ margin: "0", padding: "0" }} />
-                <div style={{ "paddingTop": "1em" }} className='accordiongrid'>
-                    {goalsMap}
-                </div>
+                    <div className='accordiongrid2'>
+                        {goalsMap}
+                    </div>
             </Container>
             {props.enlarge ? <>
                 <Container className='p-3'>

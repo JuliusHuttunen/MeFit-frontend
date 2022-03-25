@@ -100,3 +100,10 @@
     display: flex;
     flex-direction: column;
 }
+
+.progressBar {
+    height: 2em;
+    width: 100%;
+    font-size: 1.7em;
+    margin-bottom: 1em;
+}

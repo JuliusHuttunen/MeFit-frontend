@@ -19,11 +19,7 @@ export const databaseSlice = createSlice({
         currentExercise: {
         },
         currentWorkout: {},
-        currentProgram: {
-          workouts:[
-            {},{},{}
-          ]
-        }
+        currentProgram: {}
     },
     reducers: {
       displayExerciseForm: (state) => {

@@ -72,10 +72,10 @@ const AdminComponent = () => {
     <Table striped bordered hover className="text-center mt-3" size="sm">
       <thead>
         <tr>
-          <td>Username</td>
-          <td>Full Name</td>
-          <td>Contributor Request</td>
-          <td>Delete User</td>
+          <th>Username</th>
+          <th>Full Name</th>
+          <th>Contributor Request</th>
+          <th>Delete User</th>
         </tr>
       </thead>
       <tbody>{UserList}</tbody>
