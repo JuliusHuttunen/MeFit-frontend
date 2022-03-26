@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -15,6 +15,9 @@ import { fetchProfile } from "../../redux/profileSlice"
 import format from 'date-fns/format'
 import Modal from "react-bootstrap/Modal"
 import Card from "react-bootstrap/Card"
+import Exercise from '../templates/Exercise'
+import Workout from '../templates/Workout'
+import Program from '../templates/Program'
 
 function EmptyGoals() {
 
@@ -27,6 +30,8 @@ function EmptyGoals() {
     const startDate = format(useSelector((state) => state.basket.startDate), "dd.MM.yyyy")
     const [showModal, setShowModal] = useState(false)
     const userFitnessLevel = useSelector((state) => state.profile.fitnessLevel)
+
+    const db = useSelector((state) => state.db)
 
     let overFitnessLevel = false
 
@@ -71,6 +76,17 @@ function EmptyGoals() {
         return fitnessLevel
     }
 
+    const calculateWorkoutLevel = (workout) => {
+        let counter = 0
+        let totalFitnessLevel = 0
+        for (let set of workout.sets) {
+            counter++
+            totalFitnessLevel += parseInt(set.exercise.fitnessLevel)
+        }
+        const fitnessLevel = totalFitnessLevel / counter
+        return fitnessLevel
+    }
+
 
     const basketMap = basket.map((item, index) => {
         let totalFitnessLevel = 0
@@ -86,7 +102,7 @@ function EmptyGoals() {
         return (
             <Card style={{ width: '18rem' }} key={index}>
                 <Card.Body>
-                    <Card.Title>{item.name}{userFitnessLevel}</Card.Title>
+                    <Card.Title>{item.name}</Card.Title>
                     {fitnessLevel < userFitnessLevel ? <Card.Subtitle className="mb-2 text-muted">Workout</Card.Subtitle> : <Card.Subtitle className="mb-2 text-muted">Workout over your level</Card.Subtitle>}
                     <Card.Text>Level: {fitnessLevel}</Card.Text>
                     <Row style={{ padding: "10px" }}>
@@ -114,6 +130,50 @@ function EmptyGoals() {
         )
     })
 
+    const [suggestions, setSuggestions] = useState([])
+
+    useEffect(() => {
+        const generateSuggestions = () => {
+            const suggestions = []
+            for (let program of db.programs) {
+                if (calculateProgramLevel(program) <= userFitnessLevel) {
+                    suggestions.push(program)
+                }
+            }
+            for (let workout of db.workouts) {
+                if (calculateWorkoutLevel(workout) <= userFitnessLevel) {
+                    suggestions.push(workout)
+                }
+            }
+            for (let exercise of db.exercises) {
+                if (exercise.fitnessLevel <= userFitnessLevel) {
+                    suggestions.push(exercise)
+                }
+            }
+            return suggestions
+        }
+        setSuggestions(generateSuggestions())
+    }, [setSuggestions])
+
+    const suggestionMap =
+        suggestions.map((item, index) => {
+            if (item.hasOwnProperty('exerciseId')) {
+                return (
+                    <Exercise key={index} index={index} exercise={item} basket={true}></Exercise>
+                )
+            }
+            if (item.hasOwnProperty('workoutId')) {
+                return (
+                    <Workout key={index} index={index} workout={item} basket={true}></Workout>
+                )
+            }
+            if (item.hasOwnProperty('programId')) {
+                return (
+                    <Program key={index} index={index} program={item} basket={true}></Program>
+                )
+            }
+        })
+
     const setGoal = async () => {
         await dispatch(addGoal(goal)).unwrap()
         await dispatch(fetchProfile()).unwrap()
@@ -130,6 +190,14 @@ function EmptyGoals() {
                         <hr />
                         <h4>Pick a start date:</h4>
                         <CalendarComponent basket={true}></CalendarComponent>
+                        <hr />
+                        <h4>Pick from suggestions:</h4>
+                        <Accordion>
+                            <Accordion.Item eventKey='4'>
+                                <Accordion.Header><h4>Suggestions</h4></Accordion.Header>
+                                <Accordion.Body><div className='accordiongrid'>{suggestionMap}</div></Accordion.Body>
+                            </Accordion.Item>
+                        </Accordion>
                         <hr />
                         <h4>Add a program to your goal:</h4>
                         <Accordion>

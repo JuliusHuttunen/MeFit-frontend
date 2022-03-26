@@ -24,7 +24,7 @@ const DisplayGoals = (props) => {
                 if (goal.achieved && difference < 7 && difference >= 0) {
                     achieved++
                 }
-                if (difference < 7) {
+                if (difference < 7 && difference >= 0) {
                     weekGoalAmount++
                 }
             }
@@ -44,13 +44,13 @@ const DisplayGoals = (props) => {
             profileGoals =
                 profile.goals.map((goal, index) => {
                     const difference = differenceInDays(new Date(goal.endDate), new Date())
-                    if (difference < 7 && !goal.achieved) {
+                    if (difference < 7 && difference >= 0 && !goal.achieved) {
                         counter++
                         return (
                             <Goal key={index} goal={goal} counter={counter} index={index} difference={difference}></Goal>
                         )
                     }
-                    else if (goal.achieved) {
+                    else if (difference < 7 && difference >= 0 && goal.achieved) {
                         counter++
                         return (
                             <Goal achieved={true} key={index} goal={goal} counter={counter} index={index} difference={difference}></Goal>
@@ -68,7 +68,7 @@ const DisplayGoals = (props) => {
             goals =
                 profile.goals.map((goal, index) => {
                     const difference = differenceInDays(new Date(goal.endDate), new Date())
-                    if (difference < 0 || goal.achieved) {
+                    if (difference < 0) {
                         return (
                             <Goal achieved={true} key={index} goal={goal} index={index} difference={difference} history={true}></Goal>
                         )
