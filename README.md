@@ -1,6 +1,7 @@
 # Mefit-frontend
 
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
+[![web](https://img.shields.io/static/v1?logo=heroku&message=Online&label=Heroku&color=430098)](https://fi-java-mefit-frontend.herokuapp.com/)
 
 ## React frontend for the final assignment of Noroff Java Fullstack course
 

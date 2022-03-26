@@ -8,6 +8,7 @@ import {
 } from "../API/Connection";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUsers } from "../../redux/adminSlice";
+import { Container } from "react-bootstrap";
 
 const AdminComponent = () => {
   const dispatch = useDispatch();
@@ -66,7 +67,9 @@ const AdminComponent = () => {
   });
 
   return (
-    <Table striped bordered hover className="text-center" size="sm">
+    <Container className="mb-5">
+      <h2>Admin tools</h2>
+    <Table striped bordered hover className="text-center mt-3" size="sm">
       <thead>
         <tr>
           <th>Username</th>
@@ -77,6 +80,7 @@ const AdminComponent = () => {
       </thead>
       <tbody>{UserList}</tbody>
     </Table>
+    </Container>
   );
 };
 

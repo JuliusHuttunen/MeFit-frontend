@@ -1,4 +1,4 @@
-import {React, useState} from 'react';
+import { React, useState } from 'react';
 import Calendar from 'short-react-calendar';
 import './calendar.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,9 +6,12 @@ import { swapDate, swapStartDate } from '../../redux/basketSlice';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom'
 import { getWeek, format, nextSunday, nextMonday } from 'date-fns';
+import Container from 'react-bootstrap/Container'
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
 
 const CalendarComponent = (props) => {
-    
+
     const today = new Date()
     const locale = useSelector((state) => state.basket.locale)
     const [value, onChange] = useState(useSelector((state) => state.basket.startDate))
@@ -36,18 +39,24 @@ const CalendarComponent = (props) => {
     }
 
     return (
-        <div>
-            <div style={{"display":"flex", "flexDirection":"column", "justifyContent":"center", "alignItems":"center"}}>
-                <div style={{"display":"flex", "width":"70%", "justifyContent":"space-around", "alignItems":"center"}}>
-                    <h3>Week {currentWeek}</h3>
+        <Container>
+            <div style={{ "display": "flex", "justifyContent": "space-around", "alignItems": "center" }}>
+                {!props.basket ? <><span className='h4'>Week {currentWeek}</span><span className='h4'>Today is {formatDay}</span></> : <></>}
+            </div>
+            <Calendar locale={"us-US"} calendarType={locale} showNavigation={false} oneWeekCalendar={true} onChange={onChange} value={value} onClickDay={(value, event) => swapStartDay(value)} />
+            <Container className="p-3">
+                <div style={{ "display": "flex", "justifyContent": "space-around", "alignItems": "center" }}>
+                    <Row>
+                        <Col>
+                            {!props.basket ? <Button className="text-nowrap" onClick={() => navigate("/goals")}>View goals</Button> : <><h6><span className="h6">Goal start date: {reduxStartDate}</span></h6><h6><span className='h6'>Goal end date: {reduxEndDate}</span></h6></>}
+                        </Col>
+                        <Col>
+                            <Button className="text-nowrap" variant="info" onClick={locale !== "US" ? () => swapCalendarTypeToUS() : () => swapCalendarTypeToDefault()}>{locale !== "US" ? "Change locale to US" : "Change locale to Europe"}</Button>
+                        </Col>
+                    </Row>
                 </div>
-                <Calendar locale={"us-US"} calendarType={locale} showNavigation={false} oneWeekCalendar={true} onChange={onChange} value={value} onClickDay={(value, event) => swapStartDay(value)}/>
-            </div>
-            <div style={{"padding":"1rem"}}>
-                {!props.basket ? <div><h4>Today is: {formatDay}</h4><h4>Active date: {reduxStartDate}</h4><Button onClick={() => navigate("/goals")}>Set a goal starting from this date</Button></div> : <div><h4>Goal start date: {reduxStartDate}</h4><h4>Goal end date: {reduxEndDate}</h4></div>}
-                {locale !== "US" ? <Button style={{"marginTop":"10px", "marginBottom":"10px"}} onClick={() => swapCalendarTypeToUS()}>Swap week starting day</Button> : <Button style={{"marginTop":"10px", "marginBottom":"10px",}} onClick={() => swapCalendarTypeToDefault()}>Swap week starting day</Button>}
-            </div>
-        </div>   
+            </Container>
+        </Container>
     );
 };
 

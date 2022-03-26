@@ -22,7 +22,7 @@ const ProgramTable = () => {
       )
   })
   return (
-      <Table striped bordered hover size="sm">
+      <Table striped bordered hover size="sm" className="text-center">
         <thead>
           <tr>
             <th>#</th>

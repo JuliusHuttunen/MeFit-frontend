@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { swapProgram } from '../../redux/basketSlice';
 import Button from 'react-bootstrap/Button'
 import Workout from './Workout';
+import Row from 'react-bootstrap/Row'
 
 const Program = (props) => {
 
@@ -34,11 +35,15 @@ const Program = (props) => {
         return (
             <Accordion key={props.index}>
                 <Accordion.Item key={props.index} eventKey={props.index}>
-                    <Accordion.Header><h4>{program.name}</h4></Accordion.Header>
+                    <Accordion.Header><h4>Program: {program.name}</h4></Accordion.Header>
                     <Accordion.Body>
                         <h6>Category: </h6><p>{program.category}</p>
-                        <h6>Workouts: </h6>{workouts}
-                        {props.basket ? <Button onClick={() => swap(program)}>Add to draft</Button> : <></>}
+                        <h6>Workouts: </h6>
+                        <div className='accordiongrid'>
+                            {workouts}
+                        </div>
+                        <hr />
+                        {props.basket ? <Row><Button onClick={() => swap(program)}>Add to draft</Button></Row> : <></>}
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>

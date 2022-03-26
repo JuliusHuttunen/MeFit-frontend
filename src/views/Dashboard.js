@@ -6,10 +6,12 @@ import DisplayGoals from '../components/goals/DisplayGoals';
 const Dashboard = () => {
 
     return (
-        <Container className='w-70 p-3'>
-           <CalendarComponent></CalendarComponent>
-           <DisplayGoals></DisplayGoals>
-        </Container> 
+        <Container className='p-3'>
+            <h2 style={{ textAlign: "center" }}>Dashboard</h2>
+            <hr />
+            <CalendarComponent></CalendarComponent>
+            <DisplayGoals></DisplayGoals>
+        </Container>
     );
 };
 

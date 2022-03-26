@@ -32,15 +32,21 @@ export async function postGoalToAPI(item) {
   };
   const jsonWorkouts = () => {
     const workoutArray = [];
-    for (let workout of item.workouts) {
-      workoutArray.push({ workoutId: workout.workoutId });
+    for (let wo of item.workouts) {
+      workoutArray.push({
+        completed: false,
+        workout: { workoutId: wo.workoutId }
+      });
     }
     return workoutArray;
   };
   const jsonExercises = () => {
     const exerciseArray = [];
-    for (let exercise of item.exercises) {
-      exerciseArray.push({ exerciseId: exercise.exerciseId });
+    for (let exer of item.exercises) {
+      exerciseArray.push({
+        completed: false,
+        exercise: { exerciseId: exer.exerciseId }
+      });
     }
     return exerciseArray;
   };
@@ -83,15 +89,21 @@ export async function setGoalCompleted(goal, boolean) {
   };
   const jsonWorkouts = () => {
     const workoutArray = [];
-    for (let workout of goal.workouts) {
-      workoutArray.push({ workoutId: workout.workoutId });
+    for (let wo of goal.workouts) {
+      workoutArray.push({
+        completed: true,
+        workout: { workoutId: wo.workout.workoutId }
+      });
     }
     return workoutArray;
   };
   const jsonExercises = () => {
     const exerciseArray = [];
-    for (let exercise of goal.exercises) {
-      exerciseArray.push({ exerciseId: exercise.exerciseId });
+    for (let exer of goal.exercises) {
+      exerciseArray.push({
+        completed: true,
+        exercise: { exerciseId: exer.exercise.exerciseId }
+      })
     }
     return exerciseArray;
   };
@@ -104,16 +116,16 @@ export async function setGoalCompleted(goal, boolean) {
         Authorization: "Bearer " + token,
       },
       body: JSON.stringify({
-          goalId: goal.goalId,
-          endDate: goal.endDate,
-          startDate: goal.startDate,
-          achieved: boolean,
-          profile: {
-            profileId: goal.profile.profileId
-          },
-          program: jsonProgram(),
-          workouts: jsonWorkouts(),
-          exercises: jsonExercises()
+        goalId: goal.goalId,
+        endDate: goal.endDate,
+        startDate: goal.startDate,
+        achieved: boolean,
+        profile: {
+          profileId: goal.profile.profileId
+        },
+        program: jsonProgram(),
+        workouts: jsonWorkouts(),
+        exercises: jsonExercises()
       }),
     };
     const response = await fetch(`${url}`, config);
@@ -391,14 +403,15 @@ export async function postExerciseToAPI(exercise) {
         Authorization: "Bearer " + token,
       },
       body: JSON.stringify({
-          name: exercise.name,
-          description: exercise.description,
-          targetMuscleGroup: exercise.targetMuscleGroup,
-          image: null,
-          fitnessLevel: exercise.fitnessLevel,
-          vidLink: null
+        name: exercise.name,
+        description: exercise.description,
+        targetMuscleGroup: exercise.targetMuscleGroup,
+        image: null,
+        fitnessLevel: exercise.fitnessLevel,
+        vidLink: null
       }),
     };
+    console.log(config.body)
     const response = await fetch(`${url}`, config);
     const data = await response.text();
     return [null, data];
@@ -413,26 +426,32 @@ export async function postWorkoutToAPI(workout) {
 
   const jsonSets = () => {
     const setArray = []
-    if(workout.exerciseId1 !== "" && workout.exerciseRepetitions1 !== ""){
+    if (workout.exerciseId1 !== "" && workout.exerciseRepetitions1 !== "") {
       setArray.push(
-        {exerciseRepetitions: workout.exerciseRepetitions1,
-        exercise: {
-          exerciseId: workout.exerciseId1
-        }})
+        {
+          exerciseRepetitions: workout.exerciseRepetitions1,
+          exercise: {
+            exerciseId: workout.exerciseId1
+          }
+        })
     }
-    if(workout.exerciseId2 !== "" && workout.exerciseRepetitions2 !== ""){
+    if (workout.exerciseId2 !== "" && workout.exerciseRepetitions2 !== "") {
       setArray.push(
-        {exerciseRepetitions: workout.exerciseRepetitions2,
-        exercise: {
-          exerciseId: workout.exerciseId2
-        }})
+        {
+          exerciseRepetitions: workout.exerciseRepetitions2,
+          exercise: {
+            exerciseId: workout.exerciseId2
+          }
+        })
     }
-    if(workout.exerciseId3 !== "" && workout.exerciseRepetitions3 !== ""){
+    if (workout.exerciseId3 !== "" && workout.exerciseRepetitions3 !== "") {
       setArray.push(
-        {exerciseRepetitions: workout.exerciseRepetitions3,
-        exercise: {
-          exerciseId: workout.exerciseId3
-        }})
+        {
+          exerciseRepetitions: workout.exerciseRepetitions3,
+          exercise: {
+            exerciseId: workout.exerciseId3
+          }
+        })
     }
     return setArray
   }
@@ -445,9 +464,9 @@ export async function postWorkoutToAPI(workout) {
         Authorization: "Bearer " + token,
       },
       body: JSON.stringify({
-          name: workout.name,
-          type: workout.type,
-          sets: jsonSets()
+        name: workout.name,
+        type: workout.type,
+        sets: jsonSets()
       }),
     };
     console.log(config.body)
@@ -465,17 +484,17 @@ export async function postProgramToAPI(program) {
 
   const jsonWorkouts = () => {
     const workoutArray = []
-    if(program.workoutId1 !== ""){
+    if (program.workoutId1 !== "") {
       workoutArray.push(
-        {workoutId: program.workoutId1})
+        { workoutId: program.workoutId1 })
     }
-    if(program.workoutId2 !== ""){
+    if (program.workoutId2 !== "") {
       workoutArray.push(
-        {workoutId: program.workoutId2})
+        { workoutId: program.workoutId2 })
     }
-    if(program.workoutId2 !== ""){
+    if (program.workoutId2 !== "") {
       workoutArray.push(
-        {workoutId: program.workoutId2})
+        { workoutId: program.workoutId2 })
     }
     return workoutArray
   }
@@ -488,9 +507,9 @@ export async function postProgramToAPI(program) {
         Authorization: "Bearer " + token,
       },
       body: JSON.stringify({
-          name: program.name,
-          category: program.category,
-          workouts: jsonWorkouts()
+        name: program.name,
+        category: program.category,
+        workouts: jsonWorkouts()
       }),
     };
     const response = await fetch(`${url}`, config);
@@ -513,10 +532,10 @@ export async function updateExerciseToAPI(exercise, id) {
         Authorization: "Bearer " + token,
       },
       body: JSON.stringify({
-          name: exercise.name,
-          description: exercise.description,
-          targetMuscleGroup: exercise.targetMuscleGroup,
-          fitnessLevel: exercise.fitnessLevel,
+        name: exercise.name,
+        description: exercise.description,
+        targetMuscleGroup: exercise.targetMuscleGroup,
+        fitnessLevel: exercise.fitnessLevel,
       }),
     };
     const response = await fetch(`${url}`, config);
@@ -533,17 +552,17 @@ export async function updateProgramToAPI(program, id) {
 
   const jsonWorkouts = () => {
     const workoutArray = []
-    if(program.workoutId1 !== ""){
+    if (program.workoutId1 !== "") {
       workoutArray.push(
-        {workoutId: program.workoutId1})
+        { workoutId: program.workoutId1 })
     }
-    if(program.workoutId2 !== ""){
+    if (program.workoutId2 !== "") {
       workoutArray.push(
-        {workoutId: program.workoutId2})
+        { workoutId: program.workoutId2 })
     }
-    if(program.workoutId2 !== ""){
+    if (program.workoutId2 !== "") {
       workoutArray.push(
-        {workoutId: program.workoutId2})
+        { workoutId: program.workoutId2 })
     }
     return workoutArray
   }
@@ -556,9 +575,9 @@ export async function updateProgramToAPI(program, id) {
         Authorization: "Bearer " + token,
       },
       body: JSON.stringify({
-          name: program.name,
-          category: program.category,
-          workouts: jsonWorkouts()
+        name: program.name,
+        category: program.category,
+        workouts: jsonWorkouts()
       }),
     };
     const response = await fetch(`${url}`, config);
@@ -575,26 +594,32 @@ export async function updateWorkoutToAPI(workout, id) {
 
   const jsonSets = () => {
     const setArray = []
-    if(workout.exerciseId1 !== "" && workout.exerciseRepetitions1 !== ""){
+    if (workout.exerciseId1 !== "" && workout.exerciseRepetitions1 !== "") {
       setArray.push(
-        {exerciseRepetitions: workout.exerciseRepetitions1,
-        exercise: {
-          exerciseId: workout.exerciseId1
-        }})
+        {
+          exerciseRepetitions: workout.exerciseRepetitions1,
+          exercise: {
+            exerciseId: workout.exerciseId1
+          }
+        })
     }
-    if(workout.exerciseId2 !== "" && workout.exerciseRepetitions2 !== ""){
+    if (workout.exerciseId2 !== "" && workout.exerciseRepetitions2 !== "") {
       setArray.push(
-        {exerciseRepetitions: workout.exerciseRepetitions2,
-        exercise: {
-          exerciseId: workout.exerciseId2
-        }})
+        {
+          exerciseRepetitions: workout.exerciseRepetitions2,
+          exercise: {
+            exerciseId: workout.exerciseId2
+          }
+        })
     }
-    if(workout.exerciseId3 !== "" && workout.exerciseRepetitions3 !== ""){
+    if (workout.exerciseId3 !== "" && workout.exerciseRepetitions3 !== "") {
       setArray.push(
-        {exerciseRepetitions: workout.exerciseRepetitions3,
-        exercise: {
-          exerciseId: workout.exerciseId3
-        }})
+        {
+          exerciseRepetitions: workout.exerciseRepetitions3,
+          exercise: {
+            exerciseId: workout.exerciseId3
+          }
+        })
     }
     return setArray
   }
@@ -607,11 +632,180 @@ export async function updateWorkoutToAPI(workout, id) {
         Authorization: "Bearer " + token,
       },
       body: JSON.stringify({
-          name: workout.name,
-          category: workout.category,
-         sets: jsonSets()
+        name: workout.name,
+        category: workout.category,
+        sets: jsonSets()
       }),
     };
+    const response = await fetch(`${url}`, config);
+    const data = await response.text();
+    return [null, data];
+  } catch (error) {
+    return [error.message, null];
+  }
+}
+
+export async function setExerciseCompleted(goal, boolean, exerId) {
+  const url =
+    "https://fi-java-mefit-backend.herokuapp.com/api/v1/goals/" + goal.goalId;
+  const token = KeycloakService.getToken();
+
+  const jsonProgram = () => {
+    if (goal.program !== null) {
+      return { programId: goal.program.programId };
+    } else return null;
+  };
+  const jsonWorkouts = () => {
+    const workoutArray = [];
+    for (let wo of goal.workouts) {
+      if (wo.completed) {
+        workoutArray.push({
+          completed: true,
+          workout: { workoutId: wo.workout.workoutId }
+        });
+      }
+      else {
+        workoutArray.push({
+          completed: false,
+          workout: { workoutId: wo.workout.workoutId }
+        });
+      }
+    }
+    return workoutArray;
+  };
+  const jsonExercises = () => {
+    const exerciseArray = [];
+    let updated = false
+    for (let exer of goal.exercises) {
+      if (exer.exercise.exerciseId === exerId && !updated && exer.completed !== boolean) {
+        updated = true
+        exerciseArray.push({
+          completed: boolean,
+          exercise: { exerciseId: exer.exercise.exerciseId }
+        })
+      }
+      else if (exer.completed) {
+        exerciseArray.push({
+          completed: true,
+          exercise: { exerciseId: exer.exercise.exerciseId }
+        })
+      }
+      else {
+        exerciseArray.push({
+          completed: false,
+          exercise: { exerciseId: exer.exercise.exerciseId }
+        })
+      }
+    }
+    return exerciseArray;
+  };
+
+  try {
+    const config = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+        goalId: goal.goalId,
+        endDate: goal.endDate,
+        startDate: goal.startDate,
+        achieved: false,
+        profile: {
+          profileId: goal.profile.profileId
+        },
+        program: jsonProgram(),
+        workouts: jsonWorkouts(),
+        exercises: jsonExercises()
+      }),
+    };
+    console.log(config.body)
+    const response = await fetch(`${url}`, config);
+    const data = await response.text();
+    return [null, data];
+  } catch (error) {
+    return [error.message, null];
+  }
+}
+
+export async function setWorkoutCompleted(goal, boolean, woId) {
+  const url =
+    "https://fi-java-mefit-backend.herokuapp.com/api/v1/goals/" + goal.goalId;
+  const token = KeycloakService.getToken();
+
+  const jsonProgram = () => {
+    if (goal.program !== null) {
+      return { programId: goal.program.programId };
+    } else return null;
+  };
+  const jsonWorkouts = () => {
+    const workoutArray = [];
+    let updated = false
+    for (let wo of goal.workouts) {
+      if (wo.workout.workoutId === woId && !updated && wo.completed !== boolean) {
+        updated = true
+        workoutArray.push({
+          completed: boolean,
+          workout: { workoutId: wo.workout.workoutId }
+        });
+      }
+      else if (wo.completed) {
+        workoutArray.push({
+          completed: true,
+          workout: { workoutId: wo.workout.workoutId }
+        });
+      }
+      else {
+        workoutArray.push({
+          completed: false,
+          workout: { workoutId: wo.workout.workoutId }
+        });
+      }
+    }
+    return workoutArray;
+  };
+
+  const jsonExercises = () => {
+    const exerciseArray = [];
+    for (let exer of goal.exercises) {
+      if (exer.completed) {
+        exerciseArray.push({
+          completed: true,
+          exercise: { exerciseId: exer.exercise.exerciseId }
+        })
+      }
+      else {
+        exerciseArray.push({
+          completed: false,
+          exercise: { exerciseId: exer.exercise.exerciseId }
+        })
+      }
+    }
+    return exerciseArray;
+  };
+
+  try {
+    const config = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+        goalId: goal.goalId,
+        endDate: goal.endDate,
+        startDate: goal.startDate,
+        achieved: false,
+        profile: {
+          profileId: goal.profile.profileId
+        },
+        program: jsonProgram(),
+        workouts: jsonWorkouts(),
+        exercises: jsonExercises()
+      }),
+    };
+    console.log(config.body)
     const response = await fetch(`${url}`, config);
     const data = await response.text();
     return [null, data];

@@ -6,9 +6,10 @@ import { editExercise, fetchExercises } from "../../redux/databaseSlice";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { updateExerciseToAPI } from "../API/Connection";
+import Row from 'react-bootstrap/Row'
+import Container from 'react-bootstrap/Container'
 
 const EditExerciseForm = () => {
-  
   const dispatch = useDispatch();
   const show = useSelector((state) => state.db.showEditExercise);
   const exercise = useSelector((state) => state.db.currentExercise);
@@ -33,12 +34,12 @@ const EditExerciseForm = () => {
 
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
-  await updateExerciseToAPI(data, exercise.exerciseId)
-  await dispatch(fetchExercises()).unwrap()
+    await updateExerciseToAPI(data, exercise.exerciseId);
+    await dispatch(fetchExercises()).unwrap();
   };
 
   return (
-    <Modal show={show} onHide={() => handleClose(Exercise)}>
+    <Modal size="lg" show={show} onHide={() => handleClose(Exercise)}>
       <Modal.Header closeButton>
         <Modal.Title>Edit Exercise</Modal.Title>
       </Modal.Header>
@@ -78,7 +79,7 @@ const EditExerciseForm = () => {
               <option value={"Quads"}>Quads</option>
             </Form.Select>
           </Form.Group>
-          <Form.Group controlId="fitnessLevel">
+          <Form.Group className="mb-3" controlId="fitnessLevel">
             <Form.Label>Level of Exercise</Form.Label>
             <Form.Select
               {...register("fitnessLevel")}
@@ -92,15 +93,23 @@ const EditExerciseForm = () => {
               <option value={5}>World Class</option>
             </Form.Select>
           </Form.Group>
-          <Button variant="primary" type="submit">
-            Save
-          </Button>
+          <Container fluid>
+            <Row style={{ padding: "10px" }}>
+              <Button variant="primary" type="submit">
+                Save
+              </Button>
+            </Row>
+          </Container>
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={() => handleClose(Exercise)}>
-          Cancel
-        </Button>
+        <Container fluid>
+          <Row style={{ padding: "10px" }}>
+            <Button variant="secondary" onClick={() => handleClose(Exercise)}>
+              Cancel
+            </Button>
+          </Row>
+        </Container>
       </Modal.Footer>
     </Modal>
   );

@@ -6,6 +6,8 @@ import { editWorkout, fetchWorkouts } from "../../redux/databaseSlice";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { updateWorkoutToAPI } from "../API/Connection";
+import Row from 'react-bootstrap/Row'
+import Container from 'react-bootstrap/Container'
 
 const EditWorkoutForm = () => {
   const dispatch = useDispatch();
@@ -75,53 +77,61 @@ const EditWorkoutForm = () => {
           </Form.Group>
           <h4>Edit exercise sets</h4>
           <Form.Group className="mb-3" controlId="formType">
-              <Form.Label>Exercises of set #1</Form.Label>
-              <Form.Select value= {undefined}
-                {...register("exerciseId1")}>
-                <option value="">Choose exercise</option>
-                {exerciseMap}
-              </Form.Select>
-              <Form.Label>Number of repetitions</Form.Label>
-              <Form.Control
-                    {...register("exerciseRepetitions1")}
-                    type="number"
-                    placeholder="Number of repetitions" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formType">
-              <Form.Label>Exercises of set #2</Form.Label>
-              <Form.Select value= {undefined}
-                {...register("exerciseId2")}>
-                <option value="">Choose exercise</option>
-                {exerciseMap}
-              </Form.Select>
-              <Form.Label>Number of repetitions</Form.Label>
-              <Form.Control
-                    {...register("exerciseRepetitions2")}
-                    type="number"
-                    placeholder="Number of repetitions" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formType">
-              <Form.Label>Exercises of set #3</Form.Label>
-              <Form.Select value= {undefined}
-                {...register("exerciseId3")}>
-                <option value="">Choose exercise</option>
-                {exerciseMap}
-              </Form.Select>
-              <Form.Label>Number of repetitions</Form.Label>
-              <Form.Control
-                    {...register("exerciseRepetitions3")}
-                    type="number"
-                    placeholder="Number of repetitions" />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-            Save
-          </Button>
+            <Form.Label>Exercises of set #1</Form.Label>
+            <Form.Select value={undefined}
+              {...register("exerciseId1")}>
+              <option value="">Choose exercise</option>
+              {exerciseMap}
+            </Form.Select>
+            <Form.Label>Number of repetitions</Form.Label>
+            <Form.Control
+              {...register("exerciseRepetitions1")}
+              type="number"
+              placeholder="Number of repetitions" />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formType">
+            <Form.Label>Exercises of set #2</Form.Label>
+            <Form.Select value={undefined}
+              {...register("exerciseId2")}>
+              <option value="">Choose exercise</option>
+              {exerciseMap}
+            </Form.Select>
+            <Form.Label>Number of repetitions</Form.Label>
+            <Form.Control
+              {...register("exerciseRepetitions2")}
+              type="number"
+              placeholder="Number of repetitions" />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formType">
+            <Form.Label>Exercises of set #3</Form.Label>
+            <Form.Select value={undefined}
+              {...register("exerciseId3")}>
+              <option value="">Choose exercise</option>
+              {exerciseMap}
+            </Form.Select>
+            <Form.Label>Number of repetitions</Form.Label>
+            <Form.Control
+              {...register("exerciseRepetitions3")}
+              type="number"
+              placeholder="Number of repetitions" />
+          </Form.Group>
+          <Container fluid>
+            <Row style={{ padding: "10px" }}>
+              <Button variant="primary" type="submit">
+                Save
+              </Button>
+            </Row>
+          </Container>
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={() => handleClose(Workout)}>
-          Cancel
-        </Button>
+        <Container fluid>
+          <Row style={{ padding: "10px" }}>
+            <Button variant="secondary" onClick={() => handleClose(Workout)}>
+              Cancel
+            </Button>
+          </Row>
+        </Container>
       </Modal.Footer>
     </Modal>
   );

@@ -11,7 +11,7 @@ import KeycloakService from "../../KeycloakService";
 import RenderOnRole from "../authentication/RenderOnRole"
 import LogoutButton from "./LogoutButton";
 import { useEffect } from "react";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchPrograms, fetchWorkouts, fetchExercises } from "../../redux/databaseSlice";
 import { fetchProfile } from "../../redux/profileSlice"
@@ -32,12 +32,12 @@ function MeFitNavbar() {
       await dispatch(fetchExercises()).unwrap()
       await dispatch(fetchPrograms()).unwrap()
       await dispatch(fetchWorkouts()).unwrap()
-      if(profile === null){
+      if (profile === null) {
         navigate("profileform")
       }
       else navigateToDashboard()
     }
-    if(KeycloakService.isAuthenticated()) {
+    if (KeycloakService.isAuthenticated()) {
       fetchData()
     }
   }, [])
@@ -51,7 +51,7 @@ function MeFitNavbar() {
           <div></div>
         )}
         <Navbar.Brand href="#">
-          <h1>MeFit</h1>
+          <h1><span>Me</span><span style={{ color: "grey" }}>Fit</span></h1>
         </Navbar.Brand>
         {loggedIn ? (
           <div className="profilewrapper">
@@ -69,22 +69,24 @@ function MeFitNavbar() {
           placement="start"
         >
           <Offcanvas.Header closeButton>
-            <Offcanvas.Title  id="offcanvasNavbarLabel"><h1>MeFit</h1></Offcanvas.Title>
+            <Offcanvas.Title id="offcanvasNavbarLabel"><h1>MeFit</h1></Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body className="bg-dark">
             <Nav className="justify-content-end flex-grow-1 pe-3">
-              <Link className="nav-link text-white h5" to="/dashboard">Dashboard</Link>
-              <Link className="nav-link text-white h5" to="/goals">Goals</Link>
-              <Link className="nav-link text-white h5" to="/programs">Programs</Link>
-              <Link className="nav-link text-white h5" to="/workouts">Workouts</Link>
-              <Link className="nav-link text-white h5" to="/exercises">Exercises</Link>
-              <Link className="nav-link text-white h5" to="/profile">Profile</Link>
-              <RenderOnRole roles={"contributor"}>
-                <Link className="nav-link text-white h5" to="/contributor">Contributor Tools</Link>
-              </RenderOnRole>
-              <RenderOnRole roles={"admin"}>
-                <Link className="nav-link text-white h5" to="/admin">Admin Tools</Link>
-              </RenderOnRole>
+              <div className="hoverlinks">
+                <Link className="nav-link text-white h5" to="/dashboard">Dashboard</Link>
+                <Link className="nav-link text-white h5" to="/goals">Goals</Link>
+                <Link className="nav-link text-white h5" to="/programs">Programs</Link>
+                <Link className="nav-link text-white h5" to="/workouts">Workouts</Link>
+                <Link className="nav-link text-white h5" to="/exercises">Exercises</Link>
+                <Link className="nav-link text-white h5" to="/profile">Profile</Link>
+                <RenderOnRole roles={"contributor"}>
+                  <Link className="nav-link text-white h5" to="/contributor">Contributor Tools</Link>
+                </RenderOnRole>
+                <RenderOnRole roles={"admin"}>
+                  <Link className="nav-link text-white h5" to="/admin">Admin Tools</Link>
+                </RenderOnRole>
+              </div>
             </Nav>
           </Offcanvas.Body>
         </Navbar.Offcanvas>
