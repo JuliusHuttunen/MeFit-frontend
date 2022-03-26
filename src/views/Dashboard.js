@@ -7,9 +7,11 @@ const Dashboard = () => {
 
     return (
         <Container className='p-3'>
-           <CalendarComponent></CalendarComponent>
-           <DisplayGoals></DisplayGoals>
-        </Container> 
+            <h2 style={{ textAlign: "center" }}>Dashboard</h2>
+            <hr />
+            <CalendarComponent></CalendarComponent>
+            <DisplayGoals></DisplayGoals>
+        </Container>
     );
 };
 

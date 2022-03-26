@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { useDispatch } from 'react-redux';
 import { add } from '../../redux/basketSlice';
 import Exercise from './Exercise';
+import Row from 'react-bootstrap/Row';
 
 const Workout = (props) => {
 
@@ -26,7 +27,7 @@ const Workout = (props) => {
             return (
                 <Accordion key={index}>
                     <Accordion.Item key={index} eventKey={index}>
-                        <Accordion.Header><h6>{set.exercise.name} x {set.exerciseRepetitions}</h6></Accordion.Header>
+                        <Accordion.Header><h6>Exercise: {set.exercise.name} x {set.exerciseRepetitions}</h6></Accordion.Header>
                         <Accordion.Body>
                             <Exercise exercise={set.exercise} index={index}></Exercise>
                         </Accordion.Body>
@@ -43,12 +44,13 @@ const Workout = (props) => {
         return (
             <Accordion key={props.index}>
                 <Accordion.Item key={props.index} eventKey={props.index}>
-                    <Accordion.Header><h4>{workout.name}</h4></Accordion.Header>
+                    <Accordion.Header><h4>Workout: {workout.name}</h4></Accordion.Header>
                     <Accordion.Body>
                         <h6>Type: </h6><p>{workout.type}</p>
                         <h6>Sets: </h6>
                         <div className='workoutsetswrapper'>{sets}</div>
-                        {props.basket ? <Button onClick={() => addItemToBasket(workout)}>Add to draft</Button> : <></>}
+                        <hr />
+                        {props.basket ? <Row><Button onClick={() => addItemToBasket(workout)}>Add to draft</Button></Row> : <></>}
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
