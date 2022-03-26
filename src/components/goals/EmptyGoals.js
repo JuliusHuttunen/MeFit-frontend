@@ -14,6 +14,7 @@ import { addGoal } from "../../redux/basketSlice"
 import { fetchProfile } from "../../redux/profileSlice"
 import format from 'date-fns/format'
 import Modal from "react-bootstrap/Modal"
+import Card from "react-bootstrap/Card"
 
 function EmptyGoals() {
 
@@ -25,100 +26,167 @@ function EmptyGoals() {
     const endDate = format(useSelector((state) => state.basket.endDate), "dd.MM.yyyy")
     const startDate = format(useSelector((state) => state.basket.startDate), "dd.MM.yyyy")
     const [showModal, setShowModal] = useState(false)
-    
+    const userFitnessLevel = useSelector((state) => state.profile.fitnessLevel)
+
+    let overFitnessLevel = false
+
     const handleClose = () => setShowModal(false)
     const handleOpen = () => setShowModal(true)
 
     const confirmationModal = () => {
-        return(
-        <>
-        <Modal show={showModal} onHide={handleClose}>
-            <Modal.Header closeButton>
-                <Modal.Title>Confirm goal</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>Are you sure?</Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-                <Button variant="primary" onClick={setGoal}>Set goal</Button>
-            </Modal.Footer>
-        </Modal>
-        </>)
+        let programOverFitnessLevel = false
+        try {
+            if (calculateProgramLevel(currentProgram) > userFitnessLevel) {
+                programOverFitnessLevel = true
+            }
+        }
+        catch (error) {
+            programOverFitnessLevel = false
+        }
+        return (
+            <>
+                <Modal show={showModal} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Confirm goal</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>{overFitnessLevel || programOverFitnessLevel ? <h6>Your goal contains items that may be too demanding for your fitness level. Do you want to proceed?</h6> : <h5>Are you sure?</h5>}</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>Cancel</Button>
+                        <Button variant="success" onClick={setGoal}>Set goal</Button>
+                    </Modal.Footer>
+                </Modal>
+            </>)
+    }
+
+    const calculateProgramLevel = (program) => {
+        let counter = 0
+        let totalFitnessLevel = 0
+        for (let workout of program.workouts) {
+            for (let set of workout.sets) {
+                counter++
+                totalFitnessLevel += parseInt(set.exercise.fitnessLevel)
+            }
+        }
+        const fitnessLevel = totalFitnessLevel / counter
+        return fitnessLevel
     }
 
 
     const basketMap = basket.map((item, index) => {
-        return(
-            <li key={index}><h6>{item.name}</h6><Button className="btn btn-danger" onClick={() => dispatch(del(index))}>Delete</Button></li>
+        let totalFitnessLevel = 0
+        let counter = 0
+        for (let set of item.sets) {
+            counter++
+            totalFitnessLevel += parseInt(set.exercise.fitnessLevel)
+        }
+        const fitnessLevel = totalFitnessLevel / counter
+        if (fitnessLevel > userFitnessLevel) {
+            overFitnessLevel = true
+        }
+        return (
+            <Card style={{ width: '18rem' }} key={index}>
+                <Card.Body>
+                    <Card.Title>{item.name}{userFitnessLevel}</Card.Title>
+                    {fitnessLevel < userFitnessLevel ? <Card.Subtitle className="mb-2 text-muted">Workout</Card.Subtitle> : <Card.Subtitle className="mb-2 text-muted">Workout over your level</Card.Subtitle>}
+                    <Card.Text>Level: {fitnessLevel}</Card.Text>
+                    <Row style={{ padding: "10px" }}>
+                        <Button className="btn btn-danger" onClick={() => dispatch(del(index))}>Delete</Button>
+                    </Row>
+                </Card.Body>
+            </Card>
         )
     })
 
     const exerciseMap = exercises.map((item, index) => {
-        return(
-            <li key={index}><h6>{item.name}</h6><Button className="btn btn-danger" onClick={() => dispatch(delExercise(index))}>Delete</Button></li>
+        if (item.fitnessLevel > userFitnessLevel) {
+            overFitnessLevel = true
+        }
+        return (
+            <Card style={{ width: '18rem' }} key={index}>
+                <Card.Body>
+                    <Card.Title>{item.name}</Card.Title>
+                    {item.fitnessLevel < userFitnessLevel ? <Card.Subtitle className="mb-2 text-muted">Exercise</Card.Subtitle> : <Card.Subtitle className="mb-2 text-muted">Exercise over your level</Card.Subtitle>}
+                    <Row style={{ padding: "10px" }}>
+                        <Button className="btn btn-danger" onClick={() => dispatch(delExercise(index))}>Delete</Button>
+                    </Row>
+                </Card.Body>
+            </Card>
         )
     })
 
-    const setGoal = async() => {
+    const setGoal = async () => {
         await dispatch(addGoal(goal)).unwrap()
         await dispatch(fetchProfile()).unwrap()
         handleClose()
     }
 
     return (
-        <Container className='w-70 p-3'>
+        <Container fluid className='p-3'>
             {confirmationModal()}
             <Row className="m-5">
                 <Col>
-                <div className='goalbasketcontainer'>
-                    <h2 style={{"padding": "10px"}}>Create a goal</h2>
-                    <CalendarComponent basket={true}></CalendarComponent>
-                    <div className='accordiongrid'>
+                    <Container className='p-3' style={{ border: "1px solid lightgray", borderRadius: "10px", backgroundColor: "white" }}>
+                        <h3>Create a goal</h3>
+                        <hr />
+                        <h4>Pick a start date:</h4>
+                        <CalendarComponent basket={true}></CalendarComponent>
+                        <hr />
+                        <h4>Add a program to your goal:</h4>
                         <Accordion>
                             <Accordion.Item eventKey='0'>
-                                <Accordion.Header><h4>Programs</h4></Accordion.Header>
-                                <Accordion.Body><ProgramsList basket={true}/></Accordion.Body>
+                                <Accordion.Header><h4>All programs</h4></Accordion.Header>
+                                <Accordion.Body><ProgramsList basket={true} /></Accordion.Body>
                             </Accordion.Item>
                         </Accordion>
+                        <hr />
+                        <h4>Pick workouts:</h4>
                         <Accordion>
                             <Accordion.Item eventKey='1'>
-                                <Accordion.Header><h4>Workouts</h4></Accordion.Header>
-                                <Accordion.Body><WorkoutsList basket={true}/></Accordion.Body>
+                                <Accordion.Header><h4>All workouts</h4></Accordion.Header>
+                                <Accordion.Body><WorkoutsList basket={true} /></Accordion.Body>
                             </Accordion.Item>
                         </Accordion>
+                        <hr />
+                        <h4>Create a custom workout:</h4>
                         <Accordion>
                             <Accordion.Item eventKey='2'>
-                                <Accordion.Header><h4>Exercises</h4></Accordion.Header>
-                                <Accordion.Body><ExercisesList basket={true}/></Accordion.Body>
+                                <Accordion.Header><h4>All exercises</h4></Accordion.Header>
+                                <Accordion.Body><ExercisesList basket={true} /></Accordion.Body>
                             </Accordion.Item>
                         </Accordion>
-                    </div>
-                    </div>
+                        <hr />
+                    </Container>
                 </Col>
                 <Col>
-                    <div className='goalbasketcontainer'>
-                        <h2 style={{"padding": "10px", "alignSelf":"flex-start"}}>Your goal draft</h2>
-                        <h4 style={{"textAlign":"center"}}>{startDate} - {endDate}</h4>
-                        <div className='goalbasketwrapper'>
-                            <h5 style={{"fontStyle":"italic", "padding":"10px"}}>Current program: {currentProgram === null ? <>none</> : currentProgram.name} </h5>
-                            <Button style={{"marginBottom":"10px"}} className="btn btn-warning" onClick={() => dispatch(delProgram())}>Revert</Button>
+                    <Container className='p-3' style={{ border: "1px solid lightgray", borderRadius: "10px", backgroundColor: "white" }}>
+                        <h3>Your goal draft</h3>
+                        <hr />
+                        <span className='h5'>Goal time period: {startDate} - {endDate}</span>
+                        <hr />
+                        <h4>Program: {currentProgram === null ? <>none</> : currentProgram.name + " (Level " + calculateProgramLevel(currentProgram) + ")"} </h4>
+                        <Row style={{ padding: "10px" }}>
+                            <Button className="btn btn-danger" onClick={() => dispatch(delProgram())}>Clear program</Button>
+                        </Row>
+                        <hr />
+                        <h4>Workouts</h4>
+                        <div className="accordiongrid2">
+                            {basket.length === 0 ? <>Empty</> : basketMap}
                         </div>
-                        <div className='goalbasketwrapper'>
-                            <h4 style={{"alignSelf":"flex-start"}}>Workouts</h4>
-                            <ul className='goalbasket'>
-                                {basket.length === 0 ? <li style={{"width": "30em", "fontStyle":"italic", "textAlign":"center"}}>Workouts empty</li> : basketMap}
-                            </ul>
+                        <hr />
+                        <h4>Custom workout</h4>
+                        <div className="accordiongrid2">
+                            {exercises.length === 0 ? <>Empty</> : exerciseMap}
                         </div>
-                        <div className='goalbasketwrapper'>
-                            <h4 style={{"alignSelf":"flex-start"}}>Exercises</h4>
-                            <ul className='goalbasket'>
-                                {exercises.length === 0 ? <li style={{"width": "30em", "fontStyle":"italic", "textAlign":"center"}}>Exercises empty</li> : exerciseMap}
-                            </ul>
-                        </div>
-                        <Button className='btn btn-success' onClick={() => handleOpen()}>Set goal</Button>             
-                    </div>
+                        <hr />
+                        <h4>Confirm</h4>
+                        <Row style={{ padding: "10px" }}>
+                            <Button className='btn btn-success' onClick={() => handleOpen()}>Set goal</Button>
+                        </Row>
+                        <hr />
+                    </Container>
                 </Col>
             </Row>
-        </Container>
+        </Container >
     );
 }
 

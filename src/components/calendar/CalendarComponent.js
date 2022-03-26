@@ -48,7 +48,7 @@ const CalendarComponent = (props) => {
                 <div style={{ "display": "flex", "justifyContent": "space-around", "alignItems": "center" }}>
                     <Row>
                         <Col>
-                            {!props.basket ? <Button className="text-nowrap" onClick={() => navigate("/goals")}>Set goals for the week</Button> : <><h4>Goal start date: {reduxStartDate}</h4><h4>Goal end date: {reduxEndDate}</h4></>}
+                            {!props.basket ? <Button className="text-nowrap" onClick={() => navigate("/goals")}>View goals</Button> : <><h6><span className="h6">Goal start date: {reduxStartDate}</span></h6><h6><span className='h6'>Goal end date: {reduxEndDate}</span></h6></>}
                         </Col>
                         <Col>
                             <Button className="text-nowrap" variant="info" onClick={locale !== "US" ? () => swapCalendarTypeToUS() : () => swapCalendarTypeToDefault()}>{locale !== "US" ? "Change locale to US" : "Change locale to Europe"}</Button>

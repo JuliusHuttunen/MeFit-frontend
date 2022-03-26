@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container';
 const Admin = () => {
     return (
         <Container className='p-3'>
-            <AdminComponent/>
+            <AdminComponent />
         </Container>
     );
 };

@@ -21,7 +21,7 @@ const DisplayGoals = (props) => {
             if (profile.goals === undefined || profile.goals === null || profile.goals.length === 0) return 0
             for (let goal of profile.goals) {
                 const difference = differenceInDays(new Date(goal.endDate), new Date())
-                if (goal.achieved && difference < 7 && difference > 0) {
+                if (goal.achieved && difference < 7 && difference >= 0) {
                     achieved++
                 }
                 if (difference < 7) {
@@ -79,7 +79,7 @@ const DisplayGoals = (props) => {
     }
 
     return (
-        <Container className='pt-3'>
+        <Container>
             {progress === "100.0" ? <h3>All goals completed for the week! Congratulations!</h3> : <></>}
             <h5>Goal progress this week</h5>
             <ProgressBar variant={progress === "100.0" ? "success" : "primary"} className="progressBar" now={progress} label={`${progress}%`} />
