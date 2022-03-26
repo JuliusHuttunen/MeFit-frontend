@@ -89,15 +89,21 @@ export async function setGoalCompleted(goal, boolean) {
   };
   const jsonWorkouts = () => {
     const workoutArray = [];
-    for (let workout of goal.workouts) {
-      workoutArray.push({ workoutId: workout.workoutId });
+    for (let wo of goal.workouts) {
+      workoutArray.push({
+        completed: true,
+        workout: { workoutId: wo.workout.workoutId }
+      });
     }
     return workoutArray;
   };
   const jsonExercises = () => {
     const exerciseArray = [];
-    for (let exercise of goal.exercises) {
-      exerciseArray.push({ exerciseId: exercise.exerciseId });
+    for (let exer of goal.exercises) {
+      exerciseArray.push({
+        completed: true,
+        exercise: { exerciseId: exer.exercise.exerciseId }
+      })
     }
     return exerciseArray;
   };
