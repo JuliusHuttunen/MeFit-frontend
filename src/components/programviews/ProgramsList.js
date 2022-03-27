@@ -13,7 +13,7 @@ const ProgramsList = (props) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            if(programs === null || programs.length === 0){
+            if (programs === null || programs.length === 0) {
                 dispatch(fetchPrograms()).unwrap()
             }
             setProgramList(programs.map((program, index) => {

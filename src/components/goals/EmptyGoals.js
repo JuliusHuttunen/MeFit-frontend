@@ -32,7 +32,6 @@ function EmptyGoals() {
     const userFitnessLevel = useSelector((state) => state.profile.fitnessLevel)
 
     const db = useSelector((state) => state.db)
-
     let overFitnessLevel = false
 
     const handleClose = () => setShowModal(false)
@@ -69,7 +68,12 @@ function EmptyGoals() {
         for (let workout of program.workouts) {
             for (let set of workout.sets) {
                 counter++
-                totalFitnessLevel += parseInt(set.exercise.fitnessLevel)
+                try {
+                    totalFitnessLevel += parseInt(set.exercise.fitnessLevel)
+                }
+                catch (error) {
+                    totalFitnessLevel += 0
+                }
             }
         }
         const fitnessLevel = totalFitnessLevel / counter
@@ -81,7 +85,12 @@ function EmptyGoals() {
         let totalFitnessLevel = 0
         for (let set of workout.sets) {
             counter++
-            totalFitnessLevel += parseInt(set.exercise.fitnessLevel)
+            try {
+                totalFitnessLevel += parseInt(set.exercise.fitnessLevel)
+            }
+            catch (error) {
+                totalFitnessLevel += 0
+            }
         }
         const fitnessLevel = totalFitnessLevel / counter
         return fitnessLevel
@@ -103,7 +112,7 @@ function EmptyGoals() {
             <Card style={{ width: '18rem' }} key={index}>
                 <Card.Body>
                     <Card.Title>{item.name}</Card.Title>
-                    {fitnessLevel < userFitnessLevel ? <Card.Subtitle className="mb-2 text-muted">Workout</Card.Subtitle> : <Card.Subtitle className="mb-2 text-muted">Workout over your level</Card.Subtitle>}
+                    {fitnessLevel <= userFitnessLevel ? <Card.Subtitle className="mb-2 text-muted">Workout</Card.Subtitle> : <Card.Subtitle className="mb-2 text-muted">Workout over your level</Card.Subtitle>}
                     <Card.Text>Level: {fitnessLevel}</Card.Text>
                     <Row style={{ padding: "10px" }}>
                         <Button className="btn btn-danger" onClick={() => dispatch(del(index))}>Delete</Button>
@@ -121,7 +130,7 @@ function EmptyGoals() {
             <Card style={{ width: '18rem' }} key={index}>
                 <Card.Body>
                     <Card.Title>{item.name}</Card.Title>
-                    {item.fitnessLevel < userFitnessLevel ? <Card.Subtitle className="mb-2 text-muted">Exercise</Card.Subtitle> : <Card.Subtitle className="mb-2 text-muted">Exercise over your level</Card.Subtitle>}
+                    {item.fitnessLevel <= userFitnessLevel ? <Card.Subtitle className="mb-2 text-muted">Exercise</Card.Subtitle> : <Card.Subtitle className="mb-2 text-muted">Exercise over your level</Card.Subtitle>}
                     <Row style={{ padding: "10px" }}>
                         <Button className="btn btn-danger" onClick={() => dispatch(delExercise(index))}>Delete</Button>
                     </Row>
@@ -152,7 +161,12 @@ function EmptyGoals() {
             }
             return suggestions
         }
-        setSuggestions(generateSuggestions())
+        try {
+            setSuggestions(generateSuggestions())
+        }
+        catch (error) {
+            console.log(error)
+        }
     }, [setSuggestions])
 
     const suggestionMap =
@@ -162,12 +176,12 @@ function EmptyGoals() {
                     <Exercise key={index} index={index} exercise={item} basket={true}></Exercise>
                 )
             }
-            if (item.hasOwnProperty('workoutId')) {
+            else if (item.hasOwnProperty('workoutId')) {
                 return (
                     <Workout key={index} index={index} workout={item} basket={true}></Workout>
                 )
             }
-            if (item.hasOwnProperty('programId')) {
+            else {
                 return (
                     <Program key={index} index={index} program={item} basket={true}></Program>
                 )
