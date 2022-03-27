@@ -56,6 +56,7 @@ const DisplayGoals = (props) => {
                             <Goal achieved={true} key={index} goal={goal} counter={counter} index={index} difference={difference}></Goal>
                         )
                     }
+                    else return <></>
                 })
         }
         return profileGoals
@@ -70,9 +71,15 @@ const DisplayGoals = (props) => {
                     const difference = differenceInDays(new Date(goal.endDate), new Date())
                     if (difference < 0) {
                         return (
-                            <Goal achieved={true} key={index} goal={goal} index={index} difference={difference} history={true}></Goal>
+                            <Goal key={index} goal={goal} index={index} difference={difference} history={true}></Goal>
                         )
                     }
+                    else if (difference < 0 && !goal.achieved) {
+                        return (
+                            <Goal notAchieved={true} key={index} goal={goal} index={index} difference={difference} history={true}></Goal>
+                        )
+                    }
+                    else return <></>
                 })
         }
         return goals

@@ -13,7 +13,7 @@ const WorkoutsList = (props) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            if(workouts === null || workouts.length === 0){
+            if (workouts === null || workouts.length === 0) {
                 dispatch(fetchWorkouts()).unwrap()
             }
             setWorkoutList(workouts.map((workout, index) => {

@@ -16,11 +16,7 @@ const EditProgramForm = () => {
   const program = useSelector((state) => state.db.currentProgram)
   const handleClose = (program) => dispatch(editProgram(program))
   const workouts = useSelector((state) => state.db.workouts)
-  const [Program, setProgram] = useState({});
-
-  useEffect(() => {
-    setProgram(program)
-  }, [program])
+  const [Program, setProgram] = useState(program);
 
   const handleChange = (event) => {
     let value = event.target.value;
@@ -34,11 +30,16 @@ const EditProgramForm = () => {
     });
   };
 
-  const { register, handleSubmit } = useForm();
-  const onSubmit = async (data) => { 
+  useEffect(() => {
+    setProgram(program)
+  }, [program])
+
+  const { register, handleSubmit, reset } = useForm();
+  const onSubmit = async (data) => {
+    reset()
     await updateProgramToAPI(data, program.programId)
     await dispatch(fetchPrograms()).unwrap()
-    handleClose(program)
+    handleClose(Program)
   };
 
   const workoutMap = workouts.map((workout, index) => {
@@ -101,22 +102,22 @@ const EditProgramForm = () => {
             </Form.Select>
           </Form.Group>
           <Container fluid>
-              <Row style={{ padding: "10px" }}>
-                <Button variant="primary" type="submit">
-                  Save
-                </Button>
-              </Row>
-            </Container>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Container fluid>
             <Row style={{ padding: "10px" }}>
-              <Button variant="secondary" onClick={() => handleClose(Program)}>
-                Cancel
+              <Button variant="primary" type="submit">
+                Save
               </Button>
             </Row>
           </Container>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Container fluid>
+          <Row style={{ padding: "10px" }}>
+            <Button variant="secondary" onClick={() => handleClose(Program)}>
+              Cancel
+            </Button>
+          </Row>
+        </Container>
       </Modal.Footer>
     </Modal>
   );

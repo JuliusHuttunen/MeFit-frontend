@@ -16,6 +16,26 @@ const EditWorkoutForm = () => {
   const handleClose = (workout) => dispatch(editWorkout(workout));
   const exercises = useSelector((state) => state.db.exercises);
   const [Workout, setWorkout] = useState({});
+  /* const [set1, setSet1] = useState({
+    exercise: {
+      exerciseId: "",
+      name: "Choose"
+    }
+  })
+  const [set2, setSet2] = useState({
+    exercise: {
+      exerciseId: "",
+      name: "Choose"
+    }
+  })
+  const [set3, setSet3] = useState({
+    exercise: {
+      exerciseId: "",
+      name: "Choose"
+    }
+  }) */
+
+
 
   useEffect(() => {
     setWorkout(workout);
@@ -33,11 +53,12 @@ const EditWorkoutForm = () => {
     });
   };
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const onSubmit = async (data) => {
+    reset()
     await updateWorkoutToAPI(data, workout.workoutId);
     await dispatch(fetchWorkouts()).unwrap();
-    handleClose(workout);
+    handleClose(Workout)
   };
 
   const exerciseMap = exercises.map((exercise, index) => {
@@ -78,9 +99,9 @@ const EditWorkoutForm = () => {
           <h4>Edit exercise sets</h4>
           <Form.Group className="mb-3" controlId="formType">
             <Form.Label>Exercises of set #1</Form.Label>
-            <Form.Select value={undefined}
+            <Form.Select
               {...register("exerciseId1")}>
-              <option value="">Choose exercise</option>
+              <option value="">Choose a workout</option>
               {exerciseMap}
             </Form.Select>
             <Form.Label>Number of repetitions</Form.Label>
@@ -91,9 +112,9 @@ const EditWorkoutForm = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formType">
             <Form.Label>Exercises of set #2</Form.Label>
-            <Form.Select value={undefined}
+            <Form.Select
               {...register("exerciseId2")}>
-              <option value="">Choose exercise</option>
+              <option value="">Choose a workout</option>
               {exerciseMap}
             </Form.Select>
             <Form.Label>Number of repetitions</Form.Label>
@@ -104,9 +125,9 @@ const EditWorkoutForm = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formType">
             <Form.Label>Exercises of set #3</Form.Label>
-            <Form.Select value={undefined}
+            <Form.Select
               {...register("exerciseId3")}>
-              <option value="">Choose exercise</option>
+              <option value="">Choose a workout</option>
               {exerciseMap}
             </Form.Select>
             <Form.Label>Number of repetitions</Form.Label>
