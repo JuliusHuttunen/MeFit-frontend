@@ -21,7 +21,7 @@ const Goal = (props) => {
     //Get workout from db with index
     const getWorkout = (index) => {
         for (let workout of db.workouts) {
-            if (workout.workoutId == index) {
+            if (workout.workoutId === parseInt(index)) {
                 return workout
             }
         }
@@ -30,7 +30,7 @@ const Goal = (props) => {
     //Get exercise from db with index
     const getExercise = (index) => {
         for (let exercise of db.exercises) {
-            if (exercise.exerciseId == index) {
+            if (exercise.exerciseId === parseInt(index)) {
                 return exercise
             }
         }
@@ -39,7 +39,7 @@ const Goal = (props) => {
     //Get program from db with index
     const getProgram = (index) => {
         for (let program of db.programs) {
-            if (program.programId == index) {
+            if (program.programId === parseInt(index)) {
                 return program
             }
         }
@@ -107,11 +107,11 @@ const Goal = (props) => {
     return (
         <Container>
             <Accordion key={props.index}>
-                <Accordion.Item style={{ "backgroundColor": props.achieved ? "#defade" : "white" }} key={props.index} eventKey={props.index}>
-                    <Accordion.Header >{props.history ? <h4 style={{ "marginRight": "2em" }}>Goal ({format(new Date(props.goal.startDate), "dd.MM.yyyy")}-{format(new Date(props.goal.endDate), "dd.MM.yyyy")})</h4> : <><h4 style={{ "marginRight": "2em" }}>Goal #{props.counter}</h4><h4 style={{ "fontStyle": "italic" }}>{props.difference} whole day(s) left</h4></>}</Accordion.Header>
+                <Accordion.Item style={{ "backgroundColor": props.achieved ? "#defade" : props.history ? "#F2D4D7" : "white" }} key={props.index} eventKey={props.index}>
+                    <Accordion.Header >{props.history ? <h4 style={{ "marginRight": "2em" }}>Goal ({format(new Date(props.goal.startDate), "dd.MM.yyyy")}-{format(new Date(props.goal.endDate), "dd.MM.yyyy")})</h4> : <><h4 style={{ "marginRight": "2em" }}>Goal #{props.counter}</h4><h4 style={{ "fontStyle": "italic" }}>{props.difference === 0 ? "The goal should be completed today!" : props.difference + "whole day(s) left"}</h4></>}</Accordion.Header>
                     <Accordion.Body>
                         <div>
-                            <h4>Goal timespan: {format(new Date(props.goal.startDate), "dd.MM.yyyy")}-{format(new Date(props.goal.endDate), "dd.MM.yyyy")}</h4>
+                            <h4>Goal time period: {format(new Date(props.goal.startDate), "dd.MM.yyyy")}-{format(new Date(props.goal.endDate), "dd.MM.yyyy")}</h4>
                         </div>
                         {currentProgram !== null ? <><Program program={currentProgram} index={1}></Program><hr /></> : <></>}
                         {props.goal.workouts.length !== 0 ? <><Accordion key={3}>

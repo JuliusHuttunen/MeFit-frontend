@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -14,11 +14,7 @@ const EditExerciseForm = () => {
   const show = useSelector((state) => state.db.showEditExercise);
   const exercise = useSelector((state) => state.db.currentExercise);
   const handleClose = (exercise) => dispatch(editExercise(exercise));
-  const [Exercise, setExercise] = useState({});
-
-  useEffect(() => {
-    setExercise(exercise);
-  }, [exercise]);
+  const [Exercise, setExercise] = useState({})
 
   const handleChange = (event) => {
     let value = event.target.value;
@@ -32,10 +28,17 @@ const EditExerciseForm = () => {
     });
   };
 
-  const { register, handleSubmit } = useForm();
+  useEffect(() => {
+    setExercise(exercise)
+  }, [exercise])
+
+  const { register, handleSubmit, reset } = useForm();
   const onSubmit = async (data) => {
+    reset()
+    data = Exercise
     await updateExerciseToAPI(data, exercise.exerciseId);
     await dispatch(fetchExercises()).unwrap();
+    handleClose(Exercise)
   };
 
   return (

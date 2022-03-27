@@ -11,30 +11,30 @@ const ProgramTable = () => {
 
   const handleOpen = (program) => dispatch(editProgram(program))
 
-  const programsMap = programs.map((program, index) => {
-      return(
-        <tr key={index}>
-          <td>{program.programId}</td>
-          <td>{program.name}</td>
-          <td>{program.category}</td>
-          <td><Button onClick={() => handleOpen(program)}>edit</Button></td>
-        </tr>
-      )
+  const programsMap = programs.map((program) => {
+    return (
+      <tr key={program.programId}>
+        <td>{program.programId}</td>
+        <td>{program.name}</td>
+        <td>{program.category}</td>
+        <td><Button onClick={() => handleOpen(program)}>edit</Button></td>
+      </tr>
+    )
   })
   return (
-      <Table striped bordered hover size="sm" className="text-center">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Edit</th>
-          </tr>
-        </thead>
-        <tbody>
-          {programsMap}
-        </tbody>
-      </Table>
+    <Table striped bordered hover size="sm" className="text-center">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        {programsMap}
+      </tbody>
+    </Table>
   );
 };
 

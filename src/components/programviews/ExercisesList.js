@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Exercise from '../templates/Exercise';
 
 
-function ExercisesList(props){
+function ExercisesList(props) {
 
     const isBasket = props.basket
     const [exerciseList, setExerciseList] = useState(<></>)
@@ -13,22 +13,22 @@ function ExercisesList(props){
 
     useEffect(() => {
         const fetchData = async () => {
-            if(exercises === null || exercises.length === 0){
+            if (exercises === null || exercises.length === 0) {
                 dispatch(fetchExercises()).unwrap()
             }
             setExerciseList(exercises.map((exercise, index) => {
-                return (    
+                return (
                     <Exercise key={index} exercise={exercise} index={index} basket={isBasket ? true : false}></Exercise>
-                )   
+                )
             }))
         }
         fetchData()
     }, [exercises, dispatch, isBasket])
 
     return (
-            <div className='accordiongrid'>
-                {exerciseList}
-            </div>
+        <div className='accordiongrid'>
+            {exerciseList}
+        </div>
     )
 }
 

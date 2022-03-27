@@ -633,7 +633,7 @@ export async function updateWorkoutToAPI(workout, id) {
       },
       body: JSON.stringify({
         name: workout.name,
-        category: workout.category,
+        type: workout.type,
         sets: jsonSets()
       }),
     };
