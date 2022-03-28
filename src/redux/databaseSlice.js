@@ -18,24 +18,7 @@ export const databaseSlice = createSlice({
     showEditProgram: false,
     currentExercise: {
     },
-    currentWorkout: {
-      name: "",
-      type: "",
-      targetMuscleGroup: "",
-      sets: [
-        {
-          exerciseRepetitions: 0,
-          exercise: { name: "" }
-        },
-        {
-          exerciseRepetitions: 0,
-          exercise: { name: "" }
-        },
-        {
-          exerciseRepetitions: 0,
-          exercise: { name: "" }
-        }]
-    },
+    currentWorkout: {},
     currentProgram: {}
   },
   reducers: {
@@ -104,6 +87,10 @@ export const fetchExercises = createAsyncThunk('fetchExercises', async () => {
   console.log("ERR", error)
   return exercises
 })
+
+/* export const editExercise = createAsyncThunk('editExercise', async () => {
+  
+}) */
 
 export const { displayExerciseForm, displayWorkoutForm, displayProgramForm, editExercise, editWorkout, editProgram } = databaseSlice.actions
 
