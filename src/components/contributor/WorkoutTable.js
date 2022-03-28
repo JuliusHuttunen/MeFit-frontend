@@ -20,7 +20,7 @@ const WorkoutTable = () => {
     catch (error) {
       console.log(error.message)
     }
-  }, [userWorkoutsList])
+  }, [userWorkouts])
 
   const handleOpen = (workout) => dispatch(editWorkout(workout))
 
