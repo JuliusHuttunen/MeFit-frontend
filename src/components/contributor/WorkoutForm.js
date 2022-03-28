@@ -10,7 +10,7 @@ import Button from "react-bootstrap/Button";
 import { postWorkoutToAPI } from "../API/Connection";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-import { fetchProfile } from '../../redux/profileSlice'
+import { fetchProfile } from "../../redux/profileSlice";
 
 // yup validation schema
 const schema = yup.object(
@@ -31,25 +31,32 @@ const schema = yup.object(
         then: yup.string().max(100, "Maximum characters 100").required(),
       }),
     exerciseRepetitions1: yup
-      .number().transform((_, val) => (val ? Number(val) : null)).when("exerciseId1", {
+      .number()
+      .nullable(true)
+      .transform((_, val) => (val ? Number(val) : null))
+      .when("exerciseId1", {
         is: (exerciseId1) => exerciseId1,
-        then: yup.number().required()
+        then: yup.number().required(),
       }),
 
     exerciseId2: yup.string().max(100, "Maximum characters 100"),
     exerciseRepetitions2: yup
       .number()
-      .transform((_, val) => (val ? Number(val) : null)).when("exerciseId2", {
+      .nullable(true)
+      .transform((_, val) => (val ? Number(val) : null))
+      .when("exerciseId2", {
         is: (exerciseId2) => exerciseId2,
-        then: yup.number().required()
+        then: yup.number().required(),
       }),
 
     exerciseId3: yup.string().max(100, "Maximum characters 100"),
     exerciseRepetitions3: yup
       .number()
-      .transform((_, val) => (val ? Number(val) : null)).when("exerciseId3", {
+      .nullable(true)
+      .transform((_, val) => (val ? Number(val) : null))
+      .when("exerciseId3", {
         is: (exerciseId3) => exerciseId3,
-        then: yup.number().required()
+        then: yup.number().required(),
       }),
   },
   [["exerciseId2", "exerciseId3"]]
@@ -68,10 +75,10 @@ const WorkoutForm = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async (data) => {
-    await postWorkoutToAPI(data)
-    await dispatch(fetchWorkouts()).unwrap()
-    await dispatch(fetchProfile()).unwrap()
-    handleClose()
+    await postWorkoutToAPI(data);
+    await dispatch(fetchWorkouts()).unwrap();
+    await dispatch(fetchProfile()).unwrap();
+    handleClose();
   };
 
   const exerciseMap = exercises.map((exercise, index) => {
