@@ -36,11 +36,12 @@ const schema = yup.object(
 );
 
 const EditProgramForm = () => {
-  const dispatch = useDispatch();
-  const show = useSelector((state) => state.db.showEditProgram);
-  const program = useSelector((state) => state.db.currentProgram);
-  const handleClose = (program) => dispatch(editProgram(program));
-  const workouts = useSelector((state) => state.db.workouts);
+
+  const dispatch = useDispatch()
+  const show = useSelector((state) => state.db.showEditProgram)
+  const program = useSelector((state) => state.db.currentProgram)
+  const handleClose = async (program) => await dispatch(editProgram(program)).unwrap()
+  const workouts = useSelector((state) => state.db.workouts)
   const [Program, setProgram] = useState(program);
 
   const handleChange = (event) => {
@@ -66,10 +67,10 @@ const EditProgramForm = () => {
     reset,
   } = useForm({ resolver: yupResolver(schema) });
   const onSubmit = async (data) => {
-    await updateProgramToAPI(data, program.programId);
-    await dispatch(fetchPrograms()).unwrap();
-    reset();
-    handleClose(Program);
+    reset()
+    await updateProgramToAPI(data, program.programId)
+    await dispatch(fetchPrograms()).unwrap()
+    await handleClose(Program)
   };
 
   const workoutMap = workouts.map((workout, index) => {
@@ -81,7 +82,7 @@ const EditProgramForm = () => {
   });
 
   return (
-    <Modal size="lg" show={show} onHide={() => handleClose(Program)}>
+    <Modal size="lg" show={show} onHide={async () => await handleClose(Program)}>
       <Modal.Header closeButton>
         <Modal.Title>Edit Program</Modal.Title>
       </Modal.Header>
@@ -143,7 +144,7 @@ const EditProgramForm = () => {
       <Modal.Footer>
         <Container fluid>
           <Row style={{ padding: "10px" }}>
-            <Button variant="secondary" onClick={() => handleClose(Program)}>
+            <Button variant="secondary" onClick={async () => await handleClose(Program)}>
               Cancel
             </Button>
           </Row>

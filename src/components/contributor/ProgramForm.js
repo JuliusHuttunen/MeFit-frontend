@@ -10,6 +10,7 @@ import Button from "react-bootstrap/Button";
 import { postProgramToAPI } from "../API/Connection";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
+import { fetchProfile } from '../../redux/profileSlice'
 
 // yup validation schema
 const schema = yup
@@ -33,10 +34,9 @@ const schema = yup
   );
 
 const ProgramForm = () => {
-  const dispatch = useDispatch();
-  const show = useSelector((state) => state.db.showProgramForm);
-  const handleClose = () => dispatch(displayProgramForm());
-  const workouts = useSelector((state) => state.db.workouts);
+  const show = useSelector((state) => state.db.showProgramForm)
+  const handleClose = () => dispatch(displayProgramForm())
+  const workouts = useSelector((state) => state.db.workouts)
 
   const {
     register,
@@ -45,18 +45,18 @@ const ProgramForm = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async (data) => {
-    await postProgramToAPI(data);
-    await dispatch(fetchPrograms()).unwrap();
-    handleClose();
+    await postProgramToAPI(data)
+    await dispatch(fetchPrograms()).unwrap()
+    await dispatch(fetchProfile()).unwrap()
+    handleClose()
   };
 
   const workoutMap = workouts.map((workout, index) => {
     return (
-      <option key={index} value={workout.workoutId}>
-        {workout.name}
-      </option>
-    );
-  });
+      <option key={index} value={workout.workoutId}>{workout.name}</option>
+    )
+  })
+  const dispatch = useDispatch()
 
   return (
     <>

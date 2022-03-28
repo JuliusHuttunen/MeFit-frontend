@@ -108,7 +108,7 @@ const Goal = (props) => {
         <Container>
             <Accordion key={props.index}>
                 <Accordion.Item style={{ "backgroundColor": props.achieved ? "#defade" : props.history ? "#F2D4D7" : "white" }} key={props.index} eventKey={props.index}>
-                    <Accordion.Header >{props.history ? <h4 style={{ "marginRight": "2em" }}>Goal ({format(new Date(props.goal.startDate), "dd.MM.yyyy")}-{format(new Date(props.goal.endDate), "dd.MM.yyyy")})</h4> : <><h4 style={{ "marginRight": "2em" }}>Goal #{props.counter}</h4><h4 style={{ "fontStyle": "italic" }}>{props.difference === 0 ? "The goal should be completed today!" : props.difference + "whole day(s) left"}</h4></>}</Accordion.Header>
+                    <Accordion.Header >{props.history ? <h4 style={{ "marginRight": "2em" }}>Goal ({format(new Date(props.goal.startDate), "dd.MM.yyyy")}-{format(new Date(props.goal.endDate), "dd.MM.yyyy")})</h4> : <><h4 style={{ "marginRight": "2em" }}>Goal #{props.counter}</h4><h4 style={{ "fontStyle": "italic" }}>{props.difference === 0 ? "The goal should be completed today!" : props.difference + " whole day(s) left"}</h4></>}</Accordion.Header>
                     <Accordion.Body>
                         <div>
                             <h4>Goal time period: {format(new Date(props.goal.startDate), "dd.MM.yyyy")}-{format(new Date(props.goal.endDate), "dd.MM.yyyy")}</h4>

@@ -18,24 +18,7 @@ export const databaseSlice = createSlice({
     showEditProgram: false,
     currentExercise: {
     },
-    currentWorkout: {
-      name: "",
-      type: "",
-      targetMuscleGroup: "",
-      sets: [
-        {
-          exerciseRepetitions: 0,
-          exercise: { name: "" }
-        },
-        {
-          exerciseRepetitions: 0,
-          exercise: { name: "" }
-        },
-        {
-          exerciseRepetitions: 0,
-          exercise: { name: "" }
-        }]
-    },
+    currentWorkout: {},
     currentProgram: {}
   },
   reducers: {
@@ -48,18 +31,6 @@ export const databaseSlice = createSlice({
     displayProgramForm: (state) => {
       state.showProgramForm = !state.showProgramForm
     },
-    editExercise: (state, action) => {
-      state.showEditExercise = !state.showEditExercise
-      state.currentExercise = action.payload
-    },
-    editWorkout: (state, action) => {
-      state.showEditWorkout = !state.showEditWorkout
-      state.currentWorkout = action.payload
-    },
-    editProgram: (state, action) => {
-      state.showEditProgram = !state.showEditProgram
-      state.currentProgram = action.payload
-    }
   },
   extraReducers(builder) {
     builder
@@ -84,6 +55,30 @@ export const databaseSlice = createSlice({
         state.workoutStatus = 'succeeded'
         state.workouts = action.payload
       })
+      .addCase(editExercise.pending, () => {
+        console.log("Updating current exercise in store...")
+      })
+      .addCase(editExercise.fulfilled, (state, action) => {
+        state.currentExercise = action.payload
+        state.showEditExercise = !state.showEditExercise
+        console.log("Update complete")
+      })
+      .addCase(editWorkout.pending, () => {
+        console.log("Updating current workout in store...")
+      })
+      .addCase(editWorkout.fulfilled, (state, action) => {
+        state.currentWorkout = action.payload
+        state.showEditWorkout = !state.showEditWorkout
+        console.log("Update complete")
+      })
+      .addCase(editProgram.pending, () => {
+        console.log("Updating current program in store...")
+      })
+      .addCase(editProgram.fulfilled, (state, action) => {
+        state.currentProgram = action.payload
+        state.showEditProgram = !state.showEditProgram
+        console.log("Update complete")
+      })
   }
 })
 
@@ -105,6 +100,18 @@ export const fetchExercises = createAsyncThunk('fetchExercises', async () => {
   return exercises
 })
 
-export const { displayExerciseForm, displayWorkoutForm, displayProgramForm, editExercise, editWorkout, editProgram } = databaseSlice.actions
+export const editExercise = createAsyncThunk('editExercise', async (exercise) => {
+  return exercise
+})
+
+export const editWorkout = createAsyncThunk('editWorkout', async (workout) => {
+  return workout
+})
+
+export const editProgram = createAsyncThunk('editProgram', async (program) => {
+  return program
+})
+
+export const { displayExerciseForm, displayWorkoutForm, displayProgramForm } = databaseSlice.actions
 
 export default databaseSlice.reducer

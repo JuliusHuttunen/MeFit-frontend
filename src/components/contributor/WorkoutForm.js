@@ -10,6 +10,7 @@ import Button from "react-bootstrap/Button";
 import { postWorkoutToAPI } from "../API/Connection";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
+import { fetchProfile } from '../../redux/profileSlice'
 
 // yup validation schema
 const schema = yup.object(
@@ -67,11 +68,10 @@ const WorkoutForm = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async (data) => {
-    const [error, response] = await postWorkoutToAPI(data);
-    console.log(error);
-    console.log(response);
-    await dispatch(fetchWorkouts()).unwrap();
-    handleClose();
+    await postWorkoutToAPI(data)
+    await dispatch(fetchWorkouts()).unwrap()
+    await dispatch(fetchProfile()).unwrap()
+    handleClose()
   };
 
   const exerciseMap = exercises.map((exercise, index) => {

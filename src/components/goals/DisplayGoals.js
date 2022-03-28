@@ -91,7 +91,7 @@ const DisplayGoals = (props) => {
             <h5>Goal progress this week</h5>
             <ProgressBar variant={progress === "100.0" ? "success" : "primary"} className="progressBar" now={progress} label={`${progress}%`} />
             <Container className='p-2'>
-                <h3>This week's goals</h3>
+                <h3>Active goals</h3>
                 <hr />
                 <div className='accordiongrid'>
                     {goalsMap}
