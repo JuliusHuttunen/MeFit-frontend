@@ -1,3 +1,4 @@
+//A list of workouts displayed in exercise view and goal generator
 import React from 'react';
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';

@@ -1,3 +1,4 @@
+//The table of users displayed on admin page
 import Button from "react-bootstrap/Button";
 import React, { useEffect } from "react";
 import Table from "react-bootstrap/Table";

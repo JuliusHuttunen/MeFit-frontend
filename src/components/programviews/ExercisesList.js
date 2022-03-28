@@ -1,8 +1,8 @@
+//A list of exercises displayed in exercise view and goal generator
 import React, { useEffect, useState } from 'react';
 import { fetchExercises } from '../../redux/databaseSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import Exercise from '../templates/Exercise';
-
 
 function ExercisesList(props) {
 

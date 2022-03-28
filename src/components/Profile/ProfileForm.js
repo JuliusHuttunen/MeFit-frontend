@@ -1,3 +1,4 @@
+//Form for initializing a user
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -66,9 +67,9 @@ const ProfileForm = () => {
 
   const onSubmit = async (data) => {
     await postProfileToAPI(data);
-    await dispatch(fetchProfile()).unwrap();
-    console.log("Profile created");
-    navigate("/dashboard");
+    await dispatch(fetchProfile()).unwrap()
+    console.log("Profile created")
+    navigate("/dashboard")
   };
 
   return (

@@ -7,9 +7,9 @@ const initKeycloak = (renderApp) => {
     .init({
       onLoad: "check-sso",
     })
-    .then(() => {
-      renderApp();
-    });
+        .then(() => {
+            renderApp();
+        })
 };
 
 const Login = keycloak.login;
@@ -23,25 +23,23 @@ const getLastName = () => keycloak.tokenParsed?.family_name;
 const getEmail = () => keycloak.tokenParsed?.email;
 const getRoles = () => keycloak.tokenParsed?.roles;
 const requestSent = () => keycloak.tokenParsed?.contributorRequest;
-const hasRole = (roles) => roles.some((role) => keycloak.hasRealmRole(role));
 
 const isAuthenticated = () => !!keycloak.token;
 
 const KeycloakService = {
-  initKeycloak,
-  Login,
-  Logout,
-  AccountManagement,
-  getToken,
-  hasRole,
-  requestSent,
-  getId,
-  getUsername,
-  getFirstName,
-  getLastName,
-  getEmail,
-  isAuthenticated,
-  getRoles,
+    initKeycloak,
+    Login,
+    Logout,
+    AccountManagement,
+    getToken,
+    requestSent,
+    getId,
+    getUsername,
+    getFirstName,
+    getLastName,
+    getEmail,
+    isAuthenticated,
+    getRoles,
 };
 
 export default KeycloakService;
