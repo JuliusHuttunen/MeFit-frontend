@@ -13,7 +13,7 @@ const EditWorkoutForm = () => {
   const dispatch = useDispatch();
   const show = useSelector((state) => state.db.showEditWorkout);
   const workout = useSelector((state) => state.db.currentWorkout);
-  const handleClose = (workout) => dispatch(editWorkout(workout));
+  const handleClose = async (workout) => await dispatch(editWorkout(workout)).unwrap();
   const exercises = useSelector((state) => state.db.exercises);
   const [Workout, setWorkout] = useState({});
   /* const [set1, setSet1] = useState({
@@ -58,7 +58,7 @@ const EditWorkoutForm = () => {
     reset()
     await updateWorkoutToAPI(data, workout.workoutId);
     await dispatch(fetchWorkouts()).unwrap();
-    handleClose(Workout)
+    await handleClose(Workout)
   };
 
   const exerciseMap = exercises.map((exercise, index) => {
@@ -70,7 +70,7 @@ const EditWorkoutForm = () => {
   });
 
   return (
-    <Modal size="lg" show={show} onHide={() => handleClose(Workout)}>
+    <Modal size="lg" show={show} onHide={async () => await handleClose(Workout)}>
       <Modal.Header closeButton>
         <Modal.Title>Edit Workout</Modal.Title>
       </Modal.Header>
@@ -148,7 +148,7 @@ const EditWorkoutForm = () => {
       <Modal.Footer>
         <Container fluid>
           <Row style={{ padding: "10px" }}>
-            <Button variant="secondary" onClick={() => handleClose(Workout)}>
+            <Button variant="secondary" onClick={async () => await handleClose(Workout)}>
               Cancel
             </Button>
           </Row>
