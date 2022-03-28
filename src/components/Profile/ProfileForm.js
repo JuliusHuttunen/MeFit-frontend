@@ -54,8 +54,8 @@ const schema = yup.object({
 });
 
 const ProfileForm = () => {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
     register,

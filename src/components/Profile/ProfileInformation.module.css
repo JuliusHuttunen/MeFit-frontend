@@ -1,9 +1,8 @@
 .profileInput {
- border: 0 !important;
+  border: 0 !important;
 }
 
-
-.profileGroup{
-color: blue;
-font-size: small;
+.profileGroup {
+  color: blue;
+  font-size: small;
 }

@@ -1,106 +1,106 @@
 .cardcontainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1em;
 }
 
 .accordiongrid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2em
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2em;
 }
 
 .accordiongrid2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2em
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2em;
 }
 
-.filterwrapper img{
-    margin: 1em;
-    width: 70px;
-    transition: 0.2s;
-    padding-bottom: 10px;
+.filterwrapper img {
+  margin: 1em;
+  width: 70px;
+  transition: 0.2s;
+  padding-bottom: 10px;
 }
 
-.filterwrapper img:hover{
-    transition: 0.2s;
-    cursor: pointer;
-    filter: drop-shadow(0 0 0.1rem );
-    color: #F19953;
+.filterwrapper img:hover {
+  transition: 0.2s;
+  cursor: pointer;
+  filter: drop-shadow(0 0 0.1rem);
+  color: #f19953;
 }
 
 .workoutsetswrapper {
-    display: grid;
-    grid-template-columns: 2fr 2fr;
-    gap: 1em;
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  gap: 1em;
 }
 
 .filterwrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .filterwrapper h5 {
-    padding: 2em;
+  padding: 2em;
 }
 
 .workoutsetsmall {
-    display: flex;
-    align-items: stretch
+  display: flex;
+  align-items: stretch;
 }
 
 .goalbasket {
-    list-style-type: none;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .goalbasket li {
-    border: 1px solid lightgray;
-    padding: 1em;
-    margin: 1rem;
-    border-radius: 10px;
+  border: 1px solid lightgray;
+  padding: 1em;
+  margin: 1rem;
+  border-radius: 10px;
 }
 
 .goalbasketwrapper {
-    border: 1px solid lightgray;
-    padding: 2em;
-    border-radius: 10px;
-    width: 100%;
-    margin-bottom: 1em;
-    background-color: white;
+  border: 1px solid lightgray;
+  padding: 2em;
+  border-radius: 10px;
+  width: 100%;
+  margin-bottom: 1em;
+  background-color: white;
 }
 
 .goalbasketcontainer {
-    border: 1px solid lightgray;
-    padding:1em;
-    border-radius: 10px;
-    width: 100%;
-    background-color: rgba(236, 234, 234, 0.39);
-    display: flex;
-    flex-direction: column;
+  border: 1px solid lightgray;
+  padding: 1em;
+  border-radius: 10px;
+  width: 100%;
+  background-color: rgba(236, 234, 234, 0.39);
+  display: flex;
+  flex-direction: column;
 }
 
 .progressBar {
-    height: 2em !important;
-    font-size: 1.7em !important;
-    margin-bottom: 1em !important;
+  height: 2em !important;
+  font-size: 1.7em !important;
+  margin-bottom: 1em !important;
 }
 
 .hoverlinks .nav-link:hover {
-    color: rgba(236, 234, 234, 0.39) !important;
+  color: rgba(236, 234, 234, 0.39) !important;
 }
 
 .accordion-button:hover {
-    /* background-color: #e7f1ff; */
-    background-color: rgb(226, 226, 226);
-    transition: 0.2s
+  /* background-color: #e7f1ff; */
+  background-color: rgb(226, 226, 226);
+  transition: 0.2s;
 }
 
 .accordion-button .collapsed {
-    transition: 0.2s
+  transition: 0.2s;
 }

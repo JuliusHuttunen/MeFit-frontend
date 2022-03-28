@@ -1,10 +1,11 @@
 import Keycloak from "keycloak-js";
 
-const keycloak = new Keycloak('/keycloak.json');
+const keycloak = new Keycloak("/keycloak.json");
 
 const initKeycloak = (renderApp) => {
-    keycloak.init({
-        onLoad: 'check-sso'
+  keycloak
+    .init({
+      onLoad: "check-sso",
     })
         .then(() => {
             renderApp();
