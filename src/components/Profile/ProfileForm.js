@@ -1,3 +1,4 @@
+//Form for initializing a user
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -53,8 +54,8 @@ const schema = yup.object({
 });
 
 const ProfileForm = () => {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -68,7 +69,7 @@ const ProfileForm = () => {
     await postProfileToAPI(data);
     await dispatch(fetchProfile()).unwrap()
     console.log("Profile created")
-     navigate("/dashboard")
+    navigate("/dashboard")
   };
 
   return (

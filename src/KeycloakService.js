@@ -1,14 +1,15 @@
 import Keycloak from "keycloak-js";
 
-const keycloak = new Keycloak('/keycloak.json');
+const keycloak = new Keycloak("/keycloak.json");
 
 const initKeycloak = (renderApp) => {
-    keycloak.init({
-        onLoad: 'check-sso'
+  keycloak
+    .init({
+      onLoad: "check-sso",
     })
-    .then(() => {
+        .then(() => {
             renderApp();
-    })
+        })
 };
 
 const Login = keycloak.login;
@@ -22,7 +23,6 @@ const getLastName = () => keycloak.tokenParsed?.family_name;
 const getEmail = () => keycloak.tokenParsed?.email;
 const getRoles = () => keycloak.tokenParsed?.roles;
 const requestSent = () => keycloak.tokenParsed?.contributorRequest;
-const hasRole = (roles) => roles.some((role) => keycloak.hasRealmRole(role));
 
 const isAuthenticated = () => !!keycloak.token;
 
@@ -32,7 +32,6 @@ const KeycloakService = {
     Logout,
     AccountManagement,
     getToken,
-    hasRole,
     requestSent,
     getId,
     getUsername,

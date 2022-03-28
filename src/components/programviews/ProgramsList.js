@@ -1,3 +1,4 @@
+//A list of programs displayed in exercise view and goal generator
 import React from 'react';
 import { useState, useEffect } from "react";
 import { fetchPrograms } from '../../redux/databaseSlice';
