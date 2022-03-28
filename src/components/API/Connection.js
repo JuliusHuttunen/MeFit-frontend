@@ -121,7 +121,7 @@ export async function setGoalCompleted(goal, boolean) {
         startDate: goal.startDate,
         achieved: boolean,
         profile: {
-          profileId: goal.profile.profileId
+          profileId: KeycloakService.getId()
         },
         program: jsonProgram(),
         workouts: jsonWorkouts(),
@@ -309,6 +309,25 @@ export async function deleteUser(userId) {
   }
 }
 
+export async function deleteProfileToApi(userId) {
+  const token = KeycloakService.getToken();
+  const url = `https://fi-java-mefit-backend.herokuapp.com/api/v1/profiles/${userId}`;
+
+  try {
+    const config = {
+      method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+      const response = await fetch(`${url}`, config);
+      const data = await response.text();
+      return [null, data];
+    } catch (error) {
+      return [error.message, null];
+    }
+}
+
 export async function postProfileToAPI(profile) {
   const url = "https://fi-java-mefit-backend.herokuapp.com/api/v1/profiles";
   const token = KeycloakService.getToken();
@@ -408,7 +427,10 @@ export async function postExerciseToAPI(exercise) {
         targetMuscleGroup: exercise.targetMuscleGroup,
         image: null,
         fitnessLevel: exercise.fitnessLevel,
-        vidLink: null
+        vidLink: null,
+        profile: {
+          profileId: KeycloakService.getId()
+        }
       }),
     };
     console.log(config.body)
@@ -466,7 +488,10 @@ export async function postWorkoutToAPI(workout) {
       body: JSON.stringify({
         name: workout.name,
         type: workout.type,
-        sets: jsonSets()
+        sets: jsonSets(),
+        profile: {
+          profileId: KeycloakService.getId()
+        }
       }),
     };
     console.log(config.body)
@@ -509,7 +534,10 @@ export async function postProgramToAPI(program) {
       body: JSON.stringify({
         name: program.name,
         category: program.category,
-        workouts: jsonWorkouts()
+        workouts: jsonWorkouts(),
+        profile: {
+          profileId: KeycloakService.getId()
+        }
       }),
     };
     const response = await fetch(`${url}`, config);
@@ -713,14 +741,13 @@ export async function setExerciseCompleted(goal, boolean, exerId) {
         startDate: goal.startDate,
         achieved: false,
         profile: {
-          profileId: goal.profile.profileId
+          profileId: KeycloakService.getId()
         },
         program: jsonProgram(),
         workouts: jsonWorkouts(),
         exercises: jsonExercises()
       }),
     };
-    console.log(config.body)
     const response = await fetch(`${url}`, config);
     const data = await response.text();
     return [null, data];
@@ -798,14 +825,13 @@ export async function setWorkoutCompleted(goal, boolean, woId) {
         startDate: goal.startDate,
         achieved: false,
         profile: {
-          profileId: goal.profile.profileId
+          profileId: KeycloakService.getId()
         },
         program: jsonProgram(),
         workouts: jsonWorkouts(),
         exercises: jsonExercises()
       }),
     };
-    console.log(config.body)
     const response = await fetch(`${url}`, config);
     const data = await response.text();
     return [null, data];
@@ -813,3 +839,5 @@ export async function setWorkoutCompleted(goal, boolean, woId) {
     return [error.message, null];
   }
 }
+
+
