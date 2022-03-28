@@ -51,7 +51,6 @@ const schema = yup.object({
   medical_conditions: yup.string().max(255, "Maximum characters 100"),
   disabilities: yup.string().max(255, "Maximum characters 100"),
   fitness_level: yup.number().required("Fitness Level is required"),
-  requestForContributor: yup.boolean(),
 });
 
 // User and profile data
@@ -75,7 +74,9 @@ const ProfileInformation = () => {
     disabilities: profile.disabilities,
   });
 
-  const contributorRequestStatus = useSelector((state) => state.profile.hasSentContributorRequest)
+  const contributorRequestStatus = useSelector(
+    (state) => state.profile.hasSentContributorRequest
+  );
 
   const handleChange = (event) => {
     let value = event.target.value;
@@ -89,12 +90,12 @@ const ProfileInformation = () => {
     });
   };
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const requestContributor = async () => {
     if (!KeycloakService.getRoles().includes("contributor")) {
       await requestContributorRole();
-      dispatch(contributorRequest())
+      dispatch(contributorRequest());
     }
   };
 
@@ -107,7 +108,7 @@ const ProfileInformation = () => {
   });
   const onSubmit = async (data) => {
     await updateProfileToAPI(data);
-    await dispatch(fetchProfile()).unwrap()
+    await dispatch(fetchProfile()).unwrap();
     console.log("Profile updated");
   };
 
@@ -158,7 +159,8 @@ const ProfileInformation = () => {
           </Row>
           <Row className="mt-4 mb-4">
             {!KeycloakService.getRoles().includes("contributor") ? (
-              KeycloakService.requestSent() === "true" || contributorRequestStatus ? (
+              KeycloakService.requestSent() === "true" ||
+              contributorRequestStatus ? (
                 <Button disabled variant="secondary">
                   Contributor Request pending
                 </Button>
@@ -344,7 +346,7 @@ const ProfileInformation = () => {
               <p>{errors.disabilities?.message}</p>
             </Form.Group>
             <hr />
-            <h4>Fitness Level</h4>
+            <h5>Fitness Level</h5>
             <Form.Group controlId="profile_fitness_level">
               <Form.Select
                 className={styles.profileInput}
