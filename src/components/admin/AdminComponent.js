@@ -35,53 +35,58 @@ const AdminComponent = () => {
   }, []);
 
   const UserList = users.map((user, index) => {
-    return (
-      <tr key={index}>
-        <td>{user.username}</td>
-        <td>{user.firstName + " " + user.lastName}</td>
-        {user.attributes && user.attributes.contributorRequest[0] === "true" ? (
+    try {
+      return (
+        <tr key={index}>
+          <td>{user.username}</td>
+          <td>{user.firstName + " " + user.lastName}</td>
+          {user.attributes && user.attributes.contributorRequest[0] === "true" ? (
+            <td>
+              <Button type="button" onClick={() => addContributorBtn(user.id)}>
+                Add as Contributor
+              </Button>
+            </td>
+          ) : (
+            <td></td>
+          )}
           <td>
-            <Button type="button" onClick={() => addContributorBtn(user.id)}>
-              Add as Contributor
+            <Button
+              type="button"
+              variant="danger"
+              onClick={() => {
+                if (
+                  window.confirm(
+                    "Are you sure you want to delete user " + user.username + "?"
+                  )
+                )
+                  deleteUserBtn(user.id);
+              }}
+            >
+              Delete
             </Button>
           </td>
-        ) : (
-          <td></td>
-        )}
-        <td>
-          <Button
-            type="button"
-            variant="danger"
-            onClick={() => {
-              if (
-                window.confirm(
-                  "Are you sure you want to delete user " + user.username + "?"
-                )
-              )
-                deleteUserBtn(user.id);
-            }}
-          >
-            Delete
-          </Button>
-        </td>
-      </tr>
-    );
+        </tr>
+      );
+    }
+    catch (error) {
+      console.log("Still fetching users, please wait...")
+    }
   });
 
   return (
     <Container className="mb-5">
       <h2>Admin tools</h2>
-    <Table striped bordered hover className="text-center mt-3" size="sm">
-      <thead>
-        <tr>
-          <th>Username</th>
-          <th>Full Name</th>
-          <th>Contributor Request</th>
-          <th>Delete User</th>
-        </tr>
-      </thead>
-      <tbody>{UserList}</tbody>
-    </Table>
+      <Table striped bordered hover className="text-center mt-3" size="sm">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Full Name</th>
+            <th>Contributor Request</th>
+            <th>Delete User</th>
+          </tr>
+        </thead>
+        <tbody>{UserList}</tbody>
+      </Table>
     </Container>
   );
 };
