@@ -1,9 +1,10 @@
+//Start page carousel of splash images
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel'
 
 const CarouselHome = () => {
-    return (
-        <Carousel>
+  return (
+    <Carousel>
       <Carousel.Item>
         <img
           className=" w-100"
@@ -37,8 +38,8 @@ const CarouselHome = () => {
           <p>Register</p>
         </Carousel.Caption>
       </Carousel.Item>
-      </Carousel>
-    );
+    </Carousel>
+  );
 };
 
 export default CarouselHome;

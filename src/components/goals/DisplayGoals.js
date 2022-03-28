@@ -1,3 +1,4 @@
+//Component displaying users current goals, goal history and goal progress
 import React, { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container'
 import ProgressBar from 'react-bootstrap/ProgressBar';

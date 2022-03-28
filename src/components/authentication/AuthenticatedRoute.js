@@ -1,7 +1,7 @@
 import { Route } from 'react-router-dom'
 import KeycloakService from '../..//KeycloakService'
 
-const AuthenticatedRoute = ({children, ...rest}) => (
+const AuthenticatedRoute = ({ children, ...rest }) => (
     <Route {...rest}>
         {KeycloakService.isAuthenticated() ? children : null};
     </Route>

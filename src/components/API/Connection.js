@@ -1,5 +1,7 @@
+//Component handling requests between database/API/backend and frontend
 import KeycloakService from "../../KeycloakService";
 
+//GET EXERCISES, WORKOUTS OR PROGRAMS
 export async function getFromAPI(query) {
   const url = "https://fi-java-mefit-backend.herokuapp.com/api/v1/" + query;
   const token = KeycloakService.getToken();
@@ -20,6 +22,7 @@ export async function getFromAPI(query) {
   }
 }
 
+//POST NEW GOAL TO API
 export async function postGoalToAPI(item) {
   const url = "https://fi-java-mefit-backend.herokuapp.com/api/v1/goals";
   const token = KeycloakService.getToken();
@@ -77,6 +80,7 @@ export async function postGoalToAPI(item) {
   }
 }
 
+//SET A GOAL AS ACHIEVED
 export async function setGoalCompleted(goal, boolean) {
   const url =
     "https://fi-java-mefit-backend.herokuapp.com/api/v1/goals/" + goal.goalId;
@@ -136,6 +140,7 @@ export async function setGoalCompleted(goal, boolean) {
   }
 }
 
+//GET USER PROFILE
 export async function getUserProfile() {
   const userId = KeycloakService.getId();
   const token = KeycloakService.getToken();
@@ -158,6 +163,7 @@ export async function getUserProfile() {
   }
 }
 
+//GET ALL USERS FROM KEYCLOAK
 export async function getKeycloakUsers() {
   const token = KeycloakService.getToken();
   const url =
@@ -178,6 +184,7 @@ export async function getKeycloakUsers() {
   }
 }
 
+//REGULAR USER REQUEST FOR CONTRIBUTOR ROLE
 export async function requestContributorRole() {
   const token = KeycloakService.getToken();
   const url =
@@ -207,6 +214,7 @@ export async function requestContributorRole() {
   }
 }
 
+//CONTRIBUTOR REQUEST -> OFF
 export async function completeContributorRequest(userId) {
   const token = KeycloakService.getToken();
   const url = `https://fi-java-mefit-keycloak.herokuapp.com/auth/admin/realms/mefit/users/${userId}`;
@@ -232,6 +240,7 @@ export async function completeContributorRequest(userId) {
   }
 }
 
+//ADD USER AS A CONTRIBUTOR
 export async function addContributorRole(userId) {
   const token = KeycloakService.getToken();
   const url = `https://fi-java-mefit-keycloak.herokuapp.com/auth/admin/realms/mefit/users/${userId}/role-mappings/realm`;
@@ -261,6 +270,7 @@ export async function addContributorRole(userId) {
   }
 }
 
+//REMOVE CONTRIBUTOR ROLE FROM USER
 export async function deleteContributorRole(userId) {
   const token = KeycloakService.getToken();
   const url = `https://fi-java-mefit-keycloak.herokuapp.com/auth/admin/realms/mefit/users/${userId}/role-mappings/realm`;
@@ -290,6 +300,7 @@ export async function deleteContributorRole(userId) {
   }
 }
 
+//DELETE KEYCLOAK USER
 export async function deleteUser(userId) {
   const token = KeycloakService.getToken();
   const url = `https://fi-java-mefit-keycloak.herokuapp.com/auth/admin/realms/mefit/users/${userId}`;
@@ -309,6 +320,7 @@ export async function deleteUser(userId) {
   }
 }
 
+//DELETE PROFILE FROM API
 export async function deleteProfileToApi(userId) {
   const token = KeycloakService.getToken();
   const url = `https://fi-java-mefit-backend.herokuapp.com/api/v1/profiles/${userId}`;
@@ -328,6 +340,7 @@ export async function deleteProfileToApi(userId) {
   }
 }
 
+//CREATE NEW PROFILE
 export async function postProfileToAPI(profile) {
   const url = "https://fi-java-mefit-backend.herokuapp.com/api/v1/profiles";
   const token = KeycloakService.getToken();
@@ -371,6 +384,7 @@ export async function postProfileToAPI(profile) {
   }
 }
 
+//UPDATE USER PROFILE
 export async function updateProfileToAPI(profile) {
   const userId = KeycloakService.getId();
   const token = KeycloakService.getToken();
@@ -410,6 +424,7 @@ export async function updateProfileToAPI(profile) {
   }
 }
 
+//POST NEW EXERCISE TO API
 export async function postExerciseToAPI(exercise) {
   const token = KeycloakService.getToken()
   const url = "https://fi-java-mefit-backend.herokuapp.com/api/v1/exercises"
@@ -442,6 +457,7 @@ export async function postExerciseToAPI(exercise) {
   }
 }
 
+//POST NEW WORKOUT TO API
 export async function postWorkoutToAPI(workout) {
   const token = KeycloakService.getToken()
   const url = "https://fi-java-mefit-backend.herokuapp.com/api/v1/workouts"
@@ -503,6 +519,7 @@ export async function postWorkoutToAPI(workout) {
   }
 }
 
+//POST NEW PROGRAM TO API
 export async function postProgramToAPI(program) {
   const token = KeycloakService.getToken()
   const url = "https://fi-java-mefit-backend.herokuapp.com/api/v1/programs"
@@ -548,6 +565,7 @@ export async function postProgramToAPI(program) {
   }
 }
 
+//UPDATE AN EXERCISE WITH PATCH
 export async function updateExerciseToAPI(exercise, id) {
   const token = KeycloakService.getToken()
   const url = "https://fi-java-mefit-backend.herokuapp.com/api/v1/exercises/" + id
@@ -577,6 +595,7 @@ export async function updateExerciseToAPI(exercise, id) {
   }
 }
 
+//UPDATE A PROGRAM WITH PATCH
 export async function updateProgramToAPI(program, id) {
   const token = KeycloakService.getToken()
   const url = "https://fi-java-mefit-backend.herokuapp.com/api/v1/programs/" + id
@@ -622,6 +641,7 @@ export async function updateProgramToAPI(program, id) {
   }
 }
 
+//UPDATE A WORKOUT WITH PATCH
 export async function updateWorkoutToAPI(workout, id) {
   const token = KeycloakService.getToken()
   const url = "https://fi-java-mefit-backend.herokuapp.com/api/v1/workouts/" + id
@@ -682,6 +702,7 @@ export async function updateWorkoutToAPI(workout, id) {
   }
 }
 
+//SET GOAL EXERCISE TO COMPLETED
 export async function setExerciseCompleted(goal, boolean, exerId) {
   const url =
     "https://fi-java-mefit-backend.herokuapp.com/api/v1/goals/" + goal.goalId;
@@ -765,6 +786,7 @@ export async function setExerciseCompleted(goal, boolean, exerId) {
   }
 }
 
+//SET GOAL WORKOUT TO COMPLETED
 export async function setWorkoutCompleted(goal, boolean, woId) {
   const url =
     "https://fi-java-mefit-backend.herokuapp.com/api/v1/goals/" + goal.goalId;
@@ -848,5 +870,3 @@ export async function setWorkoutCompleted(goal, boolean, woId) {
     return [error.message, null];
   }
 }
-
-

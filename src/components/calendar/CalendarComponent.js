@@ -1,3 +1,4 @@
+//This is the week calendar which is displayed in dashboard and goal generation
 import { React, useState } from 'react';
 import Calendar from 'short-react-calendar';
 import './calendar.css';

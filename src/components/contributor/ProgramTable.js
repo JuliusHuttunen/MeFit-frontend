@@ -1,3 +1,4 @@
+//Table displaying contributor programs
 import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table"
 import Button from "react-bootstrap/Button"

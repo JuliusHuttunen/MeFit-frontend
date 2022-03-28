@@ -1,3 +1,4 @@
+//Form for updating a user profile
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -160,7 +161,7 @@ const ProfileInformation = () => {
           <Row className="mt-4 mb-4">
             {!KeycloakService.getRoles().includes("contributor") ? (
               KeycloakService.requestSent() === "true" ||
-              contributorRequestStatus ? (
+                contributorRequestStatus ? (
                 <Button disabled variant="secondary">
                   Contributor Request pending
                 </Button>
