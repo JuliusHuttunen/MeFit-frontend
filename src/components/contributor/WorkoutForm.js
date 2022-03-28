@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 import { postWorkoutToAPI } from '../API/Connection';
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
+import { fetchProfile } from '../../redux/profileSlice'
 
 const WorkoutForm = () => {
 
@@ -22,10 +23,9 @@ const WorkoutForm = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    const [error, response] = await postWorkoutToAPI(data)
-    console.log(error)
-    console.log(response)
+    await postWorkoutToAPI(data)
     await dispatch(fetchWorkouts()).unwrap()
+    await dispatch(fetchProfile()).unwrap()
     handleClose()
   };
 

@@ -8,6 +8,7 @@ import { displayExerciseForm, fetchExercises } from '../../redux/databaseSlice';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
+import { fetchProfile } from '../../redux/profileSlice'
 
 const ExerciseForm = () => {
 
@@ -23,6 +24,7 @@ const ExerciseForm = () => {
   const onSubmit = async (data) => {
     await postExerciseToAPI(data)
     await dispatch(fetchExercises()).unwrap()
+    await dispatch(fetchProfile()).unwrap()
     handleClose()
   };
 
