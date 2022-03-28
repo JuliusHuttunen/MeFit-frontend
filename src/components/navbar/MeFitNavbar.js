@@ -1,3 +1,4 @@
+//Application frame, which contains a navigation bar element and a hamburger navigation dropdown with all the links
 import ProfileName from "./ProfileName";
 import ProfilePicture from "./ProfilePicture";
 import LoginForm from "./LoginForm";
