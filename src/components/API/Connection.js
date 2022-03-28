@@ -1,3 +1,4 @@
+import Keycloak from "keycloak-js";
 import KeycloakService from "../../KeycloakService";
 
 export async function getFromAPI(query) {
@@ -307,6 +308,25 @@ export async function deleteUser(userId) {
   } catch (error) {
     return [error.message, null];
   }
+}
+
+export async function deleteProfileToApi(userId) {
+  const token = KeycloakService.getToken();
+  const url = `https://fi-java-mefit-backend.herokuapp.com/api/v1/profiles/${userId}`;
+
+  try {
+    const config = {
+      method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+      const response = await fetch(`${url}`, config);
+      const data = await response.text();
+      return [null, data];
+    } catch (error) {
+      return [error.message, null];
+    }
 }
 
 export async function postProfileToAPI(profile) {
@@ -813,3 +833,5 @@ export async function setWorkoutCompleted(goal, boolean, woId) {
     return [error.message, null];
   }
 }
+
+

@@ -4,6 +4,7 @@ import Table from "react-bootstrap/Table";
 import {
   addContributorRole,
   completeContributorRequest,
+  deleteProfileToApi,
   deleteUser,
 } from "../API/Connection";
 import { useSelector, useDispatch } from "react-redux";
@@ -22,6 +23,7 @@ const AdminComponent = () => {
 
   const deleteUserBtn = async (id) => {
     await deleteUser(id);
+    await deleteProfileToApi(id);
     await dispatch(fetchUsers()).unwrap();
   };
 
