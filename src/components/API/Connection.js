@@ -1,4 +1,3 @@
-import Keycloak from "keycloak-js";
 import KeycloakService from "../../KeycloakService";
 
 export async function getFromAPI(query) {
