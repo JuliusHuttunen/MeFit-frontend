@@ -63,28 +63,10 @@ const EditWorkoutForm = () => {
   const dispatch = useDispatch();
   const show = useSelector((state) => state.db.showEditWorkout);
   const workout = useSelector((state) => state.db.currentWorkout);
-  const handleClose = async (workout) => await dispatch(editWorkout(workout)).unwrap();
+  const handleClose = (workout) => dispatch(editWorkout(workout))
   const exercises = useSelector((state) => state.db.exercises);
   const [Workout, setWorkout] = useState({});
-  /* const [set1, setSet1] = useState({
-    exercise: {
-      exerciseId: "",
-      name: "Choose"
-    }
-  })
-  const [set2, setSet2] = useState({
-    exercise: {
-      exerciseId: "",
-      name: "Choose"
-    }
-  })
-  const [set3, setSet3] = useState({
-    exercise: {
-      exerciseId: "",
-      name: "Choose"
-    }
-  }) */
-
+  
   useEffect(() => {
     setWorkout(workout);
   }, [workout]);
@@ -107,9 +89,20 @@ const EditWorkoutForm = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(editWorkoutSchema) });
   const onSubmit = async (data) => {
+    reset()
+    data = {
+      name: Workout.name,
+      type: Workout.type,
+      exerciseId1: data.exerciseId1,
+      exerciseId2: data.exerciseId2,
+      exerciseId3: data.exerciseId3,
+      exerciseRepetitions1: data.exerciseRepetitions1,
+      exerciseRepetitions2: data.exerciseRepetitions2,
+      exerciseRepetitions3: data.exerciseRepetitions3
+    }
     await updateWorkoutToAPI(data, workout.workoutId);
     await dispatch(fetchWorkouts()).unwrap();
-    await handleClose(Workout)
+    handleClose(Workout)
   };
 
   const exerciseMap = exercises.map((exercise, index) => {
@@ -121,7 +114,7 @@ const EditWorkoutForm = () => {
   });
 
   return (
-    <Modal size="lg" show={show} onHide={async () => await handleClose(Workout)}>
+    <Modal size="lg" show={show} onHide={() => handleClose(Workout)}>
       <Modal.Header closeButton>
         <Modal.Title>Edit Workout</Modal.Title>
       </Modal.Header>
@@ -201,7 +194,7 @@ const EditWorkoutForm = () => {
       <Modal.Footer>
         <Container fluid>
           <Row style={{ padding: "10px" }}>
-            <Button variant="secondary" onClick={async () => await handleClose(Workout)}>
+            <Button variant="secondary" onClick={() => handleClose(Workout)}>
               Cancel
             </Button>
           </Row>

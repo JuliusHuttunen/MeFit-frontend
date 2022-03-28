@@ -32,7 +32,7 @@ const EditExerciseForm = () => {
   const dispatch = useDispatch();
   const show = useSelector((state) => state.db.showEditExercise);
   const exercise = useSelector((state) => state.db.currentExercise);
-  const handleClose = async (exercise) => await dispatch(editExercise(exercise)).unwrap()
+  const handleClose = (exercise) => dispatch(editExercise(exercise))
   const [Exercise, setExercise] = useState({})
 
   const handleChange = (event) => {
@@ -61,11 +61,11 @@ const EditExerciseForm = () => {
     data = Exercise;
     await updateExerciseToAPI(data, exercise.exerciseId);
     await dispatch(fetchExercises()).unwrap();
-    await handleClose(Exercise)
+    handleClose(Exercise)
   };
 
   return (
-    <Modal size="lg" show={show} onHide={async () => await handleClose(Exercise)}>
+    <Modal size="lg" show={show} onHide={() => handleClose(Exercise)}>
       <Modal.Header closeButton>
         <Modal.Title>Edit Exercise</Modal.Title>
       </Modal.Header>
@@ -135,7 +135,7 @@ const EditExerciseForm = () => {
       <Modal.Footer>
         <Container fluid>
           <Row style={{ padding: "10px" }}>
-            <Button variant="secondary" onClick={async () => await handleClose(Exercise)}>
+            <Button variant="secondary" onClick={() => handleClose(Exercise)}>
               Cancel
             </Button>
           </Row>

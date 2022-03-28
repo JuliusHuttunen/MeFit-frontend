@@ -40,9 +40,9 @@ const EditProgramForm = () => {
   const dispatch = useDispatch()
   const show = useSelector((state) => state.db.showEditProgram)
   const program = useSelector((state) => state.db.currentProgram)
-  const handleClose = async (program) => await dispatch(editProgram(program)).unwrap()
+  const handleClose = (program) => dispatch(editProgram(program))
   const workouts = useSelector((state) => state.db.workouts)
-  const [Program, setProgram] = useState(program);
+  const [Program, setProgram] = useState({});
 
   const handleChange = (event) => {
     let value = event.target.value;
@@ -68,9 +68,16 @@ const EditProgramForm = () => {
   } = useForm({ resolver: yupResolver(schema) });
   const onSubmit = async (data) => {
     reset()
+    data = {
+      name: Program.name,
+      category: Program.category,
+      workoutId1: data.workoutId1,
+      workoutId2: data.workoutId2,
+      workoutId3: data.workoutId3,
+    }
     await updateProgramToAPI(data, program.programId)
     await dispatch(fetchPrograms()).unwrap()
-    await handleClose(Program)
+    handleClose(Program)
   };
 
   const workoutMap = workouts.map((workout, index) => {
@@ -82,7 +89,7 @@ const EditProgramForm = () => {
   });
 
   return (
-    <Modal size="lg" show={show} onHide={async () => await handleClose(Program)}>
+    <Modal size="lg" show={show} onHide={() => handleClose(Program)}>
       <Modal.Header closeButton>
         <Modal.Title>Edit Program</Modal.Title>
       </Modal.Header>
@@ -144,7 +151,7 @@ const EditProgramForm = () => {
       <Modal.Footer>
         <Container fluid>
           <Row style={{ padding: "10px" }}>
-            <Button variant="secondary" onClick={async () => await handleClose(Program)}>
+            <Button variant="secondary" onClick={() => handleClose(Program)}>
               Cancel
             </Button>
           </Row>
