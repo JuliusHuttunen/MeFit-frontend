@@ -145,17 +145,17 @@ function EmptyGoals() {
         const generateSuggestions = () => {
             const suggestions = []
             for (let program of db.programs) {
-                if (calculateProgramLevel(program) <= userFitnessLevel) {
+                if (calculateProgramLevel(program) <= userFitnessLevel && calculateProgramLevel(program) > (userFitnessLevel - 1)) {
                     suggestions.push(program)
                 }
             }
             for (let workout of db.workouts) {
-                if (calculateWorkoutLevel(workout) <= userFitnessLevel) {
+                if (calculateWorkoutLevel(workout) <= userFitnessLevel && calculateWorkoutLevel(workout) > (userFitnessLevel - 1)) {
                     suggestions.push(workout)
                 }
             }
             for (let exercise of db.exercises) {
-                if (exercise.fitnessLevel <= userFitnessLevel) {
+                if (exercise.fitnessLevel <= userFitnessLevel && exercise.fitnessLevel > (userFitnessLevel - 1)) {
                     suggestions.push(exercise)
                 }
             }
