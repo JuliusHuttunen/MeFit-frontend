@@ -1,21 +1,46 @@
 import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { editProgram, fetchPrograms } from "../../redux/databaseSlice";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { updateProgramToAPI } from "../API/Connection";
-import Row from 'react-bootstrap/Row'
-import Container from 'react-bootstrap/Container'
+import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
+
+// yup validation schema
+const schema = yup.object(
+  {
+    name: yup
+      .string()
+      .max(100, "Maximum characters 100")
+      .required("Program name is required"),
+    category: yup
+      .string()
+      .max(200, "Maximum characters 100")
+      .required("Program category is required"),
+    workoutId1: yup
+      .string()
+      .max(100, "Maximum characters 100")
+      .when(["workoutId2", "workoutId3"], {
+        is: (workoutId2, workoutId3) => !workoutId2 && !workoutId3,
+        then: yup.string().max(100, "Maximum characters 100").required(),
+      }),
+    workoutId2: yup.string().max(100, "Maximum characters 100"),
+    workoutId3: yup.string().max(100, "Maximum characters 100"),
+  },
+  [["workoutId2", "workoutId3"]]
+);
 
 const EditProgramForm = () => {
-
-  const dispatch = useDispatch()
-  const show = useSelector((state) => state.db.showEditProgram)
-  const program = useSelector((state) => state.db.currentProgram)
-  const handleClose = (program) => dispatch(editProgram(program))
-  const workouts = useSelector((state) => state.db.workouts)
+  const dispatch = useDispatch();
+  const show = useSelector((state) => state.db.showEditProgram);
+  const program = useSelector((state) => state.db.currentProgram);
+  const handleClose = (program) => dispatch(editProgram(program));
+  const workouts = useSelector((state) => state.db.workouts);
   const [Program, setProgram] = useState(program);
 
   const handleChange = (event) => {
@@ -31,22 +56,29 @@ const EditProgramForm = () => {
   };
 
   useEffect(() => {
-    setProgram(program)
-  }, [program])
+    setProgram(program);
+  }, [program]);
 
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({ resolver: yupResolver(schema) });
   const onSubmit = async (data) => {
-    reset()
-    await updateProgramToAPI(data, program.programId)
-    await dispatch(fetchPrograms()).unwrap()
-    handleClose(Program)
+    await updateProgramToAPI(data, program.programId);
+    await dispatch(fetchPrograms()).unwrap();
+    reset();
+    handleClose(Program);
   };
 
   const workoutMap = workouts.map((workout, index) => {
     return (
-      <option key={index} value={workout.workoutId}>{workout.name}</option>
-    )
-  })
+      <option key={index} value={workout.workoutId}>
+        {workout.name}
+      </option>
+    );
+  });
 
   return (
     <Modal size="lg" show={show} onHide={() => handleClose(Program)}>
@@ -62,7 +94,9 @@ const EditProgramForm = () => {
               value={Program.name}
               type="text"
               onChange={handleChange}
-              placeholder="Enter program name" />
+              placeholder="Enter program name"
+            />
+            <p>{errors.name?.message}</p>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formCategory">
             <Form.Label>Category</Form.Label>
@@ -71,32 +105,28 @@ const EditProgramForm = () => {
               value={Program.category}
               type="text"
               onChange={handleChange}
-              placeholder="Category of program" />
+              placeholder="Category of program"
+            />
+            <p>{errors.category?.message}</p>
           </Form.Group>
           <h4>Edit Workouts</h4>
           <Form.Group className="mb-3" controlId="formType">
             <Form.Label>Workout #1</Form.Label>
-            <Form.Select
-              {...register("workoutId1")}
-            >
+            <Form.Select {...register("workoutId1")}>
               <option value="">Choose workout</option>
               {workoutMap}
             </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formType">
             <Form.Label>Workout #2</Form.Label>
-            <Form.Select
-              {...register("workoutId2")}
-            >
+            <Form.Select {...register("workoutId2")}>
               <option value="">Choose workout</option>
               {workoutMap}
             </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formType">
             <Form.Label>Workout #3</Form.Label>
-            <Form.Select value={undefined}
-              {...register("workoutId3")}
-            >
+            <Form.Select value={undefined} {...register("workoutId3")}>
               <option value="">Choose workout</option>
               {workoutMap}
             </Form.Select>
