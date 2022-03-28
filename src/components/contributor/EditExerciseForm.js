@@ -55,9 +55,10 @@ const EditExerciseForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
+    reset
   } = useForm({ resolver: yupResolver(editExerciseSchema) });
   const onSubmit = async (data) => {
+    reset()
     data = Exercise;
     await updateExerciseToAPI(data, exercise.exerciseId);
     await dispatch(fetchExercises()).unwrap();

@@ -66,7 +66,7 @@ const EditWorkoutForm = () => {
   const handleClose = (workout) => dispatch(editWorkout(workout))
   const exercises = useSelector((state) => state.db.exercises);
   const [Workout, setWorkout] = useState({});
-  
+
   useEffect(() => {
     setWorkout(workout);
   }, [workout]);
@@ -87,6 +87,7 @@ const EditWorkoutForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({ resolver: yupResolver(editWorkoutSchema) });
   const onSubmit = async (data) => {
     reset()
