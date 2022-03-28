@@ -1,23 +1,19 @@
-import './App.css';
-import MeFitNavbar from './components/navbar/MeFitNavbar';
-import {
-  BrowserRouter,
-  Route,
-  Routes
-} from "react-router-dom";
-import ProfileForm from './components/Profile/ProfileForm';
-import Dashboard from './views/Dashboard';
-import Goals from './views/Goals';
-import Programs from './views/Programs';
-import Workouts from './views/Workouts';
-import Exercises from './views/Exercises';
-import Profile from './views/Profile';
-import Contributor from './views/Contributor';
-import Admin from './views/Admin';
-import Logout from './views/Logout';
-import Home from './views/Home';
-import Authenticated from './components/authentication/Authenticated'
-import NotAuthenticated from './components/authentication/NotAuthenticated'
+import "./App.css";
+import MeFitNavbar from "./components/navbar/MeFitNavbar";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ProfileForm from "./components/profile/ProfileForm";
+import Dashboard from "./views/Dashboard";
+import Goals from "./views/Goals";
+import Programs from "./views/Programs";
+import Workouts from "./views/Workouts";
+import Exercises from "./views/Exercises";
+import Profile from "./views/Profile";
+import Contributor from "./views/Contributor";
+import Admin from "./views/Admin";
+import Logout from "./views/Logout";
+import Home from "./views/Home";
+import Authenticated from "./components/authentication/Authenticated";
+import NotAuthenticated from "./components/authentication/NotAuthenticated";
 
 function App() {
   return (

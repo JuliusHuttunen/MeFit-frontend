@@ -53,8 +53,8 @@ const schema = yup.object({
 });
 
 const ProfileForm = () => {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -66,9 +66,9 @@ const ProfileForm = () => {
 
   const onSubmit = async (data) => {
     await postProfileToAPI(data);
-    await dispatch(fetchProfile()).unwrap()
-    console.log("Profile created")
-     navigate("/dashboard")
+    await dispatch(fetchProfile()).unwrap();
+    console.log("Profile created");
+    navigate("/dashboard");
   };
 
   return (

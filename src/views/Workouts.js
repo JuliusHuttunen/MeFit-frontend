@@ -1,3 +1,4 @@
+/* Workouts view */
 import React from "react";
 import { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
