@@ -20,7 +20,7 @@ const ExerciseTable = () => {
     catch (error) {
       console.log(error.message)
     }
-  }, [])
+  }, [userExercisesList])
 
   const handleOpen = (exercise) => dispatch(editExercise(exercise))
 

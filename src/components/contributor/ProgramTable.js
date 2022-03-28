@@ -20,7 +20,7 @@ const ProgramTable = () => {
     catch (error) {
       console.log(error.message)
     }
-  }, [userPrograms])
+  }, [userProgramsList])
 
   const handleOpen = (program) => dispatch(editProgram(program))
 
