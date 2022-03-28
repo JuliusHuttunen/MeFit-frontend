@@ -320,12 +320,12 @@ export async function deleteProfileToApi(userId) {
         Authorization: "Bearer " + token,
       },
     }
-      const response = await fetch(`${url}`, config);
-      const data = await response.text();
-      return [null, data];
-    } catch (error) {
-      return [error.message, null];
-    }
+    const response = await fetch(`${url}`, config);
+    const data = await response.text();
+    return [null, data];
+  } catch (error) {
+    return [error.message, null];
+  }
 }
 
 export async function postProfileToAPI(profile) {
@@ -564,6 +564,9 @@ export async function updateExerciseToAPI(exercise, id) {
         description: exercise.description,
         targetMuscleGroup: exercise.targetMuscleGroup,
         fitnessLevel: exercise.fitnessLevel,
+        profile: {
+          profileId: KeycloakService.getId()
+        },
       }),
     };
     const response = await fetch(`${url}`, config);
@@ -605,6 +608,9 @@ export async function updateProgramToAPI(program, id) {
       body: JSON.stringify({
         name: program.name,
         category: program.category,
+        profile: {
+          profileId: KeycloakService.getId()
+        },
         workouts: jsonWorkouts()
       }),
     };
@@ -662,6 +668,9 @@ export async function updateWorkoutToAPI(workout, id) {
       body: JSON.stringify({
         name: workout.name,
         type: workout.type,
+        profile: {
+          profileId: KeycloakService.getId()
+        },
         sets: jsonSets()
       }),
     };
